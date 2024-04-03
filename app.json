@@ -2,6 +2,7 @@
   "expo": {
     "name": "simesta",
     "slug": "simesta",
+    "scheme": "simesta",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,7 +25,25 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "298f7fc1-a565-4421-acf6-2856bf84f07c"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/298f7fc1-a565-4421-acf6-2856bf84f07c"
     }
   }
 }
