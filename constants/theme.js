@@ -32,6 +32,7 @@ const COLORS = {
     medium: 16,
     large: 20,
     xLarge: 24,
+    bigLarge: 28,
     xxLarge: 32,
   };
   

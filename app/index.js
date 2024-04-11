@@ -21,7 +21,7 @@ const Home = () => {
 
 
   return (
-    <Redirect href={'/dashboard'} />
+    <Redirect href={'/home'} />
   )
 }
 

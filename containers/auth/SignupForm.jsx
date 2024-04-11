@@ -5,8 +5,11 @@ import { useState } from "react";
 
 import styles from "../../styles/auth/auth.style";
 import { COLORS } from "../../constants";
+import { useRouter } from "expo-router";
 
 const SignupForm = () => {
+
+  const router = useRouter()
 
     const [formValue, setFormValue] = useState({
         fullname: "",
@@ -16,6 +19,7 @@ const SignupForm = () => {
     
       const handleSubmit = () => {
         console.log(formValue);
+        router.push("/auth/verify-email")
       };
 
   return (
@@ -50,7 +54,7 @@ const SignupForm = () => {
       <TouchableOpacity>
         <Text style={styles.linkText}>Forgot password?</Text>
       </TouchableOpacity>
-      <Button onPress={handleSubmit} text="Sign In" type="form-action-btn" />
+      <Button onPress={handleSubmit} text="Sign Up" type="form-action-btn" />
     </View>
   );
 };

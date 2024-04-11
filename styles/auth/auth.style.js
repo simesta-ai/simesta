@@ -30,6 +30,9 @@ const styles = StyleSheet.create({
         color: COLORS.dark,
         textAlign: "center",
     },
+    accentText: {
+        color: COLORS.primary,
+    },
     taglineText: {
         fontFamily: FONT.mediumPoppins,
         fontSize: SIZES.regular,
@@ -169,7 +172,32 @@ const styles = StyleSheet.create({
             case "":
                 return { backgroundColor: COLORS.grey }
         }
+    },
+    otpInput: {
+        width: "80%",
+        height: 50,
+        alignSelf: "center",
+        marginTop: 20,
+        marginBottom: 20
+    },
+    otpInputField: {
+        width: 50,
+        height: 50,
+        fontFamily: FONT.regularPoppins,
+        fontSize: SIZES.medium,
+        backgroundColor: COLORS.light,
+        color: COLORS.miniDarkGrey,
+        borderWidth: 1,
+        borderColor: COLORS.grey,
+        borderRadius: SIZES.xSmall,
+        paddingLeft: SIZES.medium,
+        paddingRight: SIZES.medium,
+    },
+    otpInputHighlight: {
+        borderWidth: 2,
+        borderColor: COLORS.primary,
     }
+
     
 
 

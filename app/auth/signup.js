@@ -13,7 +13,7 @@ const signup = () => {
   const router  = useRouter()
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView keyboardShouldPersistTaps="always" showsVerticalScrollIndicator={false}>
 
       <View style={styles.container}>
              {/* Logo Image Container */}

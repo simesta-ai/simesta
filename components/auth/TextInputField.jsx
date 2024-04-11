@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, TextInput, TouchableOpacity, TouchableWithoutFeedback } from "react-native";
+import { View, TextInput, TouchableOpacity, TouchableWithoutFeedback, Pressable } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import styles from "../../styles/auth/auth.style";
@@ -58,16 +58,16 @@ const TextInputField = ({ type, secureTextEntry, placeholder, onChange }) => {
         onChangeText={(text) => handleInputChange(text)}
       />
         {secureTextEntry ? (
-          <TouchableOpacity style={styles.viewTextButton} onPress={handleView}>
+          <Pressable style={styles.viewTextButton} onPress={handleView}>
             <Ionicons
               name={view ? "eye" : "eye-off"}
               size={SIZES.large}
               color={COLORS.lightGrey}
             />
-          </TouchableOpacity>
+          </Pressable>
         ) : null}
       </View>
-      {type === "password"  ? <PasswordStrengthIndicator strength={passwordStrength} /> : null}
+      {type === "password" && focused  ? <PasswordStrengthIndicator strength={passwordStrength} /> : null}
     </>
   );
 };

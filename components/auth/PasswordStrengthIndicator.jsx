@@ -8,7 +8,7 @@ const PasswordStrengthIndicator = ({ strength }) => {
     
   return (
     <View style={styles.indicatorContainer}>
-        <Text style={styles.indicatorText}></Text>
+        <Text style={styles.indicatorText}>Password strength:</Text>
         <View style={styles.indicatorWrapper}>
         <View style={[styles.indicator, styles.weak(strength)]} />
         <View style={[styles.indicator, styles.medium(strength)]} />
