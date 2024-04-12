@@ -16,13 +16,17 @@ const COLORS = {
 
     danger: '#E41515',
     success: '#5BC137',
-    warm: '#F3953E'
+    warm: '#F3953E',
+    progress:"#18A180",
+    transProgress: "#E6FFFB"
   
   };
   
   const FONT = {
     regularPoppins: "PoppinsRegular",
-    mediumPoppins: "PoppinsMedium"
+    mediumPoppins: "PoppinsMedium",
+    boldPoppins: "PoppinsBold",
+    semiBoldPoppins: "PoppinsSemiBold",
   };
   
   const SIZES = {
@@ -50,7 +54,7 @@ const COLORS = {
     medium: {
       shadowColor: "#000",
       shadowOffset: {
-        width: 0,
+        width: 2,
         height: 2,
       },
       shadowOpacity: 0.25,

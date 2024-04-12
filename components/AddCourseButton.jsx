@@ -13,7 +13,7 @@ const AddCourseButton = () => {
 
   return (
     <View style={styles.addCourseButton}>
-        <CustomIcon name="add" size={SIZES.xLarge} color={COLORS.light}/>
+        <CustomIcon name="add" size={SIZES.xLarge} color={COLORS.dark}/>
     </View>
   )
 }

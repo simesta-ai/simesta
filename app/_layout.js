@@ -11,25 +11,25 @@ const Layout = () => {
     // Poppins Fonts
 
     PoppinsRegular: fontsConfig.Poppins.regular,
-    // PoppinsBold: fontsConfig.Poppins.bold,
-    // PoppinsSemiBold: fontsConfig.Poppins.semiBold,
+    PoppinsBold: fontsConfig.Poppins.bold,
+    PoppinsSemiBold: fontsConfig.Poppins.semiBold,
     PoppinsMedium: fontsConfig.Poppins.medium,
-    // PoppinsLight: fontsConfig.Poppins.light,
-    // PoppinsExtraBold: fontsConfig.Poppins.extraBold,
-    // PoppinsThin: fontsConfig.Poppins.thin,
-    // PoppinsItalic: fontsConfig.Poppins.italic,
+    PoppinsLight: fontsConfig.Poppins.light,
+    PoppinsExtraBold: fontsConfig.Poppins.extraBold,
+    PoppinsThin: fontsConfig.Poppins.thin,
+    PoppinsItalic: fontsConfig.Poppins.italic,
 
     // // Montserrat Fonts
 
-    // MontserratRegular: fontsConfig.Montserrat.regular,
-    // MontserratBold: fontsConfig.Montserrat.bold,
-    // MontserratSemiBold: fontsConfig.Montserrat.semiBold,
-    // MontserratMedium: fontsConfig.Montserrat.medium,
-    // MontserratLight: fontsConfig.Montserrat.light,
-    // MontserratExtraBold: fontsConfig.Montserrat.extraBold,
-    // MontserratThin: fontsConfig.Montserrat.thin,
-    // MontserratItalic: fontsConfig.Montserrat.italic,
-    // MontserratExtraLight: fontsConfig.Montserrat.extraLight,
+    MontserratRegular: fontsConfig.Montserrat.regular,
+    MontserratBold: fontsConfig.Montserrat.bold,
+    MontserratSemiBold: fontsConfig.Montserrat.semiBold,
+    MontserratMedium: fontsConfig.Montserrat.medium,
+    MontserratLight: fontsConfig.Montserrat.light,
+    MontserratExtraBold: fontsConfig.Montserrat.extraBold,
+    MontserratThin: fontsConfig.Montserrat.thin,
+    MontserratItalic: fontsConfig.Montserrat.italic,
+    MontserratExtraLight: fontsConfig.Montserrat.extraLight,
 
     // IcoMoon Fonts
     IcoMoon: fontsConfig.icoMoon,
