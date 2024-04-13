@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
         fontFamily: FONT.semiBoldPoppins,
     }),
     courseCardContainer: {
+        position: "relative",
         width: 200,
         borderColor: COLORS.grey,
         borderWidth: 2,
@@ -57,6 +58,18 @@ const styles = StyleSheet.create({
     courseTitle:{
         fontFamily: FONT.semiBoldPoppins,
         fontSize: SIZES.medium,
+    },
+    progressBarContainer: {
+        position: "absolute",
+        zIndex: 3,
+        right: 10,
+        top: 10,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    progressValue: {
+        fontFamily: FONT.semiBoldPoppins
     }
 })
 
