@@ -69,7 +69,8 @@ const styles = StyleSheet.create({
     },
 
     progressValue: {
-        fontFamily: FONT.semiBoldPoppins
+        fontFamily: FONT.semiBoldPoppins,
+        fontSize: SIZES.regular
     }
 })
 

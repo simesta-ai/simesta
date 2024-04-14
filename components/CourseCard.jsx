@@ -10,7 +10,7 @@ import { COLORS, SIZES } from '../constants'
 const CourseCard = ({ course }) => {
   return (
     <TouchableOpacity style={styles.courseCardContainer}>
-      <RoundProgressBar value={70} />
+      <RoundProgressBar value={course.progress} />
       <View style={styles.imageContainer}><Image style={styles.image} source={course.image} resizeMode='contain' /></View>
       <Text style={styles.categoryText(course.color)}>{course.category.toUpperCase()}</Text>
       <Text style={styles.courseTitle}>{course.title}</Text>
