@@ -29,7 +29,7 @@ const CoursesContainer = () => {
       <FlatList
         data={allCourses}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <CourseCard course={item} />}
+        renderItem={({ item }) => <CourseCard position="dashboard" course={item} />}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ columnGap: SIZES.medium }}

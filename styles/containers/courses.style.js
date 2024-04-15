@@ -31,15 +31,15 @@ const styles = StyleSheet.create({
         color: activeType === item ? COLORS.light : COLORS.dark,
         fontFamily: FONT.semiBoldPoppins,
     }),
-    courseCardContainer: {
+    courseCardContainer: (type) => ({
         position: "relative",
-        width: 200,
+        width: type === "dashboard" ? 200 : type === "course-page" ? 170 : 150,
         borderColor: COLORS.grey,
         borderWidth: 2,
         borderRadius: 10,
         padding: 10,
-        gap: 10,
-    },
+        // gap: 10,
+    }),
     imageContainer: {
         width: 100,
         height: 100,
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     progressValue: {
         fontFamily: FONT.semiBoldPoppins,
         fontSize: SIZES.regular
-    }
+    },
 })
 
 export default styles
