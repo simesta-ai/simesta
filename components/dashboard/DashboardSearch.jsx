@@ -5,7 +5,7 @@ import styles from "../../styles/components/dashboardSearch.style";
 
 import { COLORS, SIZES } from "../../constants";
 
-const DashboardSearch = () => {
+const DashboardSearch = ({ placeholder }) => {
   return (
     <View style={styles.container}>
       <Pressable style={styles.searchButton}>
@@ -17,7 +17,7 @@ const DashboardSearch = () => {
       </Pressable>
       <TextInput
         style={styles.searchField}
-        placeholder="search topics, courses e.t.c "
+        placeholder={placeholder}
         placeholderTextColor={COLORS.lightGrey}
         selectionColor={COLORS.primary}
       />

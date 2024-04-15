@@ -1,14 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import CoursesScreen from "../../screens/CoursesScreen"
 
 const courses = () => {
   return (
-    <View>
-      <Text>courses</Text>
-    </View>
+    <CoursesScreen />
   )
 }
 
 export default courses
 
-const styles = StyleSheet.create({})

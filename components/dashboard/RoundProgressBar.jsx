@@ -17,7 +17,7 @@ const RoundProgressBar = ({ value }) => {
         valueSuffix='%'
         valueSuffixStyle={styles.progressValue}
         radius={30}
-        activeStrokeWidth={10}
+        activeStrokeWidth={8}
         inactiveStrokeWidth={5}
         progressValueColor={COLORS.darkGrey}
         inActiveStrokeColor={COLORS.grey}
