@@ -1,6 +1,7 @@
 import { Text, View, FlatList, Pressable } from "react-native";
 import { useState } from "react";
 import CourseCard from "../../components/CourseCard";
+import RecommendedCourseCard from "../../components/dashboard/RecommendedCourseCard";
 
 import styles from "../../styles/containers/courses.style";
 
@@ -13,7 +14,7 @@ const CoursesContainer = () => {
   return (
     <View style={styles.container}>
       {/* Filter */}
-      <View style={styles.filterContainer}>
+      {/* <View style={styles.filterContainer}>
         {allTypes.map((item, index) => (
           <Pressable
             key={index}
@@ -23,9 +24,10 @@ const CoursesContainer = () => {
             <Text style={styles.filterText(activeType, item)}>{item}</Text>
           </Pressable>
         ))}
-      </View>
+      </View> */}
 
       {/* Course cards */}
+      <Text style={styles.greeting}>In Progress</Text>
       <FlatList
         data={allCourses}
         keyExtractor={(item) => item.id}
@@ -34,6 +36,16 @@ const CoursesContainer = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ columnGap: SIZES.medium }}
         horizontal
+      />
+
+      <Text style={styles.greeting}>Recommended courses</Text>
+      <FlatList
+        data={allCourses}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <RecommendedCourseCard course={item} />}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ rowGap: SIZES.large }}
       />
     </View>
   );

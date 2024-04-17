@@ -1,15 +1,13 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
-const TabBarContext = createContext();
+export const TabBarContext = createContext();
 
 export const TabBarProvider = ({ children }) => {
 
-    const [ displayTabBar, setDisplayTabBar ] = useState(true);
+    const [ display, setDisplay ] = useState(true);
   return (
-    <TabBarContext.Provider value={{ displayTabBar, setDisplayTabBar }}>
+    <TabBarContext.Provider value={{display, setDisplay}}>
       {children}
     </TabBarContext.Provider>
   )
 }
-
-export const useTabBar = () => useContext(TabBarContext)

@@ -14,6 +14,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap: 20,
     },
+    greeting: {
+        fontFamily: FONT.semiBoldPoppins,
+        fontSize: SIZES.xLarge,
+        color: COLORS.dark
+    },
     filter: (activeType, item) => ({
         paddingTop: 10,
         paddingBottom: 10,
@@ -38,7 +43,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 10,
         padding: 20,
-        gap: 10,
+        // gap: 5,
     }),
     imageContainer: {
         width: 50,
@@ -46,6 +51,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         // backgroundColor: COLORS.grey,
         overflow: 'hidden',
+        marginBottom: 10
     },
     image: {
         width: '100%',
@@ -61,6 +67,11 @@ const styles = StyleSheet.create({
         fontFamily: FONT.semiBoldPoppins,
         fontSize: SIZES.medium,
     },
+    topicsCompleted: {
+        fontFamily: FONT.regularPoppins,
+        fontSize: SIZES.small,
+        color: COLORS.miniDarkGrey
+    },
     progressBarContainer: {
         position: "absolute",
         zIndex: 3,
@@ -72,7 +83,7 @@ const styles = StyleSheet.create({
 
     progressValue: {
         fontFamily: FONT.semiBoldPoppins,
-        fontSize: SIZES.regular
+        fontSize: SIZES.small
     },
 })
 

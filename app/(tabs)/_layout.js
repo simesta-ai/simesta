@@ -1,25 +1,28 @@
 import { Tabs } from "expo-router";
+
 import { KeyboardAvoidingView, Platform } from "react-native";
 import CustomIcon from "../../components/CustomIcon";
 import TabBarIcons from "../../components/TabBarIcons";
 import AddCourseButton from "../../components/AddCourseButton";
-import { useTabBar } from "../../context/TabBarContext";
-import { TabBarProvider } from "../../context/TabBarContext";
+import { TabBarContext } from "../../context/TabBarContext";
 
 import { COLORS, SIZES } from "../../constants";
 import styles from "../../styles/components/bottomTab.style";
+import { useContext } from "react";
 
 const DashboardTabs = () => {
 
-  const [ displayTabBar, setDisplayTabBar ] = useTabBar();
+  const { display, setDisplay} = useContext(TabBarContext);
+
   return (
+    
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : null}>
     <Tabs
       screenOptions={{
         tabBarHideOnKeyboard: true,
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: styles.container,
+        tabBarStyle: styles.container(display),
       }}
     >
       <Tabs.Screen
@@ -82,6 +85,7 @@ const DashboardTabs = () => {
       />
     </Tabs>
     </KeyboardAvoidingView>
+
   );
 };
 export default DashboardTabs;

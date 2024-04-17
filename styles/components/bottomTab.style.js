@@ -3,7 +3,8 @@ import { StyleSheet } from "react-native";
 import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
 
 const styles = StyleSheet.create({
-  container: {
+  container: (display) =>  ({
+    display: display ? 'flex' : 'none',
     height: 70,
     position: 'absolute',
     backgroundColor: COLORS.light,
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
     borderTopColor: 'transparent',
     ...SHADOWS.medium,
     shadowColor: COLORS.dark,
-  },
+  }),
   addCourseButton: {
     width: 50,
     height: 50,

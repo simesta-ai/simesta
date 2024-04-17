@@ -37,13 +37,13 @@ const courseStyles = StyleSheet.create({
     },
     emptyBar: {
         width: 100,
-        height: 10,
+        height: 7,
         backgroundColor: COLORS.grey,
         borderRadius: 10
     },
     activeBar: (value) => ({
         width: value,
-        height: 10,
+        height: 7,
         backgroundColor: COLORS.primary,
         borderRadius: 10
     }),

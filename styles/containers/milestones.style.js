@@ -6,15 +6,15 @@ const styles = StyleSheet.create({
     container: {
         padding: 15,
         marginTop: 10,
-        backgroundColor: COLORS.transProgress,
-        borderRadius: SIZES.small,
+        backgroundColor: COLORS.primary,
+        borderRadius: SIZES.regular,
         flexDirection: "column",
         gap: 10,
     },
     header: {
         fontFamily: FONT.semiBoldPoppins,
         fontSize: SIZES.medium,
-        color: COLORS.dark
+        color: COLORS.light
     },
     milestoneContainer: {
         flexDirection: "row",
@@ -24,15 +24,15 @@ const styles = StyleSheet.create({
     milestoneText: {
         fontFamily: FONT.regularPoppins,
         fontSize: SIZES.regular,
-        color: COLORS.lightGrey,
+        color: COLORS.light,
     },
     checkContainer: (completed) => ({
         width: 20,
         height: 20,
         borderRadius: 15,
-        borderColor: completed ? COLORS.progress : COLORS.lightGrey,
+        borderColor: completed ? COLORS.light : COLORS.light,
         borderWidth: 2,
-        backgroundColor: completed ? COLORS.progress : null,
+        backgroundColor: completed ? COLORS.light : null,
         justifyContent: "center",
         alignItems: "center",
     }),

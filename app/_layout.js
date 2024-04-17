@@ -3,6 +3,7 @@ import { useCallback, useEffect } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import fontsConfig from "../constants/fonts";
+import { TabBarProvider } from '../context/TabBarContext'
 
 SplashScreen.preventAutoHideAsync();
 
@@ -50,14 +51,18 @@ const Layout = () => {
   }
 
   return (
+    <TabBarProvider>
     <Stack
       screenOptions={{
         headerShown: false,
       }}
       onLayout={onLayoutRootView}
     >
+      
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      
     </Stack>
+    </TabBarProvider>
   );
 };
 

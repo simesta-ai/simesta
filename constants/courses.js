@@ -10,7 +10,7 @@ const courses = [
         title: "Data Analytics",
         image: images.dataAnalytics,
         category: "Statistics",
-        color: themeColors[0],
+        color: COLORS.primary,
         progress: 65
     },
     {
@@ -18,7 +18,7 @@ const courses = [
         title: "Algebra",
         image: images.algebra,
         category: "Mathematics",
-        color: themeColors[1],
+        color: COLORS.primary,
         progress: 50
     },
     {
@@ -26,7 +26,7 @@ const courses = [
         title: "Data Analytics",
         image: images.dataAnalytics,
         category: "Statistics",
-        color: themeColors[Math.floor(Math.random() * themeColors.length )],
+        color: COLORS.primary,
         progress: 40
     },
     {
@@ -34,7 +34,7 @@ const courses = [
         title: "Algebra",
         image: images.algebra,
         category: "Mathematics",
-        color: themeColors[Math.floor(Math.random() * themeColors.length )],
+        color: COLORS.primary,
         progress: 90
     },
 ]
