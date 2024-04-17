@@ -1,7 +1,7 @@
 import {  Text, FlatList, View, Nest } from 'react-native'
 import React from 'react'
 import CourseCard from '../../components/CourseCard'
-import { NestableScrollContainer, NestableDraggableFlatList } from 'react-native-draggable-flatlist'
+// import { NestableScrollContainer, NestableDraggableFlatList } from 'react-native-draggable-flatlist'
 
 import courseStyles from '../../styles/screens/courseScreen.style'
 

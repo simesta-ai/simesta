@@ -3,11 +3,15 @@ import { KeyboardAvoidingView, Platform } from "react-native";
 import CustomIcon from "../../components/CustomIcon";
 import TabBarIcons from "../../components/TabBarIcons";
 import AddCourseButton from "../../components/AddCourseButton";
+import { useTabBar } from "../../context/TabBarContext";
+import { TabBarProvider } from "../../context/TabBarContext";
 
 import { COLORS, SIZES } from "../../constants";
 import styles from "../../styles/components/bottomTab.style";
 
 const DashboardTabs = () => {
+
+  const [ displayTabBar, setDisplayTabBar ] = useTabBar();
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : null}>
     <Tabs

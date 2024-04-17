@@ -22,7 +22,7 @@ const RoundProgressBar = ({ value }) => {
         progressValueColor={COLORS.darkGrey}
         inActiveStrokeColor={COLORS.grey}
         // inActiveStrokeOpacity={1}
-        activeStrokeColor={COLORS.progress}
+        activeStrokeColor={COLORS.primary}
       />
     </View>
   )

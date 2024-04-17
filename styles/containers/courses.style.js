@@ -37,12 +37,14 @@ const styles = StyleSheet.create({
         borderColor: COLORS.grey,
         borderWidth: 2,
         borderRadius: 10,
-        padding: 10,
-        // gap: 10,
+        padding: 20,
+        gap: 10,
     }),
     imageContainer: {
-        width: 100,
-        height: 100,
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+        // backgroundColor: COLORS.grey,
         overflow: 'hidden',
     },
     image: {
