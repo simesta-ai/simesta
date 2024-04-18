@@ -1,4 +1,4 @@
-import React from "react";
+
 import {
   ScrollView,
   View,
@@ -10,6 +10,9 @@ import {
 } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useContext, useEffect } from "react";
+import { usePathname } from "expo-router";
+import { TabBarContext } from '../context/TabBarContext'
 import DashboardSearch from "../components/dashboard/DashboardSearch";
 import MileStones from "../containers/dashboard/MileStones";
 import CoursesContainer from "../containers/dashboard/CoursesContainer";
@@ -22,6 +25,13 @@ const DashboardScreen = () => {
     name: "Samuel emeka",
     email: "john@doe.com",
   };
+  const { display, setDisplay} = useContext(TabBarContext);
+  const pathname= usePathname()
+
+  useEffect(() => {
+    setDisplay(true)
+  
+  }, [])
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}

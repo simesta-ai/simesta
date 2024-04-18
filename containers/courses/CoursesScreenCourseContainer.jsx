@@ -21,7 +21,8 @@ const CoursesScreenCourseContainer = () => {
                 showsHorizontalScrollIndicator={false}
                 numColumns={2}
                 contentContainerStyle={courseStyles.listContainer}
-                columnWrapperStyle={{ gap: 20,}}
+                columnWrapperStyle={{ gap: 10,}}
+                scrollEnabled={false}
       />
     </View>
   )

@@ -7,16 +7,109 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingLeft: SIZES.small,
         paddingRight: SIZES.small,
-        paddingTop: SIZES.xxLarge,
+        paddingTop: SIZES.large,
         paddingBottom: 100,
         fontFamily: FONT.regularPoppins,
         gap: 10
     },
-    greeting: {
+    headerText: {
         fontFamily: FONT.semiBoldPoppins,
-        fontSize: SIZES.xLarge,
-        color: COLORS.dark
+        fontSize: SIZES.large,
+        color: COLORS.dark,
+        textAlign:"center",
+        padding: 20
     },
-})
+    formContainer: {
+        paddingTop: 10,
+        gap: 10
+    },
+    fieldSection: {
+        marginBottom: 20,
+        gap: 10
 
+    },
+    label: {
+        fontFamily: FONT.semiBoldPoppins,
+        fontSize: SIZES.normal,
+        color: COLORS.dark,
+    },
+    subText: {
+        fontFamily: FONT.regularPoppins,
+        fontSize: SIZES.small,
+        color: COLORS.lightGrey,
+    },
+    buttonContainer:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        gap: 20,
+        marginTop: 10
+    },
+    createCourseButton: {
+        padding: 10
+    },
+    bottomButtonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        gap: 20,
+        marginTop: 10,
+        padding: 10
+    },
+    titleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: "center"
+    },
+    titleText: {
+        fontFamily: FONT.mediumPoppins,
+        fontSize: SIZES.medium,
+        color: COLORS.lightGrey,
+    },
+    topicsWrapper: {
+        marginTop: 20,
+    },
+    topics: {
+        marginTop: 10,
+        gap: 15,
+    },
+    topicContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: "center",
+        backgroundColor: COLORS.light,
+        padding: 10,
+        borderRadius: 10,
+        borderColor: COLORS.grey,
+        borderWidth: 1,
+    },
+    editTopicButton: {
+        backgroundColor: COLORS.dark,
+        height: 40,
+        width: 40,
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 10
+    },
+    topicText: {
+        fontFamily: FONT.mediumPoppins,
+        fontSize: SIZES.medium,
+        color: COLORS.dark,
+    },
+    addTopicButton: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: "center",
+        gap: 10,
+        marginTop: 20,
+        padding: 10
+    },
+    line: {
+        flex: 1,
+        height: 1,
+        backgroundColor: COLORS.dark
+    }
+    
+    
+    
+    
+})
 export default styles;

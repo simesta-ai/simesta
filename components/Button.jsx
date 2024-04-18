@@ -6,7 +6,7 @@ import styles from '../styles/components/button.style'
 const Button = ({ text, type, onPress }) => {
   return (
     <Pressable onPress={onPress} style={styles.container(type)}>
-        <Text style={styles.buttonText}>{text}</Text>
+        <Text style={styles.buttonText(type)}>{text}</Text>
     </Pressable>
   )
 }

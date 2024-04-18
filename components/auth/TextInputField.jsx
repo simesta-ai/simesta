@@ -47,7 +47,7 @@ const TextInputField = ({ type, secureTextEntry, placeholder, onChange }) => {
     <>
       <View style={styles.inputFieldContainer}>
       <TextInput
-        style={styles.inputField(focused)}
+        style={styles.inputField(focused, type)}
         placeholder={placeholder}
         placeholderTextColor={COLORS.lightGrey}
         selectionColor={COLORS.primary}

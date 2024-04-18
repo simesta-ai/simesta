@@ -5,6 +5,7 @@ import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
 const styles = StyleSheet.create({
   container: (display) =>  ({
     display: display ? 'flex' : 'none',
+    // bottom: display ? -10 : -100,
     height: 70,
     position: 'absolute',
     backgroundColor: COLORS.light,

@@ -8,11 +8,22 @@ import { TabBarContext } from "../../context/TabBarContext";
 
 import { COLORS, SIZES } from "../../constants";
 import styles from "../../styles/components/bottomTab.style";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { usePathname } from "expo-router";
 
 const DashboardTabs = () => {
 
   const { display, setDisplay} = useContext(TabBarContext);
+  const pathname = usePathname()
+  const toDisplayTabPaths = ["/home", "/courses", "/new-course", "/take-test", "/profile"]
+
+  useEffect(() => {
+    if(toDisplayTabPaths.includes(pathname)){
+      setDisplay(true)
+    } else {
+      setDisplay(false)
+    }
+  }, [pathname])
 
   return (
     

@@ -25,14 +25,67 @@ const styles = StyleSheet.create({
                     textAlign: 'center',
                     borderColor: COLORS.dark
                 }
+            case "course-cancel-btn":
+                return {
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    padding: 15,
+                    backgroundColor: COLORS.dark,
+                    borderRadius: 50,
+                }
+            case "course-save-btn":
+                return {
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    padding: 15,
+                    backgroundColor: COLORS.primary,
+                    borderRadius: 50,
+                }
+            case "create-course-btn":
+                return {
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    padding: 15,
+                    backgroundColor: COLORS.primary,
+                    borderRadius: 100,
+                    marginTop: type == "form-action-btn" ? 10 : 0
+                }
+            case "neutral-btn":
+                return {
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    padding: 10,
+                    paddingRight: 40,
+                    paddingLeft: 40,
+                    borderColor: COLORS.dark,
+                    borderWidth: 1,
+                    backgroundColor: COLORS.light,
+                    borderRadius: 100,
+                    marginTop: type == "form-action-btn" ? 10 : 0
+                }
+            case "round-accent-btn":
+                return {
+                    width: 40,
+                    height: 40,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    
+                }
         }
     },
     
-    buttonText: {
+    buttonText: (type) => ({
         fontFamily: FONT.mediumPoppins,
-        color: COLORS.light,
+        color: type === "neutral-btn" ? COLORS.dark : COLORS.light,
         fontSize: SIZES.medium
-    },
+    }),
     socialButton: {
         width: "100%",
         height: "100%",
@@ -43,7 +96,16 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         borderColor: COLORS.dark,
         borderWidth: 1
-    }
+    },
+    roundAccentButton: {
+        width: "100%",
+        height: "100%",
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        backgroundColor: COLORS.primary,
+        borderRadius: 50,
+    },
 });
 
 export default styles;

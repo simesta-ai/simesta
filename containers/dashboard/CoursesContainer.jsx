@@ -46,6 +46,7 @@ const CoursesContainer = () => {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ rowGap: SIZES.large }}
+        scrollEnabled={false}
       />
     </View>
   );

@@ -26,7 +26,7 @@ const courseStyles = StyleSheet.create({
     }),
     listContainer:{
         display: "flex",
-        gap: 20
+        gap: 10
     },
     barContainer: {
         display: "flex",

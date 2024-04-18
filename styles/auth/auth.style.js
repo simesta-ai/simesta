@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     inputFieldContainer:{
         position: 'relative'
     },
-    inputField: (focused) => ({
+    inputField: (focused, type) => ({
         width: "100%",
         height: 50,
         fontFamily: FONT.regularPoppins,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         borderColor: focused ? COLORS.primary : COLORS.grey,
         borderRadius: SIZES.xSmall,
         paddingLeft: SIZES.medium,
-        paddingRight: 50,
+        paddingRight: type ===" password"? 50 : SIZES.medium,
         lineHeight: 0
     }),
     viewTextButton:{

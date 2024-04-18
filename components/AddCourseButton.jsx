@@ -1,5 +1,4 @@
-import { Text, View } from 'react-native'
-import React from 'react'
+import { Text, View, Pressable } from 'react-native'
 import CustomIcon from './CustomIcon'
 
 import styles from '../styles/components/bottomTab.style'
@@ -9,6 +8,12 @@ import { useRouter } from 'expo-router'
 const AddCourseButton = () => {
 
   const router = useRouter()
+
+
+
+  // const handleAddCourse = () => {
+  //   setDisplay(false)
+  // }
 
 
   return (

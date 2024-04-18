@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useContext, useEffect } from "react";
+import { TabBarContext } from '../context/TabBarContext'
 import DashboardSearch from "../components/dashboard/DashboardSearch";
 import CourseCard from "../components/CourseCard";
 
@@ -22,6 +24,12 @@ const CoursesScreen = () => {
 
   const [activeType, setActiveType] = useState("All");
   const allTypes = ["All", "In progress", "Completed"];
+
+  const { display, setDisplay} = useContext(TabBarContext);
+  useEffect(() => {
+    setDisplay(true)
+  
+  }, [])
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
