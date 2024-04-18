@@ -34,7 +34,53 @@ const styles = StyleSheet.create({
     fontFamily: FONT.mediumPoppins,
     fontSize: SIZES.xSmall,
     color: color,
-  })
+  }),
+
+  // Custom Tab bar
+
+  custom: {
+    container: {
+      display: 'flex',
+      flexDirection: 'row',
+      height: 70,
+      paddingLeft: 25,
+      paddingRight: 25,
+      width: "100%",
+      bottom: 0,
+      justifyContent: 'space-between',
+      alignItems:"center",
+      position: 'absolute',
+      backgroundColor: COLORS.light,
+      borderTopWidth: 0,
+      elevation: 0,
+      borderTopColor: 'transparent',
+      ...SHADOWS.medium,
+      shadowColor: COLORS.dark,
+    },
+    addCourseButton: {
+      width: 50,
+      height: 50,
+      borderRadius: 50,
+      borderColor: COLORS.dark,
+      borderWidth: 1,
+      backgroundColor: COLORS.light,
+      justifyContent: 'center',
+      alignItems: 'center'
+      
+    },
+    tabBarIconContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 5,
+    },
+    tabTag: {
+      fontFamily: FONT.mediumPoppins,
+      fontSize: SIZES.xSmall,
+      color: COLORS.darkGrey,
+    },
+  }
+
+
 })
 
 export default styles;

@@ -16,6 +16,17 @@ const styles = StyleSheet.create({
                     borderRadius: 100,
                     marginTop: type == "form-action-btn" ? 10 : 0
                 }
+            case "accent-btn":
+                return {
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    padding: 15,
+                    backgroundColor: COLORS.primary,
+                    borderRadius: 100,
+                    marginTop: 0
+                }
             case "social-login-btn":
                 return {
                     width: 50,
