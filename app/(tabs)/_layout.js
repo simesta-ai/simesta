@@ -15,10 +15,10 @@ const DashboardTabs = () => {
 
   const { display, setDisplay} = useContext(TabBarContext);
   const pathname = usePathname()
-  const toDisplayTabPaths = ["/home", "/courses", "/new-course", "/take-test", "/profile"]
+  const toDisplayTabPaths = ["home", "courses", "new-course", "take-test", "profile", "course"]
 
   useEffect(() => {
-    if(toDisplayTabPaths.includes(pathname)){
+    if(toDisplayTabPaths.includes(pathname.split("/")[1])){
       setDisplay(true)
     } else {
       setDisplay(false)

@@ -55,6 +55,16 @@ const styles = StyleSheet.create({
                     borderRadius: 100,
                     marginTop: type == "form-action-btn" ? 10 : 0
                 }
+            case "reload-btn":
+                return {
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    padding: 15,
+                    backgroundColor: COLORS.danger,
+                    borderRadius: 100,
+                    marginTop: type == "form-action-btn" ? 10 : 0
+                }
             case "neutral-btn":
                 return {
                     justifyContent: 'center',
