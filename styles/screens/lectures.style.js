@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         padding: 20,
         position: "absolute",
         width: "100%",
-        bottom: 120,
+        bottom: 100,
         justifyContent: "flex-end",
         flexDirection: "row",
         // right: -300
@@ -125,6 +125,31 @@ const styles = StyleSheet.create({
         fontFamily: FONT.mediumPoppins,
         fontSize: SIZES.regular,
         color: COLORS.dark
+    },
+    videoScreenContainer: {
+        width: "100%",
+        height: "110%",
+        position: "absolute",
+        backgroundColor: COLORS.dark,
+        zIndex: 100,
+        opacity: 0.7
+        // alignItems: "center",
+        // justifyContent: "center"
+        
+    },
+    closeButton: {
+        position: "absolute",
+        top: 50,
+        right: 20,
+        padding: 15,
+        backgroundColor: COLORS.dark,
+        borderRadius: 50
+    },
+    videoContainer: {
+        width: "100%",
+        height: "100%",
+        justifyContent: "center",
+        alignItems: "center"
     }
     
     

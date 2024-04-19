@@ -18,6 +18,7 @@ import {
   import BackButtonContainer from '../containers/BackButtonContainer'
   import Button from "../components/Button";
   import RoundAccentButton from "../components/RoundAccentButton";
+  import VideoScreen from "./VideoScreen";
   import { FontAwesome } from '@expo/vector-icons';
   import { FontAwesome6 } from '@expo/vector-icons';
 
@@ -62,8 +63,10 @@ const LectureScreen = () => {
                     <Text style={styles.completedText}>Completed</Text>
                 </View>
             ) : (
-                <Button text={"Mark as completed"} type="course-cancel-btn" onPress={handleShowVideo} />
+                <Button text={"Mark as completed"} type="course-cancel-btn" onPress={markAsComplete} />
             )}
+
+            
 
 
 
@@ -73,12 +76,17 @@ const LectureScreen = () => {
 
           </View>
         </ScrollView>
+        { showVideoLecture ? (
+                <View style={styles.videoScreenContainer}>
+                    <VideoScreen handleClose={handleShowVideo} />
+                </View>
+            ) : null}
         { !showVideoLecture ? (
             <View style={styles.hangingButton}>
             <RoundAccentButton
               icon={"video"}
               type="round-accent-btn-big"
-              onPress={markAsComplete}
+              handlePress={handleShowVideo}
             />
         </View>
         ) : null}
