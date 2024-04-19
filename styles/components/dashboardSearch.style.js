@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     },
     searchField: {
         fontFamily: FONT.regularPoppins,
-        fontSize: SIZES.medium,
+        fontSize: SIZES.regular,
         width: "90%",
         color: COLORS.dark,
         alignItems: "center",

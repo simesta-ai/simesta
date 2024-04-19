@@ -5,10 +5,10 @@ import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import { COLORS, SIZES} from '../../constants'
 import styles from '../../styles/containers/milestones.style'
 
-const RoundCheck = ({ completed }) => {
+const RoundCheck = ({ completed, type }) => {
   return (
-    <View style={styles.checkContainer(completed)}>
-      { completed ? <FontAwesome5 name="check" size={SIZES.xSmall} color={COLORS.primary} /> : null }
+    <View style={styles.checkContainer(completed, type)}>
+      { completed ? <FontAwesome5 name="check" size={SIZES.xSmall} color={ type === "dashboard-check" ? COLORS.primary : COLORS.light} /> : null }
     </View>
   )
 }

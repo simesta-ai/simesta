@@ -55,7 +55,7 @@ const DashboardScreen = () => {
             </Text>
 
             {/* SearchBar */}
-            <DashboardSearch placeholder={"search topics, courses e.t.c "} />
+            <DashboardSearch placeholder={"Ask AI or Search "} />
 
             {/* Milestones */}
             <MileStones />

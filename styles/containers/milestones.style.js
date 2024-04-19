@@ -26,13 +26,13 @@ const styles = StyleSheet.create({
         fontSize: SIZES.regular,
         color: COLORS.light,
     },
-    checkContainer: (completed) => ({
+    checkContainer: (completed, type) => ({
         width: 20,
         height: 20,
         borderRadius: 15,
-        borderColor: completed ? COLORS.light : COLORS.light,
+        borderColor: completed && type === "dashboard-check" ? COLORS.light : completed && type === "complete-check" ? COLORS.progress : COLORS.light,
         borderWidth: 2,
-        backgroundColor: completed ? COLORS.light : null,
+        backgroundColor: completed  && type === "dashboard-check" ? COLORS.light : completed  && type === "complete-check" ? COLORS.progress : null,
         justifyContent: "center",
         alignItems: "center",
     }),

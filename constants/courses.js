@@ -15,17 +15,25 @@ export const courseDetails = {
         lectures: [
           {
             id: 1,
+            position: 1,
+            completed: true,
             name: "Introduction to Data Analysis",
-            videos: ["https://youtube.com"],
+            videos: ["https://youtu.be/yZvFH7B6gKI"],
             lectureText: "You are now learning intro to data analytics",
+            estimatedCompletionTime: 1234
           },
           {
             id: 2,
+            position: 2,
+            completed: false,
             name: "Tools for Data Analysis",
-            videos: ["https://youtube.com"],
+            videos: ["https://youtu.be/yZvFH7B6gKI"],
             lectureText: "You are now learning tools for data analytics",
+            estimatedCompletionTime: 6527
           },
         ],
+        completed: true,
+        inProgress: false
       },
       {
         id: 2,
@@ -44,6 +52,28 @@ export const courseDetails = {
             lectureText: "You are now learning tools for data analytics",
           },
         ],
+        completed: false,
+        inProgress: true
+      },
+      {
+        id: 3,
+        name: "Data analytics with C++",
+        lectures: [
+          {
+            id: 1,
+            name: "Introduction to Data Analysis",
+            videos: ["https://youtube.com"],
+            lectureText: "You are now learning intro to data analytics",
+          },
+          {
+            id: 2,
+            name: "Tools for Data Analysis",
+            videos: ["https://youtube.com"],
+            lectureText: "You are now learning tools for data analytics",
+          },
+        ],
+        completed: false,
+        inProgress: false
       },
     ],
     

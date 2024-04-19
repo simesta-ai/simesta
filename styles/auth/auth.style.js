@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         width: "100%",
         height: 50,
         fontFamily: FONT.regularPoppins,
-        fontSize: SIZES.medium,
+        fontSize: SIZES.regular,
         backgroundColor: COLORS.light,
         color: COLORS.miniDarkGrey,
         borderWidth: focused ? 2 : 1,
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     },
     linkText: {
         fontFamily: FONT.mediumPoppins,
-        fontSize: SIZES.medium,
+        fontSize: SIZES.regular,
         color: COLORS.primary,
         textDecorationLine: "underline",
     },
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
         fontFamily: FONT.mediumPoppins,
         textAlign: 'center',
         marginTop: 30,
-        fontSize: SIZES.medium
+        fontSize: SIZES.regular
     },
     indicatorContainer: {
         flexDirection: 'row',
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         fontFamily: FONT.regularPoppins,
-        fontSize: SIZES.medium,
+        fontSize: SIZES.regular,
         backgroundColor: COLORS.light,
         color: COLORS.miniDarkGrey,
         borderWidth: 1,

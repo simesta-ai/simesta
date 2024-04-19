@@ -68,7 +68,7 @@ const NewCourseScreen = () => {
     >
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light }}>
       <View>
-      <BackButtonContainer />
+      <BackButtonContainer path="/home" />
         <Text style={styles.headerText}>Add new course</Text>
       </View>
       <ScrollView

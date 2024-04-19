@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
                     justifyContent: 'center',
                     alignItems: 'center',
                     textAlign: 'center',
-                    padding: 15,
+                    padding: 10,
                     backgroundColor: COLORS.primary,
                     borderRadius: 100,
                     marginTop: type == "form-action-btn" ? 10 : 0
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
                     justifyContent: 'center',
                     alignItems: 'center',
                     textAlign: 'center',
-                    padding: 15,
+                    padding: 10,
                     backgroundColor: COLORS.primary,
                     borderRadius: 100,
                     marginTop: 0
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
                     justifyContent: 'center',
                     alignItems: 'center',
                     textAlign: 'center',
-                    padding: 15,
+                    padding: 10,
                     backgroundColor: COLORS.dark,
                     borderRadius: 50,
                 }
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
                     justifyContent: 'center',
                     alignItems: 'center',
                     textAlign: 'center',
-                    padding: 15,
+                    padding: 10,
                     backgroundColor: COLORS.primary,
                     borderRadius: 50,
                 }
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
                     justifyContent: 'center',
                     alignItems: 'center',
                     textAlign: 'center',
-                    padding: 15,
+                    padding: 10,
                     backgroundColor: COLORS.primary,
                     borderRadius: 100,
                     marginTop: type == "form-action-btn" ? 10 : 0
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
                     justifyContent: 'center',
                     alignItems: 'center',
                     textAlign: 'center',
-                    padding: 15,
+                    padding: 10,
                     backgroundColor: COLORS.danger,
                     borderRadius: 100,
                     marginTop: type == "form-action-btn" ? 10 : 0
@@ -99,13 +99,22 @@ const styles = StyleSheet.create({
                     textAlign: 'center',
                     
                 }
+            case "round-accent-btn-big":
+                return {
+                    width: 50,
+                    height: 50,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    
+                }
         }
     },
     
     buttonText: (type) => ({
         fontFamily: FONT.mediumPoppins,
         color: type === "neutral-btn" ? COLORS.dark : COLORS.light,
-        fontSize: SIZES.medium
+        fontSize: SIZES.regular
     }),
     socialButton: {
         width: "100%",

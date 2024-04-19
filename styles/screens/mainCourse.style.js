@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     },
     tabsWrapper: {
         flexDirection: "row",
-        gap: 15,
+        // gap: 15,
         alignItems: "center",
         justifyContent: "space-between",
     },
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         backgroundColor: name === activeTab ? COLORS.dark : COLORS.light,
         borderRadius: 50,
         padding: 5,
-        width: 110,
+        width: 105,
         borderWidth: 1,
         borderColor: COLORS.dark
       }),

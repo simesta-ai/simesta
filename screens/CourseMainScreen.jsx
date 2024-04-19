@@ -6,12 +6,13 @@ import {
   Platform,
   Pressable,
   TouchableOpacity,
-  Image
+  Image,
+  BackHandler
 } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useContext, useEffect, useState } from "react";
-import { usePathname } from "expo-router";
+import { router, useNavigation, usePathname } from "expo-router";
 import { TabBarContext } from "../context/TabBarContext";
 import CustomTabBar from "../components/CustomTabBar";
 import Button from "../components/Button"
@@ -26,6 +27,7 @@ import { courseDetails } from "../constants/courses";
 import styles from "../styles/screens/mainCourse.style";
 
 const CourseMainScreen = ({ courseId }) => {
+  
   const tabs = ["Overview", "Notes", "Quiz"];
   const { display, setDisplay } = useContext(TabBarContext);
   const [ activeTab, setActiveTab ] = useState(tabs[0])
@@ -43,8 +45,20 @@ const CourseMainScreen = ({ courseId }) => {
         }
       };
 
+      const handleCustomBackPress = () => {
+        // Perform any actions before navigation (e.g., confirmation dialog)
+        router.navigate('/home')
+    };
+    
+
   useEffect(() => {
     setDisplay(true);
+    const backHandlerSubscription = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleCustomBackPress
+  );
+
+  return () => backHandlerSubscription.remove();
   }, []);
 
   

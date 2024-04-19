@@ -8,13 +8,13 @@ import { TabBarContext } from '../context/TabBarContext';
 import styles from '../styles/containers/backButton.style'
 import { COLORS, SIZES } from '../constants';
 
-const BackButtonContainer = () => {
+const BackButtonContainer = ({ path }) => {
 
   const { display, setDisplay} = useContext(TabBarContext);
 
     const handleBack = () => {
         setDisplay(true)
-        router.navigate('/home')
+        router.navigate(path)
     }
   return (
     <View style={styles.container}>

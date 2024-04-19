@@ -22,12 +22,12 @@ const Overview = ({ description, topics }) => {
         scrollEnabled={false}
         renderItem={({ item }) => (
             <Topic
-            name={item.name}
+            topic={item}
             />
         )}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{ rowGap: SIZES.small / 2 }}
+        contentContainerStyle={{ rowGap: SIZES.small }}
         />
       </View>
     </View>
