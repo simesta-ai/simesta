@@ -132,9 +132,10 @@ const styles = StyleSheet.create({
         position: "absolute",
         backgroundColor: COLORS.dark,
         zIndex: 100,
-        opacity: 0.7
-        // alignItems: "center",
-        // justifyContent: "center"
+        opacity: 0.9,
+        // paddingTop: 200
+        alignItems: "center",
+        justifyContent: "center"
         
     },
     closeButton: {
@@ -148,6 +149,33 @@ const styles = StyleSheet.create({
     videoContainer: {
         width: "100%",
         height: "100%",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    // youtubeVideo: {
+    //     width: "100%",
+    //     height: 300,
+    //     opacity: 1
+    // },
+    videoLectureText: {
+        fontFamily: FONT.semiBoldPoppins,
+        fontSize: SIZES.large,
+        color: COLORS.light,
+        textAlign: "center",
+        padding: 20
+    },
+    buttonContainers: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        gap: 20,
+        padding: 20
+    },
+    loaderContainer: {
+        position: "absolute",
+        zIndex: 200,
+        top: 200,
+        height: 300,
+        width: "100%",
         justifyContent: "center",
         alignItems: "center"
     }

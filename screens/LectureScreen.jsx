@@ -7,7 +7,8 @@ import {
     Pressable,
     TouchableOpacity,
     Image,
-    FlatList
+    FlatList,
+    
   } from "react-native";
   
   import { SafeAreaView } from "react-native-safe-area-context";
@@ -21,6 +22,7 @@ import {
   import VideoScreen from "./VideoScreen";
   import { FontAwesome } from '@expo/vector-icons';
   import { FontAwesome6 } from '@expo/vector-icons';
+  import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 import styles from '../styles/screens/lectures.style'
@@ -65,6 +67,9 @@ const LectureScreen = () => {
             ) : (
                 <Button text={"Mark as completed"} type="course-cancel-btn" onPress={markAsComplete} />
             )}
+            
+
+           
 
             
 
@@ -78,7 +83,10 @@ const LectureScreen = () => {
         </ScrollView>
         { showVideoLecture ? (
                 <View style={styles.videoScreenContainer}>
-                    <VideoScreen handleClose={handleShowVideo} />
+                  <Pressable style={styles.closeButton} onPress={handleShowVideo}>
+                    <MaterialCommunityIcons name="close" size={SIZES.xLarge} color={COLORS.light} />
+                  </Pressable>
+                    <VideoScreen handleClose={handleShowVideo} videoLink={lecture.videos[0]} />
                 </View>
             ) : null}
         { !showVideoLecture ? (
