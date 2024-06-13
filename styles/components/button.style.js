@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
                 }
             case "social-login-btn":
                 return {
-                    width: 50,
-                    height: 50,
+                    width: "100%",
+                    height: 40,
                     justifyContent: 'center',
                     alignItems: 'center',
                     textAlign: 'center',
@@ -119,13 +119,21 @@ const styles = StyleSheet.create({
     socialButton: {
         width: "100%",
         height: "100%",
+        display: "flex",
+        flexDirection: "row",
+        gap: SIZES.small,
         justifyContent: 'center',
         alignItems: 'center',
-        textAlign: 'center',
         backgroundColor: COLORS.light,
         borderRadius: 50,
         borderColor: COLORS.dark,
         borderWidth: 1
+    },
+    socialBtnText: {
+        fontFamily: FONT.mediumPoppins,
+        color: COLORS.dark,
+        fontSize: SIZES.regular,
+        
     },
     roundAccentButton: {
         width: "100%",

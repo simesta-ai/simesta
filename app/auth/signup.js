@@ -2,7 +2,7 @@ import { Text, ScrollView, View, Image, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SignupForm from "../../containers/auth/SignupForm";
 import SocialButton from "../../components/SocialButton";
-
+import Toast from "react-native-toast-message";
 import styles from "../../styles/auth/auth.style";
 
 import { images, COLORS } from "../../constants";
@@ -56,6 +56,7 @@ const signup = () => {
         </View>
         
       </ScrollView>
+      <Toast />
     </SafeAreaView>
   );
 };

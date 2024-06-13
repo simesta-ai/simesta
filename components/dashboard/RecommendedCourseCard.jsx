@@ -1,4 +1,4 @@
-import {  Text, View, TouchableOpacity } from 'react-native'
+import {  Text, View, TouchableOpacity, Pressable } from 'react-native'
 import React from 'react'
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -7,7 +7,7 @@ import { SIZES, COLORS } from '../../constants';
 
 const RecommendedCourseCard = ({ course }) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <Pressable style={styles.container}>
       <Text style={styles.courseTitle}>{course.title}</Text>
       <Text style={styles.topicsCompleted}>Topic 1/8</Text>
       <View style={styles.featuresContainer}>
@@ -24,7 +24,7 @@ const RecommendedCourseCard = ({ course }) => {
             <Text style={styles.featureText}>Beginner</Text>
             </View>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   )
 }
 

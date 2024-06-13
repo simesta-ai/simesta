@@ -196,6 +196,15 @@ const styles = StyleSheet.create({
     otpInputHighlight: {
         borderWidth: 2,
         borderColor: COLORS.primary,
+    },
+    loaderContainer: {
+        width: "100%",
+        marginTop: SIZES.small,
+        padding: SIZES.small,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: COLORS.grey,
+        borderRadius: SIZES.large
     }
 
     

@@ -39,7 +39,7 @@ const AddTopic = () => {
     >
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light }}>
       <View>
-      <BackButtonContainer />
+      <BackButtonContainer path="/create-course" />
         <Text style={styles.headerText}>Data Analytics</Text>
       </View>
         <ScrollView

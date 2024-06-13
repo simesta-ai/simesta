@@ -2,7 +2,7 @@
   "expo": {
     "name": "simesta",
     "slug": "simesta",
-    "scheme": "simesta",
+    "scheme": "com.simesta",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -29,7 +29,8 @@
       "bundler": "metro"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-font"
     ],
     "extra": {
       "router": {

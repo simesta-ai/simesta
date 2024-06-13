@@ -6,11 +6,13 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
+  ActivityIndicator,
   TouchableOpacity
 } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { usePathname } from "expo-router";
 import { TabBarContext } from '../context/TabBarContext'
 import DashboardSearch from "../components/dashboard/DashboardSearch";
@@ -21,17 +23,26 @@ import styles from "../styles/screens/dashboard.style";
 import { icons, COLORS, SIZES } from "../constants";
 
 const DashboardScreen = () => {
-  const user = {
-    name: "Samuel emeka",
-    email: "john@doe.com",
-  };
+  
   const { display, setDisplay} = useContext(TabBarContext);
+  const [ name, setName ] = useState("")
   const pathname= usePathname()
 
   useEffect(() => {
+    const getUser = async () => {
+      const name = await AsyncStorage.getItem('name')
+      setName(name)
+    }
+    getUser()
     setDisplay(true)
+    
+    
   
   }, [])
+
+  if(name.length == 0) {
+    return <ActivityIndicator size="large" color={COLORS.primary} style={{marginTop: 100}}/>
+  }
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -51,7 +62,7 @@ const DashboardScreen = () => {
               </Pressable>
             </View>
             <Text style={styles.greeting}>
-              Welcome, {user.name.split(" ")[0]}!
+              Welcome, {name.split(' ')[0]} !
             </Text>
 
             {/* SearchBar */}

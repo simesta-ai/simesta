@@ -1,20 +1,28 @@
 import { Stack, useRouter, Redirect } from "expo-router"
+import * as AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from "react"
 import { Text, View, SafeAreaView } from "react-native"
 
 const Home = () => {
 
-  const router = useRouter()
+  
    
-  const user = {
-    id: 1,
-    name: "John Doe",
-    email: "",
-    loggedIn: false
-  }
+  let user = null;
+  useEffect(()=> {
+    const fetchUser = async () => {
+      await AsyncStorage.clear();
+      const data = await AsyncStorage.getItem('name')
+      if(data){
+        return null
+      } else {
+        return null;
+      }
+    }
+    user = fetchUser()
+    }, [])
 
 
-  if(!user.loggedIn) {
+  if(user == null) {
     return <Redirect href={'/auth/login'} />
   }
   
