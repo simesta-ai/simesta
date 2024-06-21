@@ -7,8 +7,7 @@ import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'column',
-        gap: 20,
-        marginTop: 20
+        gap: 10,
     },
     filterContainer: {
         flexDirection: 'row',
@@ -16,7 +15,40 @@ const styles = StyleSheet.create({
     },
     greeting: {
         fontFamily: FONT.semiBoldPoppins,
-        fontSize: SIZES.xLarge,
+        fontSize: SIZES.large,
+        color: COLORS.dark
+    },
+    courseCategoryHeader: {
+        display: "flex",
+        marginTop: 30,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    seeAllAction: {
+        fontFamily: FONT.semiBoldPoppins,
+        fontSize: SIZES.normal,
+        color: COLORS.primary,
+        textDecorationLine: "underline"
+    },
+    startLearningContainer: {
+        marginTop: 10,
+        backgroundColor: COLORS.light,
+        borderRadius: 7,
+        borderWidth: 0.5,
+        borderColor: COLORS.lightGrey
+    },
+    startLearningPromptContainer: {
+        padding: 15,
+    },
+    startLearningButtonContainer: {
+        padding: 10,
+        borderTopWidth: 0.5,
+        borderColor: COLORS.lightGrey,
+    },
+    startLearningText: {
+        fontFamily: FONT.mediumPoppins,
+        fontSize: SIZES.normal,
         color: COLORS.dark
     },
     filter: (activeType, item) => ({
@@ -40,8 +72,10 @@ const styles = StyleSheet.create({
         position: "relative",
         width: type === "dashboard" ? 200 : type === "course-page" ? 170 : 150,
         borderColor: COLORS.grey,
-        borderWidth: 2,
-        borderRadius: 10,
+        backgroundColor: COLORS.light,
+        borderWidth: 0.5,
+        borderRadius: 7,
+        borderColor: COLORS.lightGrey,
         padding: 20,
         // gap: 5,
     }),

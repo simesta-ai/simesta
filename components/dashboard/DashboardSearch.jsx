@@ -1,19 +1,24 @@
-import { Text, View, TextInput, Pressable } from "react-native";
+import { Text, View, TextInput, Pressable, Image } from "react-native";
 
 import CustomIcon from "../CustomIcon";
 import styles from "../../styles/components/dashboardSearch.style";
 
-import { COLORS, SIZES } from "../../constants";
+import { COLORS, SIZES, images } from "../../constants";
 
 const DashboardSearch = ({ placeholder }) => {
   return (
     <View style={styles.container}>
       <Pressable style={styles.searchButton}>
-        <CustomIcon
+        <Image
+          source={images.colouredLogo}
+          resizeMode="contain"
+          style={styles.searchLogo}
+        />
+        {/* <CustomIcon
           name="search"
           size={SIZES.large}
           color={COLORS.lightGrey}
-        />
+        /> */}
       </Pressable>
       <TextInput
         style={styles.searchField}

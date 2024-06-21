@@ -1,7 +1,6 @@
-import { Stack, useRouter, Redirect } from "expo-router"
+import { Redirect } from "expo-router"
 import * as AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from "react"
-import { Text, View, SafeAreaView } from "react-native"
 
 const Home = () => {
 
@@ -18,6 +17,7 @@ const Home = () => {
         return null;
       }
     }
+
     user = fetchUser()
     }, [])
 

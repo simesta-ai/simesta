@@ -18,7 +18,9 @@ const COLORS = {
     success: '#5BC137',
     warm: '#F3953E',
     progress:"#18A180",
-    transProgress: "#FFF4FB"
+    transProgress: "#FFF4FB",
+
+    backgroundGrey: '#FCF9F4'
   
   };
   

@@ -8,7 +8,7 @@ import styles from '../../styles/containers/milestones.style'
 const RoundCheck = ({ completed, type }) => {
   return (
     <View style={styles.checkContainer(completed, type)}>
-      { completed ? <FontAwesome5 name="check" size={SIZES.xSmall} color={ type === "dashboard-check" ? COLORS.primary : COLORS.light} /> : null }
+      { completed ? <FontAwesome5 name="check" size={SIZES.xSmall} color={ type === "dashboard-check" ? COLORS.light : COLORS.light} /> : null }
     </View>
   )
 }

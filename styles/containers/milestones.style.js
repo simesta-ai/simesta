@@ -4,17 +4,19 @@ import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
 
 const styles = StyleSheet.create({
     container: {
-        padding: 15,
-        marginTop: 10,
-        backgroundColor: COLORS.primary,
-        borderRadius: SIZES.regular,
+        padding: 20,
+        marginTop: 5,
+        backgroundColor: COLORS.light,
+        borderRadius: 10,
+        borderColor: COLORS.lightGrey,
+        borderWidth: 0.5,
         flexDirection: "column",
         gap: 10,
     },
     header: {
         fontFamily: FONT.semiBoldPoppins,
         fontSize: SIZES.medium,
-        color: COLORS.light
+        color: COLORS.dark
     },
     milestoneContainer: {
         flexDirection: "row",
@@ -24,15 +26,15 @@ const styles = StyleSheet.create({
     milestoneText: {
         fontFamily: FONT.regularPoppins,
         fontSize: SIZES.regular,
-        color: COLORS.light,
+        color: COLORS.dark,
     },
     checkContainer: (completed, type) => ({
         width: 20,
         height: 20,
         borderRadius: 15,
-        borderColor: completed && type === "dashboard-check" ? COLORS.light : completed && type === "complete-check" ? COLORS.progress : COLORS.light,
+        borderColor: completed && type === "dashboard-check" ? COLORS.dark : completed && type === "complete-check" ? COLORS.progress : COLORS.dark,
         borderWidth: 2,
-        backgroundColor: completed  && type === "dashboard-check" ? COLORS.light : completed  && type === "complete-check" ? COLORS.progress : null,
+        backgroundColor: completed  && type === "dashboard-check" ? COLORS.dark : completed  && type === "complete-check" ? COLORS.progress : null,
         justifyContent: "center",
         alignItems: "center",
     }),

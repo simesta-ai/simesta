@@ -5,9 +5,11 @@ import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
 const styles = StyleSheet.create({
   container: (display) =>  ({
     display: display ? 'flex' : 'none',
-    height: 70,
+    height: 90,
     position: 'absolute',
     backgroundColor: COLORS.light,
+    borderTopStartRadius: 30,
+    borderTopEndRadius: 30,
     borderTopWidth: 0,
     elevation: 0,
     borderTopColor: 'transparent',

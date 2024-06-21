@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
                     padding: 10,
                     backgroundColor: COLORS.primary,
                     borderRadius: 100,
-                    marginTop: type == "form-action-btn" ? 10 : 0
+                    marginTop: type == "form-action-btn" ? 0 : 0
                 }
             case "accent-btn":
                 return {

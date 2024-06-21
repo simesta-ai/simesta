@@ -48,7 +48,7 @@ const DashboardScreen = () => {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
-      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.backgroundGrey }}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="always"
@@ -66,7 +66,7 @@ const DashboardScreen = () => {
             </Text>
 
             {/* SearchBar */}
-            <DashboardSearch placeholder={"Ask AI or Search "} />
+            <DashboardSearch placeholder={"Ask Simesta AI "} />
 
             {/* Milestones */}
             <MileStones />
