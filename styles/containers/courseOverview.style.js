@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     descriptionContainer: {
-        backgroundColor: COLORS.light,
         borderRadius: SIZES.medium,
         // padding: SIZES.large,
         gap: 5
@@ -32,15 +31,15 @@ const styles = StyleSheet.create({
         fontSize: SIZES.regular,
         marginBottom: 10
     },
-    topicContainer: {
+    topicContainer: (completed, inprogress) => ({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
         padding: 20,
-        borderColor: COLORS.grey,
+        borderColor: !completed && !inprogress ? COLORS.grey : COLORS.dark,
         borderWidth: 1,
         borderRadius: SIZES.small
-    },
+    }),
     topicName: {
         fontFamily: FONT.mediumPoppins,
         color: COLORS.dark,

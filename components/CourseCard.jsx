@@ -14,7 +14,7 @@ const CourseCard = ({ position, course }) => {
   const router = useRouter()
 
   const goToCourse = () => {
-    router.navigate(`/course/1`)
+    router.navigate(`/course/${course.id}`)
   }
   return (
     <Pressable style={styles.courseCardContainer(position)} onPress={goToCourse}>

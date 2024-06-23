@@ -5,6 +5,7 @@ import {
   Text,
   KeyboardAvoidingView,
   Platform,
+  StatusBar,
   Pressable,
   ActivityIndicator,
   TouchableOpacity
@@ -13,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useContext, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { usePathname } from "expo-router";
 import { TabBarContext } from '../context/TabBarContext'
 import DashboardSearch from "../components/dashboard/DashboardSearch";
@@ -23,21 +25,17 @@ import styles from "../styles/screens/dashboard.style";
 import { icons, COLORS, SIZES } from "../constants";
 
 const DashboardScreen = () => {
-  
+  const user = useSelector(state => state.user)
   const { display, setDisplay} = useContext(TabBarContext);
   const [ name, setName ] = useState("")
   const pathname= usePathname()
 
   useEffect(() => {
     const getUser = async () => {
-      const name = await AsyncStorage.getItem('name')
-      setName(name)
+      setName(user.name)
     }
     getUser()
     setDisplay(true)
-    
-    
-  
   }, [])
 
   if(name.length == 0) {
@@ -49,6 +47,7 @@ const DashboardScreen = () => {
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.backgroundGrey }}>
+        <StatusBar barStyle="dark-content" backgroundColor={COLORS.backgroundGrey} />
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="always"

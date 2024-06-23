@@ -4,6 +4,9 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import fontsConfig from "../constants/fonts";
 import { TabBarProvider } from '../context/TabBarContext'
+import { Provider as StoreProvider } from 'react-redux'
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "../redux/store";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -51,6 +54,8 @@ const Layout = () => {
   }
 
   return (
+    <StoreProvider store={store}>
+      <PersistGate loading={null} persistor={persistor} >
     <TabBarProvider>
     <Stack
       screenOptions={{
@@ -58,11 +63,13 @@ const Layout = () => {
       }}
       onLayout={onLayoutRootView}
     >
-      
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       
     </Stack>
+    
     </TabBarProvider>
+    </PersistGate>
+    </StoreProvider>
   );
 };
 

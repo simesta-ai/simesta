@@ -19,7 +19,7 @@ const Lecture = ({ lecture }) => {
         </View>
       <View style={styles.lectureDetailsContainer}>
         <View style={styles.lectureNameContainer}>
-            <Text style={styles.lectureName}>{lecture.name.length > 25 ? lecture.name.slice(0, 24) + "..." : lecture.name}</Text>
+            <Text style={styles.lectureName}>{lecture.title.length > 25 ? lecture.title.slice(0, 24) + "..." : lecture.title}</Text>
             { lecture.completed ? <RoundCheck completed={true} type="complete-check" /> : null }
         </View>
         <View style={styles.durationContainer}>

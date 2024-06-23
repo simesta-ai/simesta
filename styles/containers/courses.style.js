@@ -18,6 +18,17 @@ const styles = StyleSheet.create({
         fontSize: SIZES.large,
         color: COLORS.dark
     },
+    skeleton: {
+        marginTop: 15,
+        flexDirection: 'row',
+        gap: 20
+    },
+    recSkeleton: {
+        flexDirection: 'column',
+        gap: 15,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     courseCategoryHeader: {
         display: "flex",
         marginTop: 30,

@@ -10,8 +10,9 @@ const styles = StyleSheet.create({
         paddingTop: SIZES.xxLarge,
         paddingBottom: 100,
         fontFamily: FONT.regularPoppins,
+        backgroundColor: COLORS.backgroundGrey,
         gap: 20,
-        marginTop: 10,
+        
     },
     overViewContainer: {
         flexDirection: "row",
@@ -70,10 +71,10 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     tabBtn: (name, activeTab) => ({
-        backgroundColor: name === activeTab ? COLORS.dark : COLORS.light,
+        backgroundColor: name === activeTab ? COLORS.dark : "transparent",
         borderRadius: 50,
         padding: 5,
-        width: 105,
+        width: 120,
         borderWidth: 1,
         borderColor: COLORS.dark
       }),

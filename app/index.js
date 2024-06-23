@@ -1,5 +1,5 @@
 import { Redirect } from "expo-router"
-import * as AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from "react"
 
 const Home = () => {

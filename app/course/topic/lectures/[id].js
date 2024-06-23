@@ -1,4 +1,4 @@
-import LectureScreen from "../../../../screens/LectureScreen"
+import LectureScreen from "../../../../screens/LectureScreen";
 
 const LearningLayout = () => {
      return (

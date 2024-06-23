@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     container: {
       display: 'flex',
       flexDirection: 'row',
-      height: 70,
+      height: 90,
       paddingLeft: 25,
       paddingRight: 25,
       width: "100%",
@@ -53,6 +53,8 @@ const styles = StyleSheet.create({
       alignItems:"center",
       position: 'absolute',
       backgroundColor: COLORS.light,
+      borderTopStartRadius: 30,
+      borderTopEndRadius: 30,
       borderTopWidth: 0,
       elevation: 0,
       borderTopColor: 'transparent',

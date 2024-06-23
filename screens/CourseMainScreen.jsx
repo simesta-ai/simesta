@@ -6,8 +6,9 @@ import {
   Platform,
   Pressable,
   TouchableOpacity,
+  StatusBar,
   Image,
-  BackHandler
+  BackHandler,
 } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -15,7 +16,7 @@ import { useContext, useEffect, useState } from "react";
 import { router, useNavigation, usePathname } from "expo-router";
 import { TabBarContext } from "../context/TabBarContext";
 import CustomTabBar from "../components/CustomTabBar";
-import Button from "../components/Button"
+import Button from "../components/Button";
 import CourseTabs from "../components/CourseTabs";
 import Overview from "../containers/course/Overview";
 import Notes from "../containers/course/Notes";
@@ -27,82 +28,120 @@ import { courseDetails } from "../constants/courses";
 import styles from "../styles/screens/mainCourse.style";
 
 const CourseMainScreen = ({ courseId }) => {
-  
+  const [courseDetails, setCourseDetails] = useState({
+    title: "",
+    description: "",
+    topics: [],
+    image: "",
+    completed: 0,
+  });
   const tabs = ["Overview", "Notes", "Quiz"];
   const { display, setDisplay } = useContext(TabBarContext);
-  const [ activeTab, setActiveTab ] = useState(tabs[0])
+  const [activeTab, setActiveTab] = useState(tabs[0]);
 
-    const displayTabContent = () => {
-        switch (activeTab) {
-          case "Overview":
-            return <Overview description={courseDetails.description} topics={courseDetails.topics} />;
-          case "Notes":
-            return <Notes />;
-          case "Quiz":
-            return <Quiz />;
-          default:
-            break
-        }
-      };
+  const getCourseDetails = async () => {
+    const res = await fetch(
+      `http://192.168.180.93:3000/users/course/${courseId}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    const data = await res.json();
+    if (res.status == 200) {
+      setCourseDetails({
+        ...courseDetails,
+        title: data.course.title,
+        description: data.course.description,
+        topics: data.topics
+      });
+    }
+  };
+  useEffect(() => {
+    getCourseDetails();
+  }, []);
 
-      const handleCustomBackPress = () => {
-        // Perform any actions before navigation (e.g., confirmation dialog)
-        router.navigate('/home')
-    };
-    
+  const displayTabContent = () => {
+    switch (activeTab) {
+      case "Overview":
+        return (
+          <Overview
+            description={courseDetails.description}
+            topics={courseDetails.topics}
+          />
+        );
+      case "Notes":
+        return <Notes />;
+      case "Quiz":
+        return <Quiz />;
+      default:
+        break;
+    }
+  };
+
+  const handleCustomBackPress = () => {
+    // Perform any actions before navigation (e.g., confirmation dialog)
+    router.navigate("/home");
+  };
 
   useEffect(() => {
     setDisplay(true);
     const backHandlerSubscription = BackHandler.addEventListener(
-      'hardwareBackPress',
+      "hardwareBackPress",
       handleCustomBackPress
-  );
+    );
 
-  return () => backHandlerSubscription.remove();
+    return () => backHandlerSubscription.remove();
   }, []);
 
-  
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light }}>
+      <StatusBar barStyle="dark-content" backgroundColor={COLORS.backgroundGrey} />
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="always"
         >
           <View style={styles.container}>
-
             {/* Overview container */}
-           
+
             <View style={styles.overViewContainer}>
               <View style={styles.courseImageContainer}>
-                <Image style={styles.courseImage} source={courseDetails.image} resizeMode="cover" />
+                <Image
+                  style={styles.courseImage}
+                  source={courseDetails.image}
+                  resizeMode="cover"
+                />
               </View>
               <View style={styles.courseNameAndProgress}>
                 <Text style={styles.courseTitle}>{courseDetails.title}</Text>
 
                 {/* Progress Bar */}
                 <View style={styles.barContainer}>
-                    <View style={styles.emptyBar}>
-                      <View style={styles.activeBar(courseDetails.completed)} />
-                    </View>
+                  <View style={styles.emptyBar}>
+                    <View style={styles.activeBar(courseDetails.completed)} />
                   </View>
-                <Text style={styles.completedText}>{courseDetails.completed}% completed</Text>
-                
+                </View>
+                <Text style={styles.completedText}>
+                  {courseDetails.completed}% completed
+                </Text>
               </View>
-              
             </View>
 
-            <Button text='Resume course' type='accent-btn' />
+            <Button text="Resume course" type="accent-btn" />
 
-          {/* Details Section */}
+            {/* Details Section */}
 
-          <CourseTabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} />
+            <CourseTabs
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              tabs={tabs}
+            />
 
-          {displayTabContent()}
-
+            {displayTabContent()}
           </View>
         </ScrollView>
         <CustomTabBar />

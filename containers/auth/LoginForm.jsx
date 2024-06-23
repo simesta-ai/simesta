@@ -18,27 +18,36 @@ import { useRouter } from "expo-router";
 import axios from "axios";
 import client from "../../api/client";
 
+import { userActions } from "../../redux/slices/userSlice";
+import { authActions } from "../../redux/slices/authSlice";
+import { useDispatch } from "react-redux";
+
 const LoginForm = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
   });
 
+  const loginUser = (user) => {
+    dispatch(authActions.login());
+    dispatch(userActions.login(user))
+  }
+
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://192.168.0.55:3000/auth/login", {
+      const res = await fetch("http://192.168.180.93:3000/auth/login", {
         method: "POST", 
         headers: { "Content-Type": "application/json" }, 
         body: JSON.stringify(formValue), 
       });
       setLoading(false)
-      const json = await res.json()
+      const user = await res.json()
       if(res.status == 200) {
-        await AsyncStorage.setItem("name", json.name)
-        await AsyncStorage.setItem("id", json.id)
+        loginUser(user)
         router.push('/home')
       } else {
         Toast.show({
