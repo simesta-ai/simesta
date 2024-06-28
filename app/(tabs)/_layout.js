@@ -45,6 +45,7 @@ const DashboardTabs = () => {
               name="home"
               size={SIZES.large}
               color={focused ? COLORS.dark : COLORS.lightGrey}
+              focused={focused}
             />
           ),
         }}
@@ -58,6 +59,7 @@ const DashboardTabs = () => {
               name="courses"
               size={SIZES.large}
               color={focused ? COLORS.dark : COLORS.lightGrey}
+              focused={focused}
             />
           ),
         }}
@@ -77,6 +79,7 @@ const DashboardTabs = () => {
               name="puzzle"
               size={SIZES.large}
               color={focused ? COLORS.dark : COLORS.lightGrey}
+              focused={focused}
             />
           ),
         }}
@@ -90,6 +93,7 @@ const DashboardTabs = () => {
               name="profile"
               size={SIZES.large}
               color={focused ? COLORS.dark : COLORS.lightGrey}
+              focused={focused}
             />
           ),
         }}

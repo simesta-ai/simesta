@@ -17,7 +17,7 @@ const CoursesContainer = () => {
   const [loadingRecommended, setLoadingRecommended] = useState(false);
 
   const getUserCourses = async () => {
-    const res = await fetch(`http://192.168.180.93:3000/users/${user.id}/courses`, {
+    const res = await fetch(`http://192.168.130.93:3000/users/${user.id}/courses`, {
         method: "GET", 
         headers: { "Content-Type": "application/json" }
       });

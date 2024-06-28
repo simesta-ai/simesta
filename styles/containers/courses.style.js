@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
 
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         gap: 20,
     },
     greeting: {
-        fontFamily: FONT.semiBoldPoppins,
+        fontFamily: FONT.boldPoppins,
         fontSize: SIZES.large,
         color: COLORS.dark
     },
@@ -81,14 +81,14 @@ const styles = StyleSheet.create({
     }),
     courseCardContainer: (type) => ({
         position: "relative",
-        width: type === "dashboard" ? 200 : type === "course-page" ? 170 : 150,
+        width: type === "dashboard" ? 200 : type === "course-page" ? Dimensions.get("window").width - 40 : 150,
         borderColor: COLORS.grey,
         backgroundColor: COLORS.light,
         borderWidth: 0.5,
         borderRadius: 7,
         borderColor: COLORS.lightGrey,
         padding: 20,
-        // gap: 5,
+        gap: 5,
     }),
     imageContainer: {
         width: 50,

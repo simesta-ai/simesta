@@ -14,6 +14,23 @@ const styles = StyleSheet.create({
         gap: 20,
         
     },
+    skeletonContainer: {
+        flexDirection: "column",
+        backgroundColor: COLORS.backgroundGrey,
+        height: 800,
+        padding: 10,
+        alignItems: "center",
+        gap: 20
+    },
+    infoSkeleton: {
+        flexDirection: "row",
+        justifyContent: "center",
+        gap: 20,
+        alignItems: "center"
+    },
+    nameSkeleton: {
+        gap: 10
+    },
     overViewContainer: {
         flexDirection: "row",
         gap: 20,

@@ -11,7 +11,7 @@ const Overview = ({ description, topics }) => {
     <View style={styles.container}>
       <View style={styles.descriptionContainer}>
         <Text style={styles.descriptionHeader}>Description</Text>
-        <Text style={styles.descriptionText}>{description}</Text>
+        <Text style={styles.descriptionText}>{description.split("**")[2].trim()}</Text>
       </View>
 
       <View>

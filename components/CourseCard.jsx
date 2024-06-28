@@ -19,10 +19,10 @@ const CourseCard = ({ position, course }) => {
   return (
     <Pressable style={styles.courseCardContainer(position)} onPress={goToCourse}>
       {/* {position === "dashboard" && <RoundProgressBar value={course.progress} />} */}
-      <View style={styles.imageContainer}><Image style={styles.image} source={course.image} resizeMode='cover' /></View>
+      <View style={styles.imageContainer}><Image style={styles.image} source={{ uri: course.image}} resizeMode='cover' /></View>
       {/* <Text style={styles.categoryText(course.color)}>{course.category.toUpperCase()}</Text> */}
-      <Text style={styles.courseTitle}>{course.title.slice(0, 20)}</Text>
-      <Text style={styles.topicsCompleted}>Topic 1/8</Text>
+      <Text style={styles.courseTitle}>{course.title.slice(0, 35)}</Text>
+      <Text style={styles.topicsCompleted}>{course.topicsCompleted} Topics completed</Text>
       <HorizontalProgressBar value={course.progress} />
       {/* {position === "course-page" && <HorizontalProgressBar value={course.progress} />} */}
     </Pressable>

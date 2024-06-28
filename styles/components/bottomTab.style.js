@@ -27,6 +27,15 @@ const styles = StyleSheet.create({
     alignItems: 'center'
     
   },
+  tabIconContainer: (focused) => ({
+    paddingRight: 22,
+    paddingTop: 6,
+    paddingLeft: 22,
+    paddingBottom: 6,
+    backgroundColor: focused ? COLORS.tertiary : null,
+    borderRadius: 50,
+    alignItems: "center"
+  }),
   tabBarIconContainer: {
     alignItems: 'center',
     justifyContent: 'center',

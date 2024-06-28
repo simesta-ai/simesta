@@ -19,6 +19,7 @@ import styles from "../styles/screens/dashboard.style";
 import courseStyles from "../styles/screens/courseScreen.style";
 import { icons, COLORS, SIZES, courses } from "../constants";
 import CoursesScreenCourseContainer from "../containers/courses/CoursesScreenCourseContainer";
+import { StatusBar } from "expo-status-bar";
 
 const CoursesScreen = () => {
 
@@ -35,8 +36,8 @@ const CoursesScreen = () => {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
-      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light }}>
-    
+      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.backgroundGrey }}>
+      <StatusBar barStyle="dark-content" backgroundColor={COLORS.backgroundGrey} />
           <View style={styles.container}>
             <Text style={styles.greeting}>My courses</Text>
             <DashboardSearch placeholder="search your courses" />
