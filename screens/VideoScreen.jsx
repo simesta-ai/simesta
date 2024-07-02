@@ -35,7 +35,7 @@ const VideoScreen = ({ handleClose, videoLink}) => {
           width={400}
           height={300}
           play={playing}
-          videoId={videoLink.split("/")[3]}
+          videoId={videoLink}
           onReady={() => {setLoading(false)}}
           />
         

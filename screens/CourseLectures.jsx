@@ -12,6 +12,7 @@ import {
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useContext, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { usePathname } from "expo-router";
 import { TabBarContext } from "../context/TabBarContext";
 import CustomTabBar from "../components/CustomTabBar";
@@ -22,8 +23,10 @@ import { icons, COLORS, SIZES, images } from "../constants";
 import styles from "../styles/screens/lectures.style";
 
 import { courseDetails } from "../constants/courses";
+import { activeCourseActions } from "../redux/slices/activeCourseSlice";
 
-const CourseLectures = ({ topicId }) => {
+const CourseLectures = ({ courseId, topicId }) => {
+  const dispatch = useDispatch()
   const [topic, setTopic] = useState({
     name: "",
     lectures: [],
@@ -31,7 +34,7 @@ const CourseLectures = ({ topicId }) => {
 
   const getTopicDetails = async () => {
     const res = await fetch(
-      `http://192.168.130.93:3000/users/course/topic/${topicId}`,
+      `http://192.168.62.93:3000/users/course/topic/${topicId}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -44,6 +47,7 @@ const CourseLectures = ({ topicId }) => {
         name: data.topic,
         lectures: data.lectures,
       });
+      dispatch(activeCourseActions.setActiveTopic(data.topic.id))
     }
   };
 
@@ -58,7 +62,7 @@ const CourseLectures = ({ topicId }) => {
     >
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light }}>
         <View>
-          <BackButtonContainer path="/course/1" />
+          <BackButtonContainer path={`course/${courseId}`} />
           <Text style={styles.headerText}>
             {topic.name.length > 30
               ? topic.name.slice(0, 29) + "..."

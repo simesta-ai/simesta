@@ -30,6 +30,11 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
+  const [ retrievedUser, setRetrievedUser ] = useState({
+    id: "",
+    name: "",
+    accessToken: ""
+  })
 
   const loginUser = (user) => {
     dispatch(authActions.login());
@@ -39,7 +44,7 @@ const LoginForm = () => {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://192.168.130.93:3000/auth/login", {
+      const res = await fetch("http://192.168.62.93:3000/auth/login", {
         method: "POST", 
         headers: { "Content-Type": "application/json" }, 
         body: JSON.stringify(formValue), 
@@ -47,7 +52,9 @@ const LoginForm = () => {
       setLoading(false)
       const user = await res.json()
       if(res.status == 200) {
-        loginUser(user)
+        const accessToken = res.headers.AuthToken
+        setRetrievedUser({...retrievedUser, user, accessToken})
+        loginUser(retrievedUser)
         router.push('/home')
       } else {
         Toast.show({

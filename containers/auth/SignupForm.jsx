@@ -23,7 +23,7 @@ const SignupForm = () => {
       const handleSubmit = async () => {
         setLoading(true);
         try {
-          const res = await fetch("http://192.168.130.93:3000/auth/signup", {
+          const res = await fetch("http://192.168.62.93:3000/auth/signup", {
             method: "POST", 
             headers: { "Content-Type": "application/json" }, 
             body: JSON.stringify(formValue), 

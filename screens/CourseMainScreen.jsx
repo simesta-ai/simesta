@@ -13,6 +13,8 @@ import {
 import { Skeleton } from "moti/skeleton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { activeCourseActions } from "../redux/slices/activeCourseSlice";
 import { router, useNavigation, usePathname } from "expo-router";
 import { TabBarContext } from "../context/TabBarContext";
 import CustomTabBar from "../components/CustomTabBar";
@@ -28,6 +30,9 @@ import { courseDetails } from "../constants/courses";
 import styles from "../styles/screens/mainCourse.style";
 
 const CourseMainScreen = ({ courseId }) => {
+  const activeCourse = useSelector((state) => state.course);
+
+  const dispatch = useDispatch();
   const [loadingDetails, setLoadingDetails] = useState(true);
   const [courseDetails, setCourseDetails] = useState({
     title: "",
@@ -41,24 +46,37 @@ const CourseMainScreen = ({ courseId }) => {
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   const getCourseDetails = async () => {
-    const res = await fetch(
-      `http://192.168.130.93:3000/users/course/${courseId}`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    const data = await res.json();
-    if (res.status == 200) {
+    if (activeCourse.id) {
       setCourseDetails({
         ...courseDetails,
-        title: data.course.title,
-        description: data.course.description,
-        topics: data.topics,
-        image: data.course.image,
-        progress: data.course.progress
+        title: activeCourse.title,
+        description: activeCourse.description,
+        topics: activeCourse.topics,
+        image: activeCourse.image,
+        progress: activeCourse.progress,
       });
-      setLoadingDetails(prev => !prev)
+      setLoadingDetails((prev) => !prev);
+    } else {
+      const res = await fetch(
+        `http://192.168.62.93:3000/users/course/${courseId}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const data = await res.json();
+      if (res.status == 200) {
+        setCourseDetails({
+          ...courseDetails,
+          title: data.course.title,
+          description: data.course.description,
+          topics: data.topics,
+          image: data.course.image,
+          progress: data.course.progress,
+        });
+        dispatch(activeCourseActions.setActiveCourseData(courseDetails));
+        setLoadingDetails((prev) => !prev);
+      }
     }
   };
   useEffect(() => {
@@ -84,7 +102,6 @@ const CourseMainScreen = ({ courseId }) => {
   };
 
   const handleCustomBackPress = () => {
-    // Perform any actions before navigation (e.g., confirmation dialog)
     router.navigate("/home");
   };
 
@@ -138,35 +155,35 @@ const CourseMainScreen = ({ courseId }) => {
                 </View>
               </View>
               <Skeleton
-                    width={350}
-                    height={50}
-                    radius={5}
-                    colorMode="light"
-                  ></Skeleton>
+                width={350}
+                height={50}
+                radius={5}
+                colorMode="light"
+              ></Skeleton>
               <Skeleton
-                    width={350}
-                    height={200}
-                    radius={5}
-                    colorMode="light"
-                  ></Skeleton>
+                width={350}
+                height={200}
+                radius={5}
+                colorMode="light"
+              ></Skeleton>
               <Skeleton
-                    width={350}
-                    height={50}
-                    radius={5}
-                    colorMode="light"
-                  ></Skeleton>
+                width={350}
+                height={50}
+                radius={5}
+                colorMode="light"
+              ></Skeleton>
               <Skeleton
-                    width={350}
-                    height={50}
-                    radius={5}
-                    colorMode="light"
-                  ></Skeleton>
+                width={350}
+                height={50}
+                radius={5}
+                colorMode="light"
+              ></Skeleton>
               <Skeleton
-                    width={350}
-                    height={50}
-                    radius={5}
-                    colorMode="light"
-                  ></Skeleton>
+                width={350}
+                height={50}
+                radius={5}
+                colorMode="light"
+              ></Skeleton>
             </View>
           ) : (
             <View style={styles.container}>

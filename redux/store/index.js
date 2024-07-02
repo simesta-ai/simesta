@@ -10,10 +10,11 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import { applyMiddleware, combineReducers, getDefaultMiddleware } from "redux";
-import thunk from "redux-thunk";
+import { combineReducers } from "redux";
 import userReducer from "../slices/userSlice";
-import authReducer from "../slices/authSlice"
+import authReducer from "../slices/authSlice";
+import activeCourseReducer from "../slices/activeCourseSlice";
+import coursesReducer from "../slices/coursesSlice"
 
 const persistConfig = {
   key: "root",
@@ -23,14 +24,15 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, userReducer);
 const rootReducer = combineReducers({
   user: persistedReducer,
-  auth: authReducer
+  auth: authReducer,
+  course: activeCourseReducer,
+  allcourses: coursesReducer
 });
 
 
 
 export const store = configureStore({
   reducer: rootReducer,
-  // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

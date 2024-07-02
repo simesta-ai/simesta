@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
@@ -25,18 +26,15 @@ const login = () => {
   const route = useRoute();
 
   const [hasName, setHasName] = useState(false);
-
+  const user = useSelector(state => state.user)
   useEffect(() => {
     const checkForName = async () => {
       try {
-        await AsyncStorage.clear()
-        const name = await AsyncStorage.getItem("name");
-        setHasName(!!name); 
+        setHasName(!!user.name); 
       } catch (error) {
         console.error("Error retrieving name:", error);
       }
     };
-
     checkForName();
   }, []);
 

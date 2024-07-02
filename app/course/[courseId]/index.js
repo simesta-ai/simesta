@@ -3,6 +3,6 @@ import { useLocalSearchParams } from "expo-router"
 
 const CourseMain = () => {
     const params = useLocalSearchParams();
-    return <CourseMainScreen courseId={params.id} />;
+    return <CourseMainScreen courseId={params.courseId} />;
   };
   export default CourseMain;

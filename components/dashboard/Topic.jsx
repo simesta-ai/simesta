@@ -6,13 +6,17 @@ import styles from '../../styles/containers/courseOverview.style'
 import { COLORS, SIZES } from '../../constants'
 import { router } from 'expo-router'
 import { MaterialIcons } from '@expo/vector-icons';
+import { useDispatch, useSelector } from 'react-redux'
+import { activeCourseActions } from '../../redux/slices/activeCourseSlice'
 
 const Topic = ({ topic }) => {
-
+    const activeCourseId = useSelector(state => state.course.id)
+    const dispatch = useDispatch()
     const topicTitle = topic.title.length > 30 ? topic.title.slice(0, 29) + "..." : topic.title
 
     const goToTopic =() => {
-        router.navigate(`/course/topic/${topic.id}`)
+        dispatch(activeCourseActions.setActiveTopic(topic.id))
+        router.navigate(`/course/${activeCourseId}/topic/${topic.id}`)
     }
 
     if(!topic.completed && !topic.inProgress){

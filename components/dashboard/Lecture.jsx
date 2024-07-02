@@ -4,13 +4,18 @@ import React from 'react'
 import RoundCheck from './RoundCheck'
 import styles from '../../styles/screens/lectures.style'
 import useTimeFormatter from '../../hooks/useTimeFormatter'
+import { useDispatch, useSelector } from 'react-redux'
+import { activeCourseActions } from '../../redux/slices/activeCourseSlice'
 
 import { router } from 'expo-router'
 
 const Lecture = ({ lecture }) => {
-
+    const activeCourseId = useSelector(state => state.course.activeCourseId)
+    const activeTopicId = useSelector(state => state.course.activeTopicId)
+    const dispatch = useDispatch()
     const goToLecture = () => {
-        router.navigate('/course/1/lectures/1')
+      dispatch(activeCourseActions.setActiveLecture(lecture.id))
+        router.navigate(`course/${activeCourseId}/topic/${activeTopicId}/lectures/${lecture.id}`)
     }
   return (
     <TouchableOpacity style={styles.lectureContainer} onPress={goToLecture}>

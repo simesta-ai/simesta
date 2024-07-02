@@ -5,6 +5,7 @@ const userSlice = createSlice({
     initialState: {
         id: "",
         name : "",
+        accessToken: ""
     },
     reducers: {
         register(state, action){

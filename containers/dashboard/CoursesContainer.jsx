@@ -1,6 +1,7 @@
 import { Text, View, FlatList, Pressable } from "react-native";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import CourseCard from "../../components/CourseCard";
 import RecommendedCourseCard from "../../components/dashboard/RecommendedCourseCard";
 import Button from "../../components/Button";
@@ -8,8 +9,10 @@ import { Skeleton } from "moti/skeleton";
 
 import styles from "../../styles/containers/courses.style";
 import { COLORS, SIZES, courses } from "../../constants";
+import { coursesActions } from "../../redux/slices/coursesSlice";
 
 const CoursesContainer = () => {
+  const dispatch = useDispatch()
   const user = useSelector(state => state.user)
   const [ courses, setCourses ] = useState([])
   const [startedCourses, setStartedCourses] = useState(false);
@@ -17,13 +20,14 @@ const CoursesContainer = () => {
   const [loadingRecommended, setLoadingRecommended] = useState(false);
 
   const getUserCourses = async () => {
-    const res = await fetch(`http://192.168.130.93:3000/users/${user.id}/courses`, {
+    const res = await fetch(`http://192.168.62.93:3000/users/${user.id}/courses`, {
         method: "GET", 
         headers: { "Content-Type": "application/json" }
       });
       const data = await res.json()
       if(res.status == 200) {
         setCourses(data.courses)
+        dispatch(coursesActions.setAvailableCourses(data.courses))
         setLoadingCourses(prev => !prev)
         if(data?.courses.length > 0) {
           setStartedCourses(prev => !prev)
