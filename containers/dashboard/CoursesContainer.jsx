@@ -8,19 +8,24 @@ import Button from "../../components/Button";
 import { Skeleton } from "moti/skeleton";
 
 import styles from "../../styles/containers/courses.style";
-import { COLORS, SIZES, courses } from "../../constants";
+import { COLORS, SIZES } from "../../constants";
 import { coursesActions } from "../../redux/slices/coursesSlice";
 
 const CoursesContainer = () => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
+  const cachedCourses = useSelector(state => state.allcourses)
   const [ courses, setCourses ] = useState([])
   const [startedCourses, setStartedCourses] = useState(false);
   const [loadingCourses, setLoadingCourses] = useState(true);
   const [loadingRecommended, setLoadingRecommended] = useState(false);
 
   const getUserCourses = async () => {
-    const res = await fetch(`http://192.168.62.93:3000/users/${user.id}/courses`, {
+    if(cachedCourses.length > 0){
+      setCourses(cachedCourses)
+      setLoadingCourses(prev => !prev)
+    } else {
+      const res = await fetch(`http://192.168.146.93:3000/users/${user.id}/courses`, {
         method: "GET", 
         headers: { "Content-Type": "application/json" }
       });
@@ -39,6 +44,8 @@ const CoursesContainer = () => {
           text2: json.message
         });
       }
+    }
+   
   }
 
   useEffect(() => {
@@ -63,6 +70,7 @@ const CoursesContainer = () => {
             </Pressable>
           </View>
           <FlatList
+            style={styles.coursesList}
             data={courses}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (

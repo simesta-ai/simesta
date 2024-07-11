@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     activeBar: (value) => ({
-        width: value.toString() + "%",
+        width: `${value}%`,
         height: 7,
         backgroundColor: COLORS.progress,
         borderRadius: 10

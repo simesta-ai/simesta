@@ -5,7 +5,8 @@ import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
 const styles = StyleSheet.create({
   container: (display) =>  ({
     display: display ? 'flex' : 'none',
-    height: 90,
+    height: 70,
+    justifyContent: "center",
     position: 'absolute',
     backgroundColor: COLORS.light,
     borderTopStartRadius: 30,
@@ -17,8 +18,8 @@ const styles = StyleSheet.create({
     shadowColor: COLORS.dark,
   }),
   addCourseButton: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     borderRadius: 50,
     borderColor: COLORS.dark,
     borderWidth: 1,
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
   tabBarIconContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 5,
+    gap: 3,
   },
   tabTag: (color) => ({
     fontFamily: FONT.mediumPoppins,
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     container: {
       display: 'flex',
       flexDirection: 'row',
-      height: 90,
+      height: 70,
       paddingLeft: 25,
       paddingRight: 25,
       width: "100%",

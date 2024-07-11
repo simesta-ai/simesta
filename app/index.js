@@ -5,21 +5,7 @@ import { useSelector } from "react-redux";
 
 const Home = () => {
   const user = useSelector(state => state.user.id)
-  // useEffect(()=> {
-  //   const fetchUser = async () => {
-  //     await AsyncStorage.clear();
-  //     const data = await AsyncStorage.getItem('name')
-  //     if(data){
-  //       return null
-  //     } else {
-  //       return null;
-  //     }
-  //   }
-
-  //   user = fetchUser()
-  //   }, [])
-
-
+  
   if(!user) {
     return <Redirect href={'/auth/login'} />
   }

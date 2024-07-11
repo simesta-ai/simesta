@@ -18,7 +18,7 @@ import RoundAccentButton from "../components/RoundAccentButton";
 import Topics from "../components/create-course/Topics";
 
 import styles from '../styles/screens/addCourse.style'
-import { icons, COLORS, SIZES, courses } from "../constants";
+import { icons, COLORS, SIZES } from "../constants";
 
 
 import BackButtonContainer from "../containers/BackButtonContainer";

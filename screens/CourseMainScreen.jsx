@@ -25,7 +25,6 @@ import Notes from "../containers/course/Notes";
 import Quiz from "../containers/course/Quiz";
 
 import { icons, COLORS, SIZES, images } from "../constants";
-import { courseDetails } from "../constants/courses";
 
 import styles from "../styles/screens/mainCourse.style";
 
@@ -46,7 +45,7 @@ const CourseMainScreen = ({ courseId }) => {
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   const getCourseDetails = async () => {
-    if (activeCourse.id) {
+    if (activeCourse.topics.length > 0) {
       setCourseDetails({
         ...courseDetails,
         title: activeCourse.title,
@@ -58,13 +57,14 @@ const CourseMainScreen = ({ courseId }) => {
       setLoadingDetails((prev) => !prev);
     } else {
       const res = await fetch(
-        `http://192.168.62.93:3000/users/course/${courseId}`,
+        `http://192.168.146.93:3000/users/course/${courseId}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         }
       );
       const data = await res.json();
+
       if (res.status == 200) {
         setCourseDetails({
           ...courseDetails,
@@ -203,7 +203,7 @@ const CourseMainScreen = ({ courseId }) => {
                   {/* Progress Bar */}
                   <View style={styles.barContainer}>
                     <View style={styles.emptyBar}>
-                      <View style={styles.activeBar(courseDetails.completed)} />
+                      <View style={styles.activeBar(courseDetails.progress)} />
                     </View>
                   </View>
                   <Text style={styles.completedText}>

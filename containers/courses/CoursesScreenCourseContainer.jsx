@@ -21,7 +21,7 @@ const CoursesScreenCourseContainer = () => {
 
   const getUserCourses = async () => {
     const res = await fetch(
-      `http://192.168.62.93:3000/users/${user.id}/courses`,
+      `http://192.168.146.93:3000/users/${user.id}/courses`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },

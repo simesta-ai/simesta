@@ -12,7 +12,7 @@ import {
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { usePathname } from "expo-router";
 import { TabBarContext } from "../context/TabBarContext";
 import CustomTabBar from "../components/CustomTabBar";
@@ -22,10 +22,11 @@ import Lecture from "../components/dashboard/Lecture";
 import { icons, COLORS, SIZES, images } from "../constants";
 import styles from "../styles/screens/lectures.style";
 
-import { courseDetails } from "../constants/courses";
+
 import { activeCourseActions } from "../redux/slices/activeCourseSlice";
 
 const CourseLectures = ({ courseId, topicId }) => {
+  const activeCourseImage = useSelector(state => state.course.image)
   const dispatch = useDispatch()
   const [topic, setTopic] = useState({
     name: "",
@@ -34,7 +35,7 @@ const CourseLectures = ({ courseId, topicId }) => {
 
   const getTopicDetails = async () => {
     const res = await fetch(
-      `http://192.168.62.93:3000/users/course/topic/${topicId}`,
+      `http://192.168.146.93:3000/users/course/topic/${topicId}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -53,7 +54,7 @@ const CourseLectures = ({ courseId, topicId }) => {
 
   useEffect(() => {
     getTopicDetails();
-  
+    console.log(activeCourseImage)
   }, [])
   return (
     <KeyboardAvoidingView
@@ -79,7 +80,7 @@ const CourseLectures = ({ courseId, topicId }) => {
             <View style={styles.courseImageContainer}>
               <Image
                 style={styles.courseImage}
-                source={courseDetails.image}
+                source={activeCourseImage}
                 resizeMode="cover"
               />
             </View>

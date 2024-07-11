@@ -27,7 +27,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "../styles/screens/lectures.style";
 import { COLORS, SIZES } from "../constants";
 
-import { courseDetails } from "../constants/courses";
+
 import { activeCourseActions } from "../redux/slices/activeCourseSlice";
 
 const LectureScreen = ({ courseId, topicId, lectureId }) => {
@@ -47,7 +47,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
   };
 
   const getLecture = async () => {
-    const res = await fetch(`/course/topic/lecture/${lectureId}`, {
+    const res = await fetch(`http://192.168.146.93:3000/course/topic/lecture/${lectureId}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });

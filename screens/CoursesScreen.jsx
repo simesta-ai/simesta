@@ -17,7 +17,7 @@ import CourseCard from "../components/CourseCard";
 
 import styles from "../styles/screens/dashboard.style";
 import courseStyles from "../styles/screens/courseScreen.style";
-import { icons, COLORS, SIZES, courses } from "../constants";
+import { icons, COLORS, SIZES } from "../constants";
 import CoursesScreenCourseContainer from "../containers/courses/CoursesScreenCourseContainer";
 import { StatusBar } from "expo-status-bar";
 

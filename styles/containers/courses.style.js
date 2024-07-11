@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
     },
+    coursesList: {
+        marginTop: 10,
+    },
     seeAllAction: {
         fontFamily: FONT.semiBoldPoppins,
         fontSize: SIZES.normal,
@@ -87,13 +90,12 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
         borderRadius: 7,
         borderColor: COLORS.lightGrey,
-        padding: 20,
+        padding: 12,
         gap: 5,
     }),
     imageContainer: {
-        width: 50,
-        height: 50,
-        borderRadius: 50,
+        height: 100,
+        borderRadius: 5,
         // backgroundColor: COLORS.grey,
         overflow: 'hidden',
         marginBottom: 10
