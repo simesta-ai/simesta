@@ -5,6 +5,7 @@ import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: COLORS.backgroundGrey,
         paddingLeft: SIZES.small,
         paddingRight: SIZES.small,
         paddingTop: SIZES.large,
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     courseImageContainer: {
         width: "100%",
         height: 150,
-        borderRadius: SIZES.large,
+        borderRadius: SIZES.small,
         overflow: "hidden"
     },
     courseImage: {

@@ -26,7 +26,7 @@ import styles from "../styles/screens/lectures.style";
 import { activeCourseActions } from "../redux/slices/activeCourseSlice";
 
 const CourseLectures = ({ courseId, topicId }) => {
-  const activeCourseImage = useSelector(state => state.course.image)
+  const activeCourse = useSelector(state => state.course)
   const dispatch = useDispatch()
   const [topic, setTopic] = useState({
     name: "",
@@ -54,14 +54,13 @@ const CourseLectures = ({ courseId, topicId }) => {
 
   useEffect(() => {
     getTopicDetails();
-    console.log(activeCourseImage)
   }, [])
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
-      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.backgroundGrey }}>
         <View>
           <BackButtonContainer path={`course/${courseId}`} />
           <Text style={styles.headerText}>
@@ -80,7 +79,7 @@ const CourseLectures = ({ courseId, topicId }) => {
             <View style={styles.courseImageContainer}>
               <Image
                 style={styles.courseImage}
-                source={activeCourseImage}
+                source={{uri: activeCourse.image}}
                 resizeMode="cover"
               />
             </View>

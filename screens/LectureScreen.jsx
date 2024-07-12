@@ -52,6 +52,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
+    console.log(data.videos)
     if (res.status == 200) {
       setLecture({
         ...lecture,
@@ -64,6 +65,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
 
   useEffect(() => {
     getLecture()
+    
   }, []);
   return (
     <KeyboardAvoidingView
@@ -71,9 +73,9 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light }}>
-        <View>
+        {/* <View>
           <BackButtonContainer path={`course/${courseId}/topic/${topicId}`} />
-          <Text style={styles.headerText}>
+          <Text style={styles.headerText}> Hi
             {lecture.name.length > 30
               ? lecture.name.slice(0, 29) + "..."
               : lecture.name}
@@ -126,7 +128,8 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
               handlePress={handleShowVideo}
             />
           </View>
-        ) : null}
+        ) : null} */}
+        <Text>Hi</Text>
         <CustomTabBar />
       </SafeAreaView>
     </KeyboardAvoidingView>

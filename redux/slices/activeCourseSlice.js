@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchCourseDetails } from "../../screens/CourseMainScreen";
+import useFetchCourse from "../../hooks/useFetchAsync";
 
 const activeCourseSlice = createSlice({
   name: "activeCourse",
@@ -24,7 +26,10 @@ const activeCourseSlice = createSlice({
     },
     setActiveCourseData(state, action) {
       const dataToUpdate = action.payload;
-      state = { ...state, dataToUpdate };
+      state.description = dataToUpdate.description;
+      state.image = dataToUpdate.image;
+      state.progress = dataToUpdate.progress;
+      state.topics = dataToUpdate.topics;
     },
     setActiveTopic(state, action) {
       const activeTopicId = action.payload;
@@ -42,6 +47,16 @@ const activeCourseSlice = createSlice({
       };
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCourseDetails.fulfilled, (state, action) => {
+      const data = action.payload;
+      state.description = data.course.description;
+      state.image = data.course.image;
+      state.progress = data.course.progress;
+      state.topics = data.topics;
+    });
+  
+  }
 });
 
 export const activeCourseActions = activeCourseSlice.actions;

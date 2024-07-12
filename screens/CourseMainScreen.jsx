@@ -14,6 +14,8 @@ import { Skeleton } from "moti/skeleton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import useFetchCourse from "../hooks/useFetchAsync";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { activeCourseActions } from "../redux/slices/activeCourseSlice";
 import { router, useNavigation, usePathname } from "expo-router";
 import { TabBarContext } from "../context/TabBarContext";
@@ -28,9 +30,12 @@ import { icons, COLORS, SIZES, images } from "../constants";
 
 import styles from "../styles/screens/mainCourse.style";
 
-const CourseMainScreen = ({ courseId }) => {
-  const activeCourse = useSelector((state) => state.course);
+export const fetchCourseDetails = createAsyncThunk(
+  "activeCourse/fetchCourseDetails",
+  useFetchCourse
+);
 
+const CourseMainScreen = ({ courseId }) => {
   const dispatch = useDispatch();
   const [loadingDetails, setLoadingDetails] = useState(true);
   const [courseDetails, setCourseDetails] = useState({
@@ -44,44 +49,25 @@ const CourseMainScreen = ({ courseId }) => {
   const { display, setDisplay } = useContext(TabBarContext);
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
-  const getCourseDetails = async () => {
-    if (activeCourse.topics.length > 0) {
+
+  useEffect(() => {
+    const handleFetchingCourse = async () => {
+      dispatch(fetchCourseDetails(courseId));
+      const fetchedCourseDetails = await useFetchCourse(courseId);
       setCourseDetails({
         ...courseDetails,
-        title: activeCourse.title,
-        description: activeCourse.description,
-        topics: activeCourse.topics,
-        image: activeCourse.image,
-        progress: activeCourse.progress,
+        title: fetchedCourseDetails.course.title,
+        description: fetchedCourseDetails.course.description,
+        topics: fetchedCourseDetails.topics,
+        image: fetchedCourseDetails.course.image,
+        progress: fetchedCourseDetails.course.progress,
       });
       setLoadingDetails((prev) => !prev);
-    } else {
-      const res = await fetch(
-        `http://192.168.146.93:3000/users/course/${courseId}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      const data = await res.json();
+    };
+    handleFetchingCourse();
+  }, [courseId]);
 
-      if (res.status == 200) {
-        setCourseDetails({
-          ...courseDetails,
-          title: data.course.title,
-          description: data.course.description,
-          topics: data.topics,
-          image: data.course.image,
-          progress: data.course.progress,
-        });
-        dispatch(activeCourseActions.setActiveCourseData(courseDetails));
-        setLoadingDetails((prev) => !prev);
-      }
-    }
-  };
-  useEffect(() => {
-    getCourseDetails();
-  }, []);
+  
 
   const displayTabContent = () => {
     switch (activeTab) {
