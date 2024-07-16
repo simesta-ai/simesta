@@ -4,7 +4,7 @@ import React from 'react'
 const ChooseInterests = () => {
   return (
     <View>
-      <Text>ChooseInterests</Text>
+      <Text>Choose</Text>
     </View>
   )
 }
