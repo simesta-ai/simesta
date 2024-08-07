@@ -25,7 +25,7 @@ const CoursesContainer = () => {
       setCourses(cachedCourses)
       setLoadingCourses(prev => !prev)
     } else {
-      const res = await fetch(`http://192.168.146.93:3000/users/${user.id}/courses`, {
+      const res = await fetch(`http://192.168.129.93:3000/users/${user.id}/courses`, {
         method: "GET", 
         headers: { "Content-Type": "application/json" }
       });

@@ -12,15 +12,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         fontFamily: FONT.regularPoppins,
         borderColor: COLORS.lightGrey,
-        backgroundColor: COLORS.light,
-        borderWidth: 0.5,
+        backgroundColor: COLORS.vLightGrey,
+        borderWidth: 0,
+        zIndex: 3,
         gap: 10,
-        borderRadius: 7
+        borderRadius: 50
     },
     searchButton: {
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: COLORS.light,
+        background: "transparent",
         height: 30,
         width: 30
     },

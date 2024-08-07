@@ -9,6 +9,7 @@ const COLORS = {
     darkGrey: '#252A32',
     miniDarkGrey: '#52555A',
     grey: '#DFDFDF',
+    vLightGrey: '#F3F3F3',
     lightGrey: '#AEAEAE',
     semiLight: '#E0E0E0',
     miniLight: '#E9E9E9',
@@ -20,7 +21,7 @@ const COLORS = {
     progress:"#18A180",
     transProgress: "#FFF4FB",
 
-    backgroundGrey: '#FCF9F4'
+    backgroundGrey: '#FFFFFF'
   
   };
   

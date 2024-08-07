@@ -86,16 +86,17 @@ const styles = StyleSheet.create({
         position: "relative",
         width: type === "dashboard" ? 200 : type === "course-page" ? Dimensions.get("window").width - 40 : 150,
         borderColor: COLORS.grey,
-        backgroundColor: COLORS.light,
-        borderWidth: 0.5,
-        borderRadius: 7,
-        borderColor: COLORS.lightGrey,
-        padding: 12,
+        backgroundColor: COLORS.vLightGrey,
+        borderWidth: 1.3,
+        borderRadius: 20,
+        borderColor: COLORS.vLightGrey,
+        padding: 15,
         gap: 5,
+        
     }),
     imageContainer: {
         height: 100,
-        borderRadius: 5,
+        borderRadius: 10,
         // backgroundColor: COLORS.grey,
         overflow: 'hidden',
         marginBottom: 10

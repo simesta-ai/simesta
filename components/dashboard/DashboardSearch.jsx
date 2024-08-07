@@ -23,7 +23,7 @@ const DashboardSearch = ({ placeholder }) => {
       <TextInput
         style={styles.searchField}
         placeholder={placeholder}
-        placeholderTextColor={COLORS.lightGrey}
+        placeholderTextColor={COLORS.miniDarkGrey}
         selectionColor={COLORS.primary}
       />
     </View>

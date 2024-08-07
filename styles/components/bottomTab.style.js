@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 
 import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
+import { FadingTransition } from "react-native-reanimated";
 
 const styles = StyleSheet.create({
   container: (display) =>  ({

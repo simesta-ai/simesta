@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
     },
     notificationAlert: {
         position: 'absolute',
-        top: 2,
-        right: 2,
-        width: 10,
-        height: 10,
+        top: -2,
+        right: -2,
+        width: 7,
+        height: 7,
         borderRadius: 5,
-        backgroundColor: COLORS.danger,
+        backgroundColor: COLORS.primary,
         zIndex: 2
 
     }

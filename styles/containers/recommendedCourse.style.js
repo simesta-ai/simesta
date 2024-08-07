@@ -5,11 +5,11 @@ import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        borderColor: COLORS.lightGrey,
-        backgroundColor: COLORS.light,
-        borderWidth: 0.5,
+        borderColor: COLORS.vLightGrey,
+        backgroundColor: COLORS.vLightGrey,
+        borderWidth: 0,
         padding: 20,
-        borderRadius: 7,
+        borderRadius: 20,
         gap: 10
     },
     courseTitle: {

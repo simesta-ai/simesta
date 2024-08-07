@@ -28,15 +28,15 @@ const courseStyles = StyleSheet.create({
         justifyContent: "center",
         padding: 5,
         gap: 10,
-        paddingTop: 20
+        paddingTop: 30
     },
     continueCourseContainer: {
         padding: 20,
-        borderColor: COLORS.lightGrey,
+        borderColor: COLORS.vLightGrey,
         backgroundColor: COLORS.light,
-        borderRadius: 10,
+        borderRadius: 20,
         marginBottom: 20,
-        borderWidth: 0.5,
+        borderWidth: 1.3,
         gap: 10,
         justifyContent: "center"
     },
