@@ -7,15 +7,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { courseCreationActions } from "../../redux/slices/courseCreationSlice";
 import courseCreationSlice from "../../redux/slices/courseCreationSlice";
 import Button from "../Button";
+import IconTextButton from "../IconTextButton";
 
 import styles from "../../styles/screens/addCourse.style";
 import { COLORS, SIZES } from "../../constants";
 import Toast from "react-native-toast-message";
 
 const FileUploadBox = () => {
-  const dispatch = useDispatch()
-  const files = useSelector(state => state.courseCreationDetails.files);
-  const [selectedFiles, setSelectedFiles] = useState(files);
+  const dispatch = useDispatch();
+  const files = useSelector((state) => state.courseCreationDetails.files);
   const handleUpload = async () => {
     try {
       const documents = await DocumentPicker.getDocumentAsync({
@@ -29,26 +29,26 @@ const FileUploadBox = () => {
         multiple: true,
         copyToCacheDirectory: false,
       });
+      const pickedFiles = [];
       documents.assets.forEach((file) => {
-        if(file.size <= 2097152) {
+        if (file.size <= 20971520) {
           const courseDocument = {
             id: Math.floor(Math.random() * 1000),
             name: file.name,
             uri: file.uri,
             type: file.mimeType.split("/")[1],
-            size: file.size
-          }
-          setSelectedFiles([...selectedFiles, courseDocument])
+            size: file.size,
+          };
+          pickedFiles.push(courseDocument);
         } else {
           Toast.show({
-            type: 'error',
-            text1: 'Max size exceeded',
-            text2: `${file.name.split(0, 20)}... is too large.`
+            type: "error",
+            text1: "Max size exceeded",
+            text2: `${file.name.split(0, 20)}... is too large.`,
           });
         }
       });
-      console.log(selectedFiles)
-      dispatch(courseCreationActions.addFiles(selectedFiles))
+      dispatch(courseCreationActions.addFiles(pickedFiles));
     } catch (error) {
       console.log(error);
     }
@@ -63,11 +63,21 @@ const FileUploadBox = () => {
         </Text>
         <Text style={styles.subText}>Maximum allowed file size is 20MB</Text>
       </View>
-      <Button
-        text="Upload file(s)"
-        type={"upload-file-btn"}
-        onPress={handleUpload}
-      />
+      <View style={styles.uploadButtonContainer}>
+        <Button
+          text="Upload file(s)"
+          type={"upload-file-btn"}
+          onPress={handleUpload}
+        />
+        <IconTextButton
+          icon={
+            <FontAwesome6 name="file-text" size={20} color={COLORS.light} />
+          }
+          text="Snapshot"
+          type={"black-btn-small"}
+          handlePress={handleUpload}
+        />
+      </View>
     </View>
   );
 };

@@ -36,7 +36,6 @@ const NewCourseScreen = () => {
   const { display, setDisplay} = useContext(TabBarContext);
   const courseCreationDetails = useSelector(state => state.courseCreationDetails);
   const dispatch = useDispatch();
-  console.log(courseCreationDetails.files)
 
   useEffect(() => {
     setDisplay(false)

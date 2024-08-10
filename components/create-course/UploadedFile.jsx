@@ -10,34 +10,28 @@ import styles from "../../styles/screens/addCourse.style";
 import { COLORS, SIZES } from "../../constants";
 
 const UploadedFile = ({ file }) => {
-
-  const dispatch = useDispatch()
-  const [fileLogo, setFileLogo] = useState("")
+  const dispatch = useDispatch();
   const removeFile = () => {
-    dispatch(courseCreationActions.removeFile(file.id))
-  }
-  useEffect(() => {
-    switch (file.type) {
-      case "pdf":
-        setFileLogo("pdffile1")
-      case "jpeg":
-        setFileLogo("jpgfile1")
-      case "msword":
-        setFileLogo("wordfile1")
-    
-      default:
-        setFileLogo("file1")
-        break;
-    }
-  }, [file.type])
-  
+    dispatch(courseCreationActions.removeFile(file.id));
+  };
+
   return (
     <View style={styles.fileContainer}>
       <View style={styles.fileName}>
-        <AntDesign name={fileLogo} size={SIZES.medium} color={COLORS.dark} />
-        <Text style={styles.titleText}>
-          {file.name.slice(0, 35) + "..."}
-        </Text>
+        <AntDesign
+          name={
+            file.type == "jpeg"
+              ? "jpgfile1"
+              : file.type == "pdf"
+              ? "pdffile1"
+              : file.type == "msword"
+              ? "wordfile1"
+              : "file1"
+          }
+          size={SIZES.medium}
+          color={COLORS.dark}
+        />
+        <Text style={styles.titleText}>{file.name.slice(0, 35) + "..."}</Text>
       </View>
 
       <Pressable onPress={removeFile} style={styles.deleteFileBtn}>

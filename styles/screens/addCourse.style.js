@@ -162,6 +162,12 @@ const styles = StyleSheet.create({
     toastMessage: {
         zIndex: 30,
         backgroundColor: COLORS.light
+    },
+    uploadButtonContainer: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 20
     }
     
     
