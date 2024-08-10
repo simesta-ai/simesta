@@ -14,7 +14,8 @@ import { combineReducers } from "redux";
 import userReducer from "../slices/userSlice";
 import authReducer from "../slices/authSlice";
 import activeCourseReducer from "../slices/activeCourseSlice";
-import coursesReducer from "../slices/coursesSlice"
+import coursesReducer from "../slices/coursesSlice";
+import courseCreationReducer from "../slices/courseCreationSlice"
 
 const persistConfig = {
   key: "root",
@@ -26,7 +27,8 @@ const rootReducer = combineReducers({
   user: persistedReducer,
   auth: authReducer,
   course: activeCourseReducer,
-  allcourses: coursesReducer
+  allcourses: coursesReducer,
+  courseCreationDetails: courseCreationReducer
 });
 
 

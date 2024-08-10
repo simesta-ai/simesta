@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -18,14 +19,18 @@ import BackButtonContainer from "../../containers/BackButtonContainer";
 import TextInputField from "../../components/auth/TextInputField";
 import Button from "../../components/Button";
 
-const AddCourseTitle = () => {
+import { courseCreationActions } from "../../redux/slices/courseCreationSlice";
 
-  const [ title, setTitle ] = useState('')
+const AddCourseTitle = () => {
+  const courseCreationTitle = useSelector(state => state.courseCreationDetails.title)
+  const [ title, setTitle ] = useState(courseCreationTitle)
+  const dispatch = useDispatch()
   const handleCancel = () => {
     router.navigate('/home')
 }
 const handleSave = (title) => () => {
-  // send data to server and navigate back
+  // save data to cache and navigate back
+  dispatch(courseCreationActions.saveTitle(title));
   router.navigate('/create-course')
 }
 

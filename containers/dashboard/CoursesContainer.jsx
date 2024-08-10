@@ -25,7 +25,7 @@ const CoursesContainer = () => {
       setCourses(cachedCourses)
       setLoadingCourses(prev => !prev)
     } else {
-      const res = await fetch(`http://192.168.129.93:3000/users/${user.id}/courses`, {
+      const res = await fetch(`http://192.168.132.93:3000/users/${user.id}/courses`, {
         method: "GET", 
         headers: { "Content-Type": "application/json" }
       });
@@ -65,9 +65,9 @@ const CoursesContainer = () => {
         <View>
           <View style={styles.courseCategoryHeader}>
             <Text style={styles.greeting}>In Progress</Text>
-            <Pressable>
+            {/* <Pressable>
               <Text style={styles.seeAllAction}>See All</Text>
-            </Pressable>
+            </Pressable> */}
           </View>
           <FlatList
             style={styles.coursesList}
@@ -98,9 +98,9 @@ const CoursesContainer = () => {
 
       <View style={styles.courseCategoryHeader}>
         <Text style={styles.greeting}>Recommended</Text>
-        <Pressable>
+        {/* <Pressable>
           <Text style={styles.seeAllAction}>See All</Text>
-        </Pressable>
+        </Pressable> */}
       </View>
       <View style={styles.recSkeleton}>
       <Skeleton colorMode="light" width={380} height={50} >

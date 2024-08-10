@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
         position: "relative",
         width: type === "dashboard" ? 200 : type === "course-page" ? Dimensions.get("window").width - 40 : 150,
         borderColor: COLORS.grey,
-        backgroundColor: COLORS.vLightGrey,
+        backgroundColor: COLORS.light,
         borderWidth: 1.3,
         borderRadius: 20,
         borderColor: COLORS.vLightGrey,

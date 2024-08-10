@@ -9,8 +9,10 @@ import {
     TouchableOpacity,
   } from "react-native";
   import { useEffect, useState } from "react";
+  import { useDispatch, useSelector } from "react-redux";
   import { router } from "expo-router";
   import { SafeAreaView } from "react-native-safe-area-context";
+  import { courseCreationActions } from "../../redux/slices/courseCreationSlice";
   
   import styles from "../../styles/screens/addCourse.style";
   import { COLORS, SIZES } from "../../constants";
@@ -19,6 +21,8 @@ import {
   import Button from "../../components/Button";
 
 const AddTopic = () => {
+    const courseDetails = useSelector(state => state.courseCreationDetails)
+    const dispatch = useDispatch();
 
     const [ formValues, setFormValues ] = useState({
         title: '',
@@ -30,6 +34,7 @@ const AddTopic = () => {
     }
     const handleSave = () => {
       // send data to server and navigate back
+      dispatch(courseCreationActions.addTopic({ id: ++courseDetails.topics.length, ...formValues}))
       router.navigate('/create-course')
     }
   return (
@@ -40,7 +45,7 @@ const AddTopic = () => {
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light }}>
       <View>
       <BackButtonContainer path="/create-course" />
-        <Text style={styles.headerText}>Data Analytics</Text>
+        <Text style={styles.headerText}>{courseDetails.title}</Text>
       </View>
         <ScrollView
           showsVerticalScrollIndicator={false}

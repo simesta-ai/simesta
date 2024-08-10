@@ -46,6 +46,16 @@ const styles = StyleSheet.create({
                     backgroundColor: COLORS.dark,
                     borderRadius: 50,
                 }
+            case "course-delete-btn":
+                return {
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    padding: 10,
+                    backgroundColor: COLORS.danger,
+                    borderRadius: 50,
+                }
             case "course-save-btn":
                 return {
                     flex: 1,
@@ -107,6 +117,16 @@ const styles = StyleSheet.create({
                     alignItems: 'center',
                     textAlign: 'center',
                     
+                }
+            case "upload-file-btn":
+                return {
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    padding: 7,
+                    width: 150,
+                    backgroundColor: COLORS.dark,
+                    borderRadius: 100,
                 }
         }
     },

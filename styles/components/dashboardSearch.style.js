@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         paddingRight: 10,
-        paddingLeft: 10,
+        paddingLeft: 15,
         flexDirection: 'row',
         alignItems: 'center',
         fontFamily: FONT.regularPoppins,
@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
         width: 30
     },
     searchLogo: {
-        height: 35,
-        width: 35
+        height: 120,
+        width: 120
     },
     searchField: {
         fontFamily: FONT.regularPoppins,

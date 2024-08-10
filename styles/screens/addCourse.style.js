@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     },
     formContainer: {
         paddingTop: 10,
-        gap: 10
+        gap: 20
     },
     fieldSection: {
         marginBottom: 20,
@@ -30,13 +30,19 @@ const styles = StyleSheet.create({
     },
     label: {
         fontFamily: FONT.semiBoldPoppins,
-        fontSize: SIZES.normal,
+        fontSize: SIZES.medium,
         color: COLORS.dark,
     },
     subText: {
         fontFamily: FONT.regularPoppins,
         fontSize: SIZES.small,
         color: COLORS.lightGrey,
+    },
+    defaultText: {
+        fontFamily: FONT.regularPoppins,
+        fontSize: SIZES.small,
+        color: COLORS.lightGrey,
+        textAlign: "center"
     },
     buttonContainer:{
         flexDirection: 'row',
@@ -76,18 +82,18 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: "center",
         backgroundColor: COLORS.light,
-        padding: 10,
+        padding: 15,
         borderRadius: 10,
         borderColor: COLORS.grey,
         borderWidth: 1,
     },
     editTopicButton: {
-        backgroundColor: COLORS.dark,
-        height: 40,
-        width: 40,
+        backgroundColor: COLORS.warm,
+        height: 25,
+        width: 25,
         alignItems: "center",
         justifyContent: "center",
-        borderRadius: 10
+        borderRadius: 50
     },
     topicText: {
         fontFamily: FONT.mediumPoppins,
@@ -106,6 +112,56 @@ const styles = StyleSheet.create({
         flex: 1,
         height: 1,
         backgroundColor: COLORS.dark
+    },
+    uploadedFilesContainer: {
+        flexDirection: "column",
+        gap: 10,
+
+    },
+    fileUploadContainer: {
+        gap: 10
+    },
+    fileContainer: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: 12,
+        borderBottomWidth: 1,
+        borderColor: COLORS.vLightGrey
+    },
+    fileName: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        gap: 10
+    },
+    deleteFileBtn: {
+        backgroundColor: COLORS.warm,
+        width: 23,
+        height: 23,
+        borderRadius: 50,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    uploadContainer: {
+        padding: 20,
+        alignItems: "center",
+        borderWidth: 0,
+        borderColor: COLORS.grey,
+        backgroundColor: COLORS.vLightGrey,
+        borderRadius: 10,
+        marginTop: 10,
+        gap: 15,
+        borderStyle: "dashed"
+    },
+    fileUploadInstruction: {
+        alignItems: "center"
+    },
+    toastMessage: {
+        zIndex: 30,
+        backgroundColor: COLORS.light
     }
     
     
@@ -113,3 +169,4 @@ const styles = StyleSheet.create({
     
 })
 export default styles;
+

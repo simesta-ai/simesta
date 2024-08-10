@@ -6,7 +6,7 @@ import styles from "../../styles/auth/auth.style";
 import { images, COLORS, SIZES } from "../../constants";
 import PasswordStrengthIndicator from "./PasswordStrengthIndicator";
 
-const TextInputField = ({ type, secureTextEntry, placeholder, onChange }) => {
+const TextInputField = ({ type, selectionColor, secureTextEntry, placeholder, onChange, defaultValue }) => {
   const [focused, setFocused] = useState(false);
   const [ view, setView ] = useState(false);
   const [ secureText, setSecureText ] = useState( type == "password" ? true : false);
@@ -50,12 +50,13 @@ const TextInputField = ({ type, secureTextEntry, placeholder, onChange }) => {
         style={styles.inputField(focused, type)}
         placeholder={placeholder}
         placeholderTextColor={COLORS.lightGrey}
-        selectionColor={COLORS.primary}
+        selectionColor={selectionColor}
         onFocus={handleFocus}
         onBlur={handleBlur}
         textContentType={type}
         secureTextEntry={secureText}
         onChangeText={(text) => handleInputChange(text)}
+        defaultValue={defaultValue}
       />
         {secureTextEntry ? (
           <Pressable style={styles.viewTextButton} onPress={handleView}>
