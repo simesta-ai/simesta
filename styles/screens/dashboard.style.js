@@ -7,10 +7,10 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingLeft: SIZES.small,
         paddingRight: SIZES.small,
-        paddingTop: SIZES.xxLarge,
+        paddingTop: SIZES.large,
         paddingBottom: 100,
         fontFamily: FONT.regularPoppins,
-        gap: 10
+        gap: 20
     },
     greeting: {
         fontFamily: FONT.semiBoldPoppins,

@@ -46,23 +46,35 @@ const styles = StyleSheet.create({
         textDecorationLine: "underline"
     },
     startLearningContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
         marginTop: 10,
         backgroundColor: COLORS.light,
         borderRadius: 7,
-        borderWidth: 0.5,
+        borderWidth: 0,
         borderColor: COLORS.lightGrey
     },
-    startLearningPromptContainer: {
-        padding: 15,
+    startLearningCtaContainer: {
+        width: "50%",
+        gap: 20,
+        padding: 20
     },
-    startLearningButtonContainer: {
-        padding: 10,
-        borderTopWidth: 0.5,
-        borderColor: COLORS.lightGrey,
-    },
+    // animationContainer: {
+    //     width: 50
+    // },
+    // startLearningPromptContainer: {
+    //     padding: 15,
+    // },
+    // startLearningButtonContainer: {
+    //     padding: 10,
+    //     borderTopWidth: 0,
+    //     borderColor: COLORS.lightGrey,
+    // },
     startLearningText: {
-        fontFamily: FONT.mediumPoppins,
-        fontSize: SIZES.normal,
+        fontFamily: FONT.semiBoldPoppins,
+        textAlign: "center",
+        fontSize: SIZES.regular,
         color: COLORS.dark
     },
     filter: (activeType, item) => ({
@@ -87,9 +99,10 @@ const styles = StyleSheet.create({
         width: type === "dashboard" ? 200 : type === "course-page" ? Dimensions.get("window").width - 40 : 150,
         borderColor: COLORS.grey,
         backgroundColor: COLORS.light,
-        borderWidth: 1.3,
+        borderWidth: 2.0,
+        borderBottomWidth: 7,
         borderRadius: 20,
-        borderColor: COLORS.vLightGrey,
+        borderColor: COLORS.grey,
         padding: 15,
         gap: 5,
         

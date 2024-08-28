@@ -168,7 +168,27 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         gap: 20
-    }
+    },
+    progressContainer: {
+        marginTop: 200,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    emptyBar: {
+        overflow: "hidden",
+        width: "85%",
+        height: 4,
+        backgroundColor: COLORS.grey,
+        borderRadius: 5
+    },
+    activeBar: (value) => ({
+        width: `${value}%`,
+        height: 4,
+        backgroundColor: COLORS.dark,
+        borderRadius: 5
+    }),
     
     
     

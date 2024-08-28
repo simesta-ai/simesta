@@ -54,6 +54,7 @@ const CourseMainScreen = ({ courseId }) => {
     const handleFetchingCourse = async () => {
       dispatch(fetchCourseDetails(courseId));
       const fetchedCourseDetails = await useFetchCourse(courseId);
+      console.log(fetchedCourseDetails)
       setCourseDetails({
         ...courseDetails,
         title: fetchedCourseDetails.course.title,
@@ -172,6 +173,7 @@ const CourseMainScreen = ({ courseId }) => {
               ></Skeleton>
             </View>
           ) : (
+            // <Text>Course</Text>
             <View style={styles.container}>
               {/* Overview container */}
 
@@ -208,7 +210,7 @@ const CourseMainScreen = ({ courseId }) => {
                 tabs={tabs}
               />
 
-              {displayTabContent()}
+              {/* {displayTabContent()} */}
             </View>
           )}
         </ScrollView>

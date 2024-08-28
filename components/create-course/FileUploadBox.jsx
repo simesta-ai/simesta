@@ -1,6 +1,7 @@
-import { Pressable, Text, View } from "react-native";
+import { PermissionsAndroid, Pressable, Text, View } from "react-native";
 import { useState } from "react";
 import * as DocumentPicker from "expo-document-picker";
+import * as ImagePicker from "expo-image-picker"
 import { FontAwesome6 } from "@expo/vector-icons";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,8 +17,12 @@ import Toast from "react-native-toast-message";
 const FileUploadBox = () => {
   const dispatch = useDispatch();
   const files = useSelector((state) => state.courseCreationDetails.files);
+  
   const handleUpload = async () => {
     try {
+
+      
+      
       const documents = await DocumentPicker.getDocumentAsync({
         type: [
           "image/jpeg",
@@ -27,7 +32,7 @@ const FileUploadBox = () => {
           "application/pdf",
         ],
         multiple: true,
-        copyToCacheDirectory: false,
+        copyToCacheDirectory: true,
       });
       const pickedFiles = [];
       documents.assets.forEach((file) => {
@@ -36,6 +41,7 @@ const FileUploadBox = () => {
             id: Math.floor(Math.random() * 1000),
             name: file.name,
             uri: file.uri,
+            mimeType: file.mimeType,
             type: file.mimeType.split("/")[1],
             size: file.size,
           };
@@ -53,6 +59,45 @@ const FileUploadBox = () => {
       console.log(error);
     }
   };
+  const handleSnap = async () => {
+    try {
+      await ImagePicker.requestCameraPermissionsAsync();
+      let snapShot = await ImagePicker.launchCameraAsync({
+        cameraType: ImagePicker.CameraType.back,
+        allowsEditing: true,
+        aspect: [1,1],
+        quality: 1,
+      });
+      if (!snapShot.canceled) {
+        const photoFile = [];
+      snapShot.assets.forEach((file) => {
+        if (file.fileSize <= 20971520) {
+          const courseSnap = {
+            id: Math.floor(Math.random() * 1000),
+            name: `Snapshot_${file.fileName.slice(0, 6)}`,
+            uri: file.uri,
+            mimeType: file.mimeType,
+            type: file.mimeType.split("/")[1],
+            size: file.fileSize,
+          };
+          photoFile.push(courseSnap);
+
+        } else {
+          Toast.show({
+            type: "error",
+            text1: "Max size exceeded",
+            text2: `${file.fileName.split(0, 20)}... is too large.`,
+          });
+        }
+      });
+      dispatch(courseCreationActions.addFiles(photoFile));
+      } else {
+        console.log('cancelled')
+      }
+    } catch (error) {
+      
+    }
+  }
   return (
     <View style={styles.uploadContainer}>
       <Text style={styles.label}>Upload additional course files</Text>
@@ -71,11 +116,11 @@ const FileUploadBox = () => {
         />
         <IconTextButton
           icon={
-            <FontAwesome6 name="file-text" size={20} color={COLORS.light} />
+            <FontAwesome6 name="camera" size={13} color={COLORS.light} />
           }
           text="Snapshot"
           type={"black-btn-small"}
-          handlePress={handleUpload}
+          handlePress={handleSnap}
         />
       </View>
     </View>

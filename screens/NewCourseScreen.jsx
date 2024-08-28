@@ -13,12 +13,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useContext } from "react";
 import { router } from "expo-router";
+import axios from "axios";
 import { TabBarContext } from '../context/TabBarContext'
 import Button from "../components/Button";
 import RoundAccentButton from "../components/RoundAccentButton";
 import Topics from "../components/create-course/Topics";
 import UploadedFile from "../components/create-course/UploadedFile"
 import FileUploadBox from "../components/create-course/FileUploadBox";
+import CourseActionProgressScreen from "./CourseActionProgressScreen";
 
 import styles from '../styles/screens/addCourse.style'
 import { icons, COLORS, SIZES } from "../constants";
@@ -29,13 +31,17 @@ import { courseCreationActions } from "../redux/slices/courseCreationSlice";
 import Toast from "react-native-toast-message";
 
 
-
+const FormData = global.FormData;
 
 const NewCourseScreen = () => {
 
   const { display, setDisplay} = useContext(TabBarContext);
+  const [ creatingCourse, setCreatingCourse ] = useState(false)
+  const [ loading, setLoading ] = useState(false)
   const courseCreationDetails = useSelector(state => state.courseCreationDetails);
+  const userId = useSelector(state => state.user.id)
   const dispatch = useDispatch();
+  
 
   useEffect(() => {
     setDisplay(false)
@@ -52,11 +58,62 @@ const NewCourseScreen = () => {
     dispatch(courseCreationActions.setTopicEditIindex(1))
     router.navigate('/create-course/edit-topic')
   }
-  const handleCreateCourse = () => {
-    router.navigate('/create-course/progress')
+  const handleCreateCourse = async () => {
+    console.log(userId)
+    // console.log(courseCreationDetails)
+    setLoading(prev => !prev)
+    try {
+      const formData = new FormData();
+      const fields = Object.keys(courseCreationDetails)
+      fields.forEach((key, index) => {
+        if(key == "files"){
+          courseCreationDetails[key].forEach((file, index) => {
+            formData.append(`files`, { name: file.name, uri: file.uri, type: file.mimeType})
+          })
+        } else {
+          formData.append(key, courseCreationDetails[key])
+        }
+      })
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        },
+        transformRequest: () => {
+          return formData
+        }
+      }
+      console.log(formData)
+      const res = await axios.post(`http://192.168.90.93:3000/users/create-course/${userId}`, formData, config)
+      // const res = await fetch(
+      //   `http://192.168.90.93:3000/users/create-course/${userId}`,
+        
+      //   {
+      //     method: "POST",
+      //     body: formData,
+      //     headers: { "Content-Type": "multipart/form-data" },
+      //   }
+      // );
+      
+      // const data = await res.json();
+      // if (res.status == 200) {
+      //   console.log(data)
+      // } else {
+      //   console.log("An error occured")
+      // }
+      
+      setLoading(prev => !prev)
+    } catch (error) {
+      console.log(error.message)
+    }
+    // setCreatingCourse(prev => !prev)
+    // router.navigate('/create-course/progress')
   }
   const editTitle = () => {
     router.navigate('/new-course')
+  }
+
+  if(creatingCourse) {
+    return <CourseActionProgressScreen />
   }
   return (
     <KeyboardAvoidingView
@@ -122,7 +179,7 @@ const NewCourseScreen = () => {
           </View>
           </ScrollView> 
           <View style={styles.createCourseButton}>
-          <Button text={'Create course'} type="create-course-btn" onPress={handleCreateCourse} />
+          { !loading ? <Button text={'Create course'} type="create-course-btn" onPress={handleCreateCourse} /> : <Text>Loading...</Text>}
           </View>
       </SafeAreaView>
     </KeyboardAvoidingView>

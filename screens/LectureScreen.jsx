@@ -47,7 +47,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
   };
 
   const getLecture = async () => {
-    const res = await fetch(`http://192.168.132.93:3000/course/topic/lecture/${lectureId}`, {
+    const res = await fetch(`http://192.168.90.93:3000/course/topic/lecture/${lectureId}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });

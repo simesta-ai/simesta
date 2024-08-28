@@ -19,7 +19,7 @@ const signup = () => {
              {/* Logo Image Container */}
         <View style={styles.logoContainer}>
           <Image
-            source={images.colouredLogo}
+            source={images.colouredLogo2D}
             resizeMode="contain"
             style={styles.logoImage}
           />

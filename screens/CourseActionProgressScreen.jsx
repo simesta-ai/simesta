@@ -13,6 +13,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import CircularProgress from "react-native-circular-progress-indicator";
 import Button from "../components/Button";
 import { TabBarContext } from "../context/TabBarContext";
+import CreationHorizonalProgressBar from "../components/create-course/CreationHorizonalProgressBar";
 import LottieView from "lottie-react-native";
 
 import styles from "../styles/screens/courseActionProgress.style";
@@ -21,21 +22,46 @@ import { router, Link } from "expo-router";
 
 const CourseActionProgressScreen = () => {
   const { display, setDisplay } = useContext(TabBarContext);
-  const [ speed, setSpeed ] = useState(1)
+  const [speed, setSpeed] = useState(1);
+  const [creatingCourse, setCreatingCourse] = useState(true);
+  const [progress, setProgress] = useState(0);
 
-  const value = 100;
+  let value = 0;
   const error = false;
   const animationRef = useRef(null);
 
   useEffect(() => {
-    if(value == 100) {
-        setSpeed(1)
-        animationRef.current?.play();
-        setTimeout(() => {
-            setSpeed(0)
-        }, 1700)
+    if (progress < 100) {
+      const progressValue = setInterval(() => {
+        if (progress <= 100) {
+          setProgress((prev) => prev + 1);
+        } else {
+          setProgress(100);
+          clearInterval(progressValue);
+        }
+      }, 200);
     }
-  }, [value]);
+  }, []);
+
+  // useEffect(() => {
+
+  //   if(progress == 100) {
+  //       setSpeed(1)
+  //       animationRef.current?.play();
+  //       setTimeout(() => {
+  //           setSpeed(0)
+  //       }, 1700)
+  //   } else {
+  // const progressValue = setInterval(() => {
+  //   if(progress <= 100){
+  //     setProgress(prev => prev + 1)
+  //   } else {
+  //     setProgress(100)
+  //     clearInterval(progressValue)
+  //   }
+  // }, 200);
+  //   }
+  // }, [progress]);
 
   const goToCourse = () => {
     router.navigate("/course/1");
@@ -52,7 +78,7 @@ const CourseActionProgressScreen = () => {
         >
           <View style={styles.container}>
             <View style={styles.progressContainer}>
-              {value == 100 ? (
+              {!creatingCourse ? (
                 <LottieView
                   autoPlay
                   ref={animationRef}
@@ -62,40 +88,61 @@ const CourseActionProgressScreen = () => {
                     backgroundColor: COLORS.light,
                   }}
                   // Find more Lottie files at https://lottiefiles.com/featured
-                  source={require('../lottie/completion_icon.json')}
+                  source={require("../lottie/completion_icon.json")}
                   speed={speed}
                 />
               ) : (
-                <CircularProgress
-                  value={value}
-                  progressValueStyle={styles.progressValue}
-                  valueSuffix="%"
-                  valueSuffixStyle={styles.progressValue}
-                  radius={100}
-                  activeStrokeWidth={8}
-                  inactiveStrokeWidth={5}
-                  progressValueColor={COLORS.darkGrey}
-                  inActiveStrokeColor={COLORS.grey}
-                  // inActiveStrokeOpacity={1}
-                  activeStrokeColor={COLORS.primary}
+                <LottieView
+                  autoPlay
+                  style={{
+                    width: 400,
+                    height: 400,
+                    backgroundColor: COLORS.light,
+                    position: "absolute",
+                    top: -150,
+                  }}
+                  // Find more Lottie files at https://lottiefiles.com/featured
+                  source={require("../lottie/creating_course.json")}
+                  speed={speed}
                 />
+                // <CircularProgress
+                //   value={progress}
+                //   progressValueStyle={styles.progressValue}
+                //   valueSuffix="%"
+                //   valueSuffixStyle={styles.progressValue}
+                //   radius={100}
+                //   activeStrokeWidth={30}
+                //   inactiveStrokeWidth={5}
+                //   progressValueColor={COLORS.dark}
+                //   inActiveStrokeColor={COLORS.grey}
+                //   // inActiveStrokeOpacity={1}
+                //   activeStrokeColor={COLORS.dark}
+                // />
               )}
             </View>
-
+            {creatingCourse ? (
+              <CreationHorizonalProgressBar value={progress} />
+            ) : null}
             <View>
               <Text style={styles.progressDescription}>
-                { value == 100 ? "Course creation successful" : "Creating course..."}
+                {!creatingCourse
+                  ? "Course creation successful"
+                  : "Creating course, please wait..."}
               </Text>
             </View>
 
             <View>
-              <Link style={styles.linkText} href={"/home"}>
-                Back to dashboard
-              </Link>
+              {!creatingCourse ? (
+                <Link style={styles.linkText} href={"/home"}>
+                  Back to dashboard
+                </Link>
+              ) : (
+                <Text style={styles.subText}>Relax while we create your learning path</Text>
+              )}
             </View>
           </View>
         </ScrollView>
-        {value == 100 ? (
+        {!creatingCourse ? (
           <View style={styles.createCourseButton}>
             {error ? (
               <Button text={"Retry"} type="reload-btn" onPress={goToCourse} />

@@ -4,7 +4,7 @@ import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
 
 const styles = StyleSheet.create({
     container: {
-        padding: 5,
+        padding: 10,
         marginTop: 10,
         backgroundColor: COLORS.light,
         borderRadius: 20,
@@ -23,11 +23,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: 10,
     },
-    milestoneText: {
+    milestoneText: (completed) => ({
         fontFamily: FONT.regularPoppins,
         fontSize: SIZES.regular,
         color: COLORS.dark,
-    },
+        textDecorationLine: completed ? "line-through" : "none",
+    }),
     checkContainer: (completed, type) => ({
         width: 20,
         height: 20,

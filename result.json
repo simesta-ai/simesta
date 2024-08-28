@@ -1,0 +1,227 @@
+{
+  "course": {
+    "description": "Vector Mechanics introduces the fundamental principles of mechanics, including kinematics, Newton's laws of motion, work and energy, impulse and momentum, and rigid body motion. Students will learn to analyze and solve problems involving forces, motion, and energy in various physical systems. The course provides a strong foundation for more advanced topics in engineering and physics.",
+    "id": "66c2fe948a53af92c345c675",
+    "image": "https://res.cloudinary.com/di1uklizr/image/upload/v1724055187/course-images/h2fpz6w8evxi61zoxptf.png",
+    "title": "Vector Mechanics"
+  },
+  "topics": [
+    {
+      "completed": false,
+      "id": "66c2ffbf8a3a332e93f69a74",
+      "inProgress": true,
+      "position": 1,
+      "title": "Mechanics of Rigid Bodies: Basic Concepts"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffbf8a3a332e93f69a76",
+      "inProgress": false,
+      "position": 2,
+      "title": "Torque and Angular Momentum"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffbf8a3a332e93f69a78",
+      "inProgress": false,
+      "position": 3,
+      "title": "Moment of Inertia"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffbf8a3a332e93f69a7a",
+      "inProgress": false,
+      "position": 4,
+      "title": "Parallel-Axis Theorem"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc08a3a332e93f69a7c",
+      "inProgress": false,
+      "position": 5,
+      "title": "Center of Mass"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc08a3a332e93f69a7e",
+      "inProgress": true,
+      "position": 1,
+      "title": "Mechanics of rigid bodies"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc08a3a332e93f69a80",
+      "inProgress": false,
+      "position": 6,
+      "title": "Mechanical Equilibrium"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc08a3a332e93f69a82",
+      "inProgress": false,
+      "position": 2,
+      "title": "Rate of change of angular momentum"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc08a3a332e93f69a84",
+      "inProgress": false,
+      "position": 7,
+      "title": "Circular Motion"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc08a3a332e93f69a86",
+      "inProgress": false,
+      "position": 3,
+      "title": "Total external torque"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc08a3a332e93f69a88",
+      "inProgress": false,
+      "position": 8,
+      "title": "Moment of Inertia of Extended Objects"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc08a3a332e93f69a8a",
+      "inProgress": false,
+      "position": 4,
+      "title": "Moment of a force"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc08a3a332e93f69a8c",
+      "inProgress": false,
+      "position": 9,
+      "title": "Angular Acceleration and Work"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc08a3a332e93f69a8e",
+      "inProgress": false,
+      "position": 5,
+      "title": "Moment of inertia"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc08a3a332e93f69a90",
+      "inProgress": false,
+      "position": 10,
+      "title": "Kinetic Energy of Rotation"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc18a3a332e93f69a92",
+      "inProgress": false,
+      "position": 6,
+      "title": "Angular acceleration"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc18a3a332e93f69a94",
+      "inProgress": false,
+      "position": 11,
+      "title": "Dynamics of Rotation"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc18a3a332e93f69a96",
+      "inProgress": false,
+      "position": 7,
+      "title": "Work required to accelerate a rotating body"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc18a3a332e93f69a98",
+      "inProgress": false,
+      "position": 8,
+      "title": "Kinetic energy of a rotating body"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc18a3a332e93f69a9a",
+      "inProgress": false,
+      "position": 9,
+      "title": "Radius of gyration"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc18a3a332e93f69a9c",
+      "inProgress": false,
+      "position": 10,
+      "title": "Parallel axis theorem"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc18a3a332e93f69a9e",
+      "inProgress": false,
+      "position": 11,
+      "title": "Torque"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc18a3a332e93f69aa0",
+      "inProgress": false,
+      "position": 12,
+      "title": "Center of mass"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc28a3a332e93f69aa2",
+      "inProgress": false,
+      "position": 13,
+      "title": "Mechanical equilibrium"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc28a3a332e93f69aa4",
+      "inProgress": false,
+      "position": 14,
+      "title": "Tangential velocity"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc28a3a332e93f69aa6",
+      "inProgress": false,
+      "position": 15,
+      "title": "Angular speed and linear speed of a point on a rotating object"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc28a3a332e93f69aa8",
+      "inProgress": false,
+      "position": 16,
+      "title": "Radius of a thin cylindrical shell of equal mass"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc28a3a332e93f69aaa",
+      "inProgress": false,
+      "position": 17,
+      "title": "Angular velocity gained by a rotating object"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc28a3a332e93f69aac",
+      "inProgress": false,
+      "position": 18,
+      "title": "Weight of a beam in equilibrium"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc38a3a332e93f69aae",
+      "inProgress": false,
+      "position": 19,
+      "title": "Angular momentum of a rotating particle"
+    },
+    {
+      "completed": false,
+      "id": "66c2ffc38a3a332e93f69ab0",
+      "inProgress": false,
+      "position": 20,
+      "title": "Total angular momentum of a body"
+    }
+  ]
+}
