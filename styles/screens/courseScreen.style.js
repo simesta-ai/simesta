@@ -91,6 +91,12 @@ const courseStyles = StyleSheet.create({
         fontFamily: FONT.semiBoldPoppins,
         fontSize: SIZES.small,
         color: COLORS.dark
+    },
+    addCourseText: {
+        fontFamily: FONT.semiBoldPoppins,
+        fontSize: SIZES.regular,
+        color: COLORS.dark,
+        marginBottom: 15
     }
 
 

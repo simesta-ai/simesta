@@ -16,7 +16,7 @@ import styles from "../../styles/auth/auth.style";
 import { COLORS, SIZES } from "../../constants";
 import { useRouter } from "expo-router";
 import axios from "axios";
-import client from "../../api/client";
+
 
 import { userActions } from "../../redux/slices/userSlice";
 import { authActions } from "../../redux/slices/authSlice";
@@ -30,43 +30,45 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-  const [ retrievedUser, setRetrievedUser ] = useState({
-    id: "",
-    name: "",
-    accessToken: ""
-  })
+  
 
   const loginUser = (user) => {
     dispatch(authActions.login());
-    dispatch(userActions.login(user))
-  }
+    dispatch(userActions.login(user));
+  };
 
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://192.168.90.93:3000/auth/login", {
-        method: "POST", 
-        headers: { "Content-Type": "application/json" }, 
-        body: JSON.stringify(formValue), 
+      const res = await fetch("http://192.168.179.93:3000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formValue),
       });
-      setLoading(false)
-      const user = await res.json()
-      if(res.status == 200) {
-        const accessToken = res.headers.AuthToken
-        setRetrievedUser({...retrievedUser, user, accessToken})
-        loginUser(retrievedUser)
-        router.push('/home')
+      setLoading(false);
+      const user = await res.json();
+      if (res.status == 200) {
+        const authTokenCookie = res.headers.get("set-cookie"); // Get the 'Auth-token' header
+        const cookieParts = authTokenCookie.split(";");
+        const authTokenPart = cookieParts.find((part) =>
+          part.startsWith("Auth-token=")
+        );
+        const authToken = authTokenPart.split("=")[1];
+        loginUser({
+          id: user.data.id,
+          name: user.data.name,
+          accessToken: authToken,
+        });
+        router.push("/home");
       } else {
         Toast.show({
-          type: 'error',
-          text1: 'Unable to log in',
-          text2: user.message
+          type: "error",
+          text1: "Unable to log in",
+          text2: user.message,
         });
       }
-      
-
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
       console.error("Error during login:", error); // Handle network or other errors
     }
   };
@@ -78,7 +80,7 @@ const LoginForm = () => {
         placeholder="Email address"
         type="emailAddress"
         placeholderTextColor={COLORS.lightGrey}
-        selectionColor={COLORS.primary}
+        selectionColor={COLORS.dark}
         secureTextEntry={false}
         onChange={(text) => setFormValue({ ...formValue, email: text })}
       />
@@ -88,7 +90,7 @@ const LoginForm = () => {
         type="password"
         placeholderTextColor={COLORS.lightGrey}
         secureTextEntry={true}
-        selectionColor={COLORS.primary}
+        selectionColor={COLORS.dark}
         onChange={(text) => setFormValue({ ...formValue, password: text })}
       />
       <TouchableOpacity>

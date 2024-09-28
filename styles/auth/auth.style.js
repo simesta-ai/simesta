@@ -53,10 +53,8 @@ const styles = StyleSheet.create({
         height: 50,
         fontFamily: FONT.regularPoppins,
         fontSize: SIZES.regular,
-        backgroundColor: COLORS.light,
+        backgroundColor: COLORS.vLightGrey,
         color: COLORS.miniDarkGrey,
-        borderWidth: focused ? 1 : 1,
-        borderColor: focused ? COLORS.dark : COLORS.grey,
         borderRadius: SIZES.xSmall,
         paddingLeft: SIZES.medium,
         paddingRight: type ===" password"? 50 : SIZES.medium,
@@ -81,7 +79,7 @@ const styles = StyleSheet.create({
     linkText: {
         fontFamily: FONT.mediumPoppins,
         fontSize: SIZES.regular,
-        color: COLORS.primary,
+        color: COLORS.dark,
         textDecorationLine: "underline",
     },
     optionsContainer: {
@@ -95,7 +93,7 @@ const styles = StyleSheet.create({
     },
     lines: {
         height: 1,
-        width: 80,
+        width: "30%",
         backgroundColor: COLORS.lightGrey
     },
     optionText: {

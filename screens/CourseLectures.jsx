@@ -35,7 +35,7 @@ const CourseLectures = ({ courseId, topicId }) => {
 
   const getTopicDetails = async () => {
     const res = await fetch(
-      `http://192.168.90.93:3000/users/course/topic/${topicId}`,
+      `http://192.168.179.93:3000/users/course/topic/${topicId}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },

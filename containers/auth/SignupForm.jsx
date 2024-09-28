@@ -8,76 +8,96 @@ import styles from "../../styles/auth/auth.style";
 import { COLORS, SIZES } from "../../constants";
 import { useRouter } from "expo-router";
 
-
+import { userActions } from "../../redux/slices/userSlice";
+import { authActions } from "../../redux/slices/authSlice";
+import { useDispatch } from "react-redux";
 
 const SignupForm = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [formValue, setFormValue] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
-    const router = useRouter()
-    const [loading, setLoading] = useState(false);
-    const [formValue, setFormValue] = useState({
-        name: "",
-        email: "",
-        password: "",
+  const registerUser = (user) => {
+    dispatch(authActions.signup());
+    dispatch(userActions.register(user));
+  };
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("http://192.168.179.93:3000/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formValue),
       });
-    
-      const handleSubmit = async () => {
-        setLoading(true);
-        try {
-          const res = await fetch("http://192.168.90.93.93:3000/auth/signup", {
-            method: "POST", 
-            headers: { "Content-Type": "application/json" }, 
-            body: JSON.stringify(formValue), 
-          });
-          setLoading(false)
-          const json = await res.json()
-          if(res.status == 200) {
-            await AsyncStorage.setItem("name", json.name)
-            await AsyncStorage.setItem("id", json.id)
-            router.push('/home')
-          } else {
-            Toast.show({
-              type: 'error',
-              text1: 'Unable to sign up',
-              text2: json.message
-            });
-          }
-          
-    
-        } catch (error) {
-          setLoading(false)
-          console.error("Error during login:", error); // Handle network or other errors
-        }
-      };
+      setLoading(false);
+      const userStr = await res.json();
+      if (res.status == 201) {
+        const user = userStr.data;
+        const authTokenCookie = res.headers.get("set-cookie"); // Get the 'Auth-token' header
+        const cookieParts = authTokenCookie.split(";");
+        const authTokenPart = cookieParts.find((part) =>
+          part.startsWith("Auth-token=")
+        );
+        const authToken = authTokenPart.split("=")[1];
+        registerUser({
+          id: user.id,
+          name: user.name,
+          accessToken: authToken,
+        });
+        router.push("/home");
+      } else {
+        Toast.show({
+          type: "error",
+          text1: "Unable to sign up",
+          text2: userStr.message,
+        });
+      }
+      setFormValue({ ...formValue, name: "", email: "", password: "" });
+    } catch (error) {
+      setLoading(false);
+      setFormValue({ ...formValue, name: "", email: "", password: "" });
+      console.error("Error during registration:", error); // Handle network or other errors
+    }
+  };
 
   return (
     <View style={styles.formContainer}>
       <TextInputField
+        defaultValue={formValue.name}
         style={styles.inputField}
         placeholder="Fullname"
         placeholderTextColor={COLORS.lightGrey}
-        selectionColor={COLORS.primary}
+        selectionColor={COLORS.dark}
         secureTextEntry={false}
         onChange={(text) => setFormValue({ ...formValue, name: text })}
       />
       <TextInputField
         style={styles.inputField}
+        defaultValue={formValue.email}
         placeholder="Email address"
         type="emailAddress"
         placeholderTextColor={COLORS.lightGrey}
-        selectionColor={COLORS.primary}
+        selectionColor={COLORS.dark}
         secureTextEntry={false}
         onChange={(text) => setFormValue({ ...formValue, email: text })}
       />
       <TextInputField
         style={styles.inputField}
+        defaultValue={formValue.password}
         placeholder="Choose a password"
         type="password"
         placeholderTextColor={COLORS.lightGrey}
         secureTextEntry={true}
-        selectionColor={COLORS.primary}
+        selectionColor={COLORS.dark}
         onChange={(text) => setFormValue({ ...formValue, password: text })}
       />
-      
+
       <TouchableOpacity>
         <Text style={styles.linkText}>Forgot password?</Text>
       </TouchableOpacity>

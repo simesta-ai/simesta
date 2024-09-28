@@ -56,7 +56,7 @@ const TextInputField = ({ type, selectionColor, secureTextEntry, placeholder, on
         textContentType={type}
         secureTextEntry={secureText}
         onChangeText={(text) => handleInputChange(text)}
-        defaultValue={defaultValue}
+        value={defaultValue}
       />
         {secureTextEntry ? (
           <Pressable style={styles.viewTextButton} onPress={handleView}>
@@ -68,7 +68,7 @@ const TextInputField = ({ type, selectionColor, secureTextEntry, placeholder, on
           </Pressable>
         ) : null}
       </View>
-      {type === "password" && focused  ? <PasswordStrengthIndicator strength={passwordStrength} /> : null}
+      {/* {type === "password" && focused  ? <PasswordStrengthIndicator strength={passwordStrength} /> : null} */}
     </>
   );
 };

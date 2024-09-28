@@ -10,11 +10,11 @@ const onboardDetails = [
         id: 1,
         title: 'A learning companion that [actually gets you.]',
         image: onboard1,
-        description: 'Welcome to Simesta AI, your AI-Powered  learning assistant.'
+        description: 'Welcome to Simesta, your AI-Powered  learning assistant.'
     },
     {
         id: 2,
-        title: 'Create a course on [any topic idea] and start learning today',
+        title: 'Create a course on [any topic idea] and start learning today.',
         image: onboard2,
         description: 'AI-Generated content allows you to learn just about anything you want to.'
     },
@@ -22,7 +22,7 @@ const onboardDetails = [
         id: 3,
         title: '[Add course files] to learn exactly what you want.',
         image: onboard3,
-        description: 'Have additional materials you would like  to use to learn your course? Add them.'
+        description: 'Have additional materials you would like to use to learn your course? Add them.'
     },
     {
         id: 4,

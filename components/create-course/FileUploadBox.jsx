@@ -20,9 +20,6 @@ const FileUploadBox = () => {
   
   const handleUpload = async () => {
     try {
-
-      
-      
       const documents = await DocumentPicker.getDocumentAsync({
         type: [
           "image/jpeg",

@@ -10,12 +10,12 @@ const MileStones = () => {
         {
             id: 1,
             title: "Start your first course",
-            completed: true
+            completed: false
         },
         {
             id: 2,
             title: "Complete your first lesson",
-            completed: true
+            completed: false
         },
         {
             id: 3,

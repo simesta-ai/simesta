@@ -14,7 +14,7 @@ const BackButtonContainer = ({ path }) => {
 
     const handleBack = () => {
         setDisplay(true)
-        router.navigate(path)
+        router.back()
     }
   return (
     <View style={styles.container}>

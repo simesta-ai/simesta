@@ -16,6 +16,21 @@ const styles = StyleSheet.create({
           borderRadius: 100,
           marginTop: type == "form-action-btn" ? 0 : 0,
         };
+      case "submit-answer-btn":
+        return {
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+          padding: 10,
+          backgroundColor: COLORS.light,
+          borderRadius: 10,
+          borderTopWidth: 2,
+          borderBottomWidth: 5,
+          borderRightWidth: 2,
+          borderLeftWidth: 2,
+          borderColor: COLORS.miniDarkGrey
+        }
       case "accent-btn":
         return {
           flex: 1,
@@ -30,11 +45,11 @@ const styles = StyleSheet.create({
       case "social-login-btn":
         return {
           width: "100%",
-          height: 40,
+          height: 50,
           justifyContent: "center",
           alignItems: "center",
           textAlign: "center",
-          borderColor: COLORS.dark,
+          borderColor: COLORS.lightGrey,
         };
       case "course-cancel-btn":
         return {
@@ -102,8 +117,8 @@ const styles = StyleSheet.create({
         };
       case "round-accent-btn":
         return {
-          width: 40,
-          height: 40,
+          width: 50,
+          height: 50,
           justifyContent: "center",
           alignItems: "center",
           textAlign: "center",
@@ -116,6 +131,7 @@ const styles = StyleSheet.create({
           alignItems: "center",
           textAlign: "center",
         };
+      
       case "upload-file-btn":
         return {
           justifyContent: "center",
@@ -131,7 +147,7 @@ const styles = StyleSheet.create({
 
   buttonText: (type) => ({
     fontFamily: FONT.mediumPoppins,
-    color: type === "neutral-btn" ? COLORS.dark : COLORS.light,
+    color: type === "neutral-btn" ? COLORS.dark : type ===  "submit-answer-btn" ? COLORS.dark :COLORS.light,
     fontSize: SIZES.regular,
   }),
   socialButton: {
@@ -143,9 +159,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: COLORS.light,
-    borderRadius: 50,
-    borderColor: COLORS.dark,
+    borderRadius: 10,
+    borderColor: COLORS.miniLight,
     borderWidth: 1,
+    borderBottomWidth: 4
   },
   socialBtnText: {
     fontFamily: FONT.mediumPoppins,
@@ -158,7 +175,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.darkGrey,
     borderRadius: 50,
   },
   IconTextButtonContainer: (type) => {

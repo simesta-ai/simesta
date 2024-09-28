@@ -19,7 +19,7 @@ const COLORS = {
     success: '#5BC137',
     warm: '#F3953E',
     progress:"#18A180",
-    transProgress: "#FFF4FB",
+    transProgress: "#ECFFFB",
 
     backgroundGrey: '#FFFFFF'
   

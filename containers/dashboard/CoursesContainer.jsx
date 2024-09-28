@@ -1,7 +1,8 @@
 import { Text, View, FlatList, Pressable } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { useFocusEffect } from "@react-navigation/native";
 import CourseCard from "../../components/CourseCard";
 import RecommendedCourseCard from "../../components/dashboard/RecommendedCourseCard";
 import Button from "../../components/Button";
@@ -18,22 +19,24 @@ const CoursesContainer = () => {
   const cachedCourses = useSelector((state) => state.allcourses);
   const [courses, setCourses] = useState([]);
   const [startedCourses, setStartedCourses] = useState(false);
-  const [loadingCourses, setLoadingCourses] = useState(true);
+  const [loadingCourses, setLoadingCourses] = useState(false);
   const [loadingRecommended, setLoadingRecommended] = useState(false);
 
   const getUserCourses = async () => {
+    setLoadingCourses(true);
     if (cachedCourses.length > 0) {
       setCourses(cachedCourses);
       setLoadingCourses((prev) => !prev);
     } else {
       const res = await fetch(
-        `http://192.168.90.93:3000/users/${user.id}/courses`,
+        `http://192.168.179.93:3000/courses/users/${user.id}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         }
       );
       const data = await res.json();
+      setLoadingCourses(false)
       if (res.status == 200) {
         setCourses(data.courses);
         dispatch(coursesActions.setAvailableCourses(data.courses));
@@ -48,8 +51,16 @@ const CoursesContainer = () => {
           text2: json.message,
         });
       }
+      setLoadingCourses(prev => !prev)
     }
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      getUserCourses();
+      return () => null
+    }, [])
+  );
 
   useEffect(() => {
     getUserCourses();

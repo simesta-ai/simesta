@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         zIndex: 20,
         position: "absolute",
         top: 10,
-        left: 10,
+        left: 15,
         justifyContent: "space-between",
         gap: 10
     },
@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
     },
     iconContainer: {
         position: "relative",
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         alignItems: "center",
         justifyContent: "center",
         borderColor: COLORS.grey,
@@ -26,9 +26,8 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.light,
     },
     icon: {
-        position: "absolute",
-        top: 12,
-        left: 17,
+        top: 0,
+        left: 3,
     }
     
 })

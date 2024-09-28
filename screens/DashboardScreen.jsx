@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
+import { Redirect } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -43,6 +44,7 @@ const DashboardScreen = () => {
 
   if (name.length == 0) {
     return (
+      // <Redirect href={'/auth/login'} />
       <ActivityIndicator
         size="large"
         color={COLORS.primary}
@@ -72,7 +74,7 @@ const DashboardScreen = () => {
                 </Text>
               </View>
               <Pressable style={styles.notIconContainer}>
-                <View style={styles.notificationAlert} />
+                {/* <View style={styles.notificationAlert} /> */}
                 <Ionicons
                   name="notifications-outline"
                   color={COLORS.dark}

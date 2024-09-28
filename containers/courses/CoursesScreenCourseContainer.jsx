@@ -1,6 +1,8 @@
 import { Text, FlatList, View, Image } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { useSelector } from "react-redux";
+import { useRouter } from "expo-router";
 import CourseCard from "../../components/CourseCard";
 // import { NestableScrollContainer, NestableDraggableFlatList } from 'react-native-draggable-flatlist'
 
@@ -13,6 +15,7 @@ import Button from "../../components/Button";
 import HorizontalProgressBar from "../../components/dashboard/HorizontalProgressBar";
 
 const CoursesScreenCourseContainer = () => {
+  const router = useRouter();
   const user = useSelector((state) => state.user);
   const [courses, setCourses] = useState([]);
   const [ currentCourse, setCurrentCourse ] = useState(null)
@@ -21,7 +24,7 @@ const CoursesScreenCourseContainer = () => {
 
   const getUserCourses = async () => {
     const res = await fetch(
-      `http://192.168.90.93:3000/users/${user.id}/courses`,
+      `http://192.168.179.93:3000/courses/users/${user.id}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -31,9 +34,9 @@ const CoursesScreenCourseContainer = () => {
     if (res.status == 200) {
       setCourses(data.courses);
       setCurrentCourse(data.courses[0])
-      setLoadingCourses((prev) => !prev);
+      setLoadingCourses(false);
       if (courses > 0) {
-        setStartedCourses((prev) => !prev);
+        setStartedCourses(true);
       }
     } else {
       Toast.show({
@@ -43,6 +46,17 @@ const CoursesScreenCourseContainer = () => {
       });
     }
   };
+
+  const handleCreateCourse = () => {
+    router.push("/new-course");
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      getUserCourses();
+      return () => null
+    }, [])
+  );
 
   useEffect(() => {
     getUserCourses();
@@ -64,9 +78,10 @@ const CoursesScreenCourseContainer = () => {
             <Skeleton colorMode="light" width={370} height={150}></Skeleton>
           </View>
         </>
-      ) : startedCourses ? (
+      ) : !startedCourses ? (
         <View>
-          <Text>No courses added yet</Text>
+          <Text style={courseStyles.addCourseText}>No courses added yet</Text>
+          <Button text={"Add course"} type={"form-action-btn"} onPress={handleCreateCourse} />
         </View>
       ) : (
         <View style={courseStyles.courseWrapper}>

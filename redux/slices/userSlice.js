@@ -5,18 +5,22 @@ const userSlice = createSlice({
     initialState: {
         id: "",
         name : "",
-        accessToken: ""
+        accessToken: "",
+        isFirstUser: true
     },
     reducers: {
         register(state, action){
             const user = action.payload
             state.id = user.id;
             state.name= user.name;
+            state.accessToken = user.accessToken;
+            state.isFirstUser = false;
         },
         login(state, action){
             const user = action.payload
             state.id = user.id;
             state.name= user.name;
+            state.accessToken = user.accessToken;
         },
         logout(state){
             state.id = "";

@@ -6,12 +6,13 @@ import * as WebBrowser from 'expo-web-browser'
 
 import { COLORS, SIZES } from '../constants'
 import axios from 'axios'
+import { router } from 'expo-router'
 
 const SocialButton = ({ authProvider, type}) => {
 
   const authWithGoogle = async () => {
-    console.log("auth")
-    let result = await WebBrowser.openAuthSessionAsync('http://192.168.1.177:3000/auth/google');
+    router.push("/learning-method")
+    // let result = await WebBrowser.openAuthSessionAsync('http://192.168.1.177:3000/auth/google');
     // const res = await fetch("http://192.168.1.177:3000/auth/google");
     // const json = await res.json()
     // console.log(json)
