@@ -20,7 +20,7 @@ import styles from "../styles/screens/courseActionProgress.style";
 import { icons, COLORS, SIZES } from "../constants";
 import { router, Link } from "expo-router";
 
-const CourseActionProgressScreen = () => {
+const CourseActionProgressScreen = ({ cC, goToCourse }) => {
   const { display, setDisplay } = useContext(TabBarContext);
   const [speed, setSpeed] = useState(1);
   const [creatingCourse, setCreatingCourse] = useState(true);
@@ -43,14 +43,23 @@ const CourseActionProgressScreen = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if(!cC){
+      setCreatingCourse(false)
+      setTimeout(() => {
+          setSpeed(0)
+      }, 1700)
+    }
+  }, [cC])
+
   // useEffect(() => {
 
   //   if(progress == 100) {
-  //       setSpeed(1)
-  //       animationRef.current?.play();
-  //       setTimeout(() => {
-  //           setSpeed(0)
-  //       }, 1700)
+        // setSpeed(1)
+        // animationRef.current?.play();
+        // setTimeout(() => {
+        //     setSpeed(0)
+        // }, 1700)
   //   } else {
   // const progressValue = setInterval(() => {
   //   if(progress <= 100){
@@ -63,9 +72,7 @@ const CourseActionProgressScreen = () => {
   //   }
   // }, [progress]);
 
-  const goToCourse = () => {
-    router.navigate("/course/1");
-  };
+  
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -99,30 +106,18 @@ const CourseActionProgressScreen = () => {
                     height: 400,
                     backgroundColor: COLORS.light,
                     position: "absolute",
-                    top: -150,
+                    top: -200,
                   }}
                   // Find more Lottie files at https://lottiefiles.com/featured
                   source={require("../lottie/creating_course.json")}
                   speed={speed}
                 />
-                // <CircularProgress
-                //   value={progress}
-                //   progressValueStyle={styles.progressValue}
-                //   valueSuffix="%"
-                //   valueSuffixStyle={styles.progressValue}
-                //   radius={100}
-                //   activeStrokeWidth={30}
-                //   inactiveStrokeWidth={5}
-                //   progressValueColor={COLORS.dark}
-                //   inActiveStrokeColor={COLORS.grey}
-                //   // inActiveStrokeOpacity={1}
-                //   activeStrokeColor={COLORS.dark}
-                // />
+                
               )}
             </View>
-            {creatingCourse ? (
+            {/* {creatingCourse ? (
               <CreationHorizonalProgressBar value={progress} />
-            ) : null}
+            ) : null} */}
             <View>
               <Text style={styles.progressDescription}>
                 {!creatingCourse

@@ -18,50 +18,73 @@ import { TabBarContext } from "../context/TabBarContext";
 import CustomTabBar from "../components/CustomTabBar";
 import BackButtonContainer from "../containers/BackButtonContainer";
 import Lecture from "../components/dashboard/Lecture";
-
+import { Skeleton } from "moti/skeleton";
 import { icons, COLORS, SIZES, images } from "../constants";
 import styles from "../styles/screens/lectures.style";
-
 
 import { activeCourseActions } from "../redux/slices/activeCourseSlice";
 
 const CourseLectures = ({ courseId, topicId }) => {
-  const activeCourse = useSelector(state => state.course)
-  const dispatch = useDispatch()
+  const activeCourse = useSelector((state) => state.course);
+  const dispatch = useDispatch();
   const [topic, setTopic] = useState({
     name: "",
     lectures: [],
   });
+  const [loading, setLoading] = useState(true);
 
   const getTopicDetails = async () => {
     const res = await fetch(
-      `http://192.168.179.93:3000/users/course/topic/${topicId}`,
+      `http://192.168.77.93:3000/courses/topic/${topicId}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       }
     );
     const data = await res.json();
+    console.log(data.message);
+    if (data.message == "Unable to fetch topic content, no lectures exist") {
+      const response = await fetch(
+        `http://192.168.77.93:3000/courses/topic/${topicId}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const newData = await response.json();
+      if (response.status == 200) {
+        setTopic({
+          ...topic,
+          name: newData.topic,
+          lectures: newData.lectures,
+        });
+        dispatch(activeCourseActions.setActiveTopic(newData.topic.id));
+        setLoading(false);
+      }
+    }
     if (res.status == 200) {
       setTopic({
         ...topic,
         name: data.topic,
         lectures: data.lectures,
       });
-      dispatch(activeCourseActions.setActiveTopic(data.topic.id))
+      dispatch(activeCourseActions.setActiveTopic(data.topic.id));
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     getTopicDetails();
-  }, [])
+  }, []);
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.backgroundGrey }}>
-        <View>
+        <View style={{
+          paddingBottom: 20
+        }}>
           <BackButtonContainer path={`course/${courseId}`} />
           <Text style={styles.headerText}>
             {topic.name.length > 30
@@ -73,33 +96,50 @@ const CourseLectures = ({ courseId, topicId }) => {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="always"
         >
-          <View style={styles.container}>
-            {/* Overview container */}
+          {loading ? (
+            <View style={styles.skeletonContainer}>
+              <View style={styles.skeleton}>
+                <Skeleton colorMode="light" width={370} height={100}></Skeleton>
+              </View>
+              <View style={styles.skeleton}>
+                <Skeleton colorMode="light" width={370} height={100}></Skeleton>
+              </View>
+              <View style={styles.skeleton}>
+                <Skeleton colorMode="light" width={370} height={100}></Skeleton>
+              </View>
+              <View style={styles.skeleton}>
+                <Skeleton colorMode="light" width={370} height={100}></Skeleton>
+              </View>
+            </View>
+          ) : (
+            <View style={styles.container}>
+              {/* Overview container */}
 
-            <View style={styles.courseImageContainer}>
-              <Image
-                style={styles.courseImage}
-                source={{uri: activeCourse.image}}
-                resizeMode="cover"
+              <View style={styles.courseImageContainer}>
+                <Image
+                  style={styles.courseImage}
+                  source={{ uri: activeCourse.image }}
+                  resizeMode="cover"
+                />
+              </View>
+
+              <View style={styles.overviewText}>
+                <Text style={styles.overviewHeader}>Overview</Text>
+                <Text style={styles.numberOfLectures}>
+                  {topic.lectures.length} lectures
+                </Text>
+              </View>
+
+              <FlatList
+                data={topic.lectures.sort((a, b) => a.position - b.position)}
+                scrollEnabled={false}
+                renderItem={({ item }) => <Lecture lecture={item} />}
+                showsVerticalScrollIndicator={false}
+                keyExtractor={(item) => item.id}
+                contentContainerStyle={{ rowGap: SIZES.small }}
               />
             </View>
-
-            <View style={styles.overviewText}>
-              <Text style={styles.overviewHeader}>Overview</Text>
-              <Text style={styles.numberOfLectures}>
-                {topic.lectures.length} lectures
-              </Text>
-            </View>
-
-            <FlatList
-              data={topic.lectures}
-              scrollEnabled={false}
-              renderItem={({ item }) => <Lecture lecture={item} />}
-              showsVerticalScrollIndicator={false}
-              keyExtractor={(item) => item.id}
-              contentContainerStyle={{ rowGap: SIZES.small }}
-            />
-          </View>
+          )}
         </ScrollView>
         <CustomTabBar />
       </SafeAreaView>

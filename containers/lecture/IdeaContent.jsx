@@ -13,22 +13,21 @@ const IdeaContent = ({
   setIsOnQuiz,
   scrollRef,
 }) => {
-  //   useEffect(() => {
-  //     console.log(image);
-  //   });
+    
   return (
     <View style={styles.ideaContent}>
       {image ? (
         <View style={styles.imageContainer}>
-          <Image
+          <Text>{image}</Text>
+          {/* <Image
             source={{ uri: image }}
             style={styles.image}
             resizeMode="contain"
-          />
+          /> */}
         </View>
       ) : null}
       <Text style={styles.lectureContentText}>{ideaText}</Text>
-      {mcq ? <Mcq mcq={mcq} setIsOnQuiz={setIsOnQuiz} /> : null}
+      {mcq ? <Mcq mcq={mcq[0]} setIsOnQuiz={setIsOnQuiz} /> : null}
       {oneChoiceQuestion ? (
         <OneChoiceQuestion
           oneChoiceQuestion={oneChoiceQuestion}

@@ -1,14 +1,24 @@
-const useFetchCourse = async (courseId) => {
+
+const useFetchCourse = async (courseId, accessToken) => {
+    
+    
     const res = await fetch(
-      `http://192.168.179.93:3000/users/course/${courseId}`,
+      `http://192.168.77.93:3000/courses/${courseId}`,
       {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: true,
+        credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Cookie": `Auth-token=${accessToken}`,
+          },
       }
     );
+    
     const data = await res.json();
-    return data;
+    if(!data.data){
+      return data.message
+    }
+    return data.data;
   };
 
 export default useFetchCourse

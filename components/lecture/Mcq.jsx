@@ -37,13 +37,14 @@ const Mcq = ({ mcq, setIsOnQuiz }) => {
     }
   };
   useEffect(() => {
+    console.log(mcq)
     setIsOnQuiz(true)
   }, [])
   const handleSubmit = () => {
     if (selectedOption !== null) {
       setSubmitted(true);
       const selectedAnswer = mcq.options[selectedOption];
-      if (selectedAnswer === mcq.answer) {
+      if (selectedAnswer.text == mcq.answers[0].text) {
         setIsCorrect(true);
       }
       setIsOnQuiz(false)
@@ -57,8 +58,8 @@ const Mcq = ({ mcq, setIsOnQuiz }) => {
       {mcq.options.map((option, index) => {
         return (
           <Option
-            key={option}
-            option={option}
+            key={option.text}
+            option={option.text}
             onSelect={handleSelect}
             selectedOption={selectedOption}
             index={index}

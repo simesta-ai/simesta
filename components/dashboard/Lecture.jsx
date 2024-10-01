@@ -15,6 +15,7 @@ const Lecture = ({ lecture }) => {
     const dispatch = useDispatch()
     const goToLecture = () => {
       dispatch(activeCourseActions.setActiveLecture(lecture.id))
+      dispatch(activeCourseActions.setActiveLectureTitle(lecture.title))
         router.navigate(`course/${activeCourseId}/topic/${activeTopicId}/lectures/${lecture.id}`)
     }
   return (

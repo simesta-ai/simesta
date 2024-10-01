@@ -25,6 +25,7 @@ const userSlice = createSlice({
         logout(state){
             state.id = "";
             state.name= "";
+            state.accessToken = "";
         }
     }
 });

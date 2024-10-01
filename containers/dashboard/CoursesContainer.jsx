@@ -2,6 +2,10 @@ import { Text, View, FlatList, Pressable } from "react-native";
 import { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import Toast from "react-native-toast-message";
+import { userActions } from "../../redux/slices/userSlice";
+import { authActions } from "../../redux/slices/authSlice";
+import {useRouter} from 'expo-router'
 import { useFocusEffect } from "@react-navigation/native";
 import CourseCard from "../../components/CourseCard";
 import RecommendedCourseCard from "../../components/dashboard/RecommendedCourseCard";
@@ -15,6 +19,7 @@ import { coursesActions } from "../../redux/slices/coursesSlice";
 
 const CoursesContainer = () => {
   const dispatch = useDispatch();
+  const router = useRouter()
   const user = useSelector((state) => state.user);
   const cachedCourses = useSelector((state) => state.allcourses);
   const [courses, setCourses] = useState([]);
@@ -29,12 +34,19 @@ const CoursesContainer = () => {
       setLoadingCourses((prev) => !prev);
     } else {
       const res = await fetch(
-        `http://192.168.179.93:3000/courses/users/${user.id}`,
+        `http://192.168.77.93:3000/courses/users/${user.id}`,
         {
           method: "GET",
-          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Cookie": `Auth-token=${user.accessToken}`,
+          },
         }
       );
+      
+      
+
       const data = await res.json();
       setLoadingCourses(false)
       if (res.status == 200) {
@@ -42,7 +54,7 @@ const CoursesContainer = () => {
         dispatch(coursesActions.setAvailableCourses(data.courses));
         setLoadingCourses((prev) => !prev);
         if (data?.courses.length > 0) {
-          setStartedCourses((prev) => !prev);
+          setStartedCourses(true);
         }
       } else {
         Toast.show({
@@ -54,6 +66,11 @@ const CoursesContainer = () => {
       setLoadingCourses(prev => !prev)
     }
   };
+
+  const createCourse = () => {
+    router.push('/new-course')
+  }
+
 
   useFocusEffect(
     useCallback(() => {
@@ -90,7 +107,7 @@ const CoursesContainer = () => {
               </Text>
             </View>
             <View style={styles.startLearningButtonContainer}>
-              <Button text={"Start learning"} type={"course-save-btn"} />
+              <Button text={"Start learning"} type={"course-cancel-btn"} onPress={createCourse} />
             </View>
           </View>
         </View>

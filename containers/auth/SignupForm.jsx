@@ -30,7 +30,7 @@ const SignupForm = () => {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://192.168.179.93:3000/auth/register", {
+      const res = await fetch("http://192.168.77.93:3000/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formValue),
@@ -50,7 +50,7 @@ const SignupForm = () => {
           name: user.name,
           accessToken: authToken,
         });
-        router.push("/home");
+        router.push("/learning-method")
       } else {
         Toast.show({
           type: "error",
@@ -69,7 +69,6 @@ const SignupForm = () => {
   return (
     <View style={styles.formContainer}>
       <TextInputField
-        defaultValue={formValue.name}
         style={styles.inputField}
         placeholder="Fullname"
         placeholderTextColor={COLORS.lightGrey}
@@ -79,7 +78,6 @@ const SignupForm = () => {
       />
       <TextInputField
         style={styles.inputField}
-        defaultValue={formValue.email}
         placeholder="Email address"
         type="emailAddress"
         placeholderTextColor={COLORS.lightGrey}
@@ -89,7 +87,6 @@ const SignupForm = () => {
       />
       <TextInputField
         style={styles.inputField}
-        defaultValue={formValue.password}
         placeholder="Choose a password"
         type="password"
         placeholderTextColor={COLORS.lightGrey}

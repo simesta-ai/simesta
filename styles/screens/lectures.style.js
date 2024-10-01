@@ -24,6 +24,20 @@ const styles = StyleSheet.create({
         textAlign:"center",
         paddingTop: 20
     },
+    skeletonContainer: {
+        flexDirection: "column",
+        backgroundColor: COLORS.backgroundGrey,
+        height: 800,
+        padding: 10,
+        alignItems: "center",
+        gap: 20
+    },
+    skeleton: {
+        flexDirection: "row",
+        justifyContent: "center",
+        gap: 20,
+        alignItems: "center"
+    },
     courseImageContainer: {
         width: "100%",
         height: 150,
@@ -116,17 +130,28 @@ const styles = StyleSheet.create({
     hangingButton: {
         padding: 15,
         position: "absolute",
-        width: "100%",
+        right: 0,
         bottom: 100,
         justifyContent: "flex-end",
         flexDirection: "row",
+        zIndex: 20,
         // right: -300
     },
     hangingButtonSnd: {
         padding: 15,
         position: "absolute",
-        width: "100%",
         bottom: 20,
+        zIndex: 20,
+        right: 0,
+        justifyContent: "flex-end",
+        flexDirection: "row",
+    },
+    hangingButtonSpeak: {
+        padding: 15,
+        position: "absolute",
+        bottom: 180,
+        zIndex: 20,
+        right: 0,
         justifyContent: "flex-end",
         flexDirection: "row",
     },
@@ -351,7 +376,29 @@ const styles = StyleSheet.create({
       },
       chatWrapper: {
         paddingBottom: 100
+      },
+      speakingContainer: {
+        position: "absolute",
+        bottom: 0,
+        width: "100%",
+        height: 100,
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 10,
+        borderRadius: 10
+      },
+      bottomView: {
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
+      },
+      speakingText: {
+        color: COLORS.dark,
+        fontFamily: FONT.mediumPoppins,
+        fontSize: SIZES.regular,
       }
+      
     
     
     

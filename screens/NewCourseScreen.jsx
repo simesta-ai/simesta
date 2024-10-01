@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useContext } from "react";
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 import axios from "axios";
 import { TabBarContext } from "../context/TabBarContext";
 import Button from "../components/Button";
@@ -33,9 +33,11 @@ import Toast from "react-native-toast-message";
 const FormData = global.FormData;
 
 const NewCourseScreen = () => {
+  const router = useRouter();
   const { display, setDisplay } = useContext(TabBarContext);
   const [creatingCourse, setCreatingCourse] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [ createdCourseId, setCreatedCourseId ] = useState("")
   const courseCreationDetails = useSelector(
     (state) => state.courseCreationDetails
   );
@@ -55,6 +57,7 @@ const NewCourseScreen = () => {
   };
   const handleCreateCourse = async () => {
     setLoading((prev) => !prev);
+    setCreatingCourse(true);
     try {
       const formData = new FormData();
       const fields = Object.keys(courseCreationDetails);
@@ -86,24 +89,23 @@ const NewCourseScreen = () => {
         },
       };
       const res = await axios.post(
-        `http://192.168.179.93:3000/courses/${userId}/course`,
+        `http://192.168.77.93:3000/courses/${userId}/course`,
         formData,
         config
       );
 
-      // const data = await res.json();
-      console.log(res)
-      // if (res.status == 200) {
-      //   console.log(data)
-      // } else {
-      //   console.log("An error occured")
-      // }
-
-      
+      const data = res.data;
+      if (res.status == 200) {
+        console.log(data);
+        setCreatedCourseId(data.courseId)
+        setCreatingCourse(false);
+      } else {
+        console.log("An error occured");
+      }
     } catch (error) {
       console.log(error.message);
     }
-    setLoading(false);
+
     // setCreatingCourse(prev => !prev)
     // router.navigate('/create-course/progress')
   };
@@ -111,8 +113,12 @@ const NewCourseScreen = () => {
     router.navigate("/new-course");
   };
 
-  if (creatingCourse) {
-    return <CourseActionProgressScreen />;
+  const goToCourse = () => {
+    router.navigate(`course/${createdCourseId}`);
+  };
+
+  if (loading) {
+    return <CourseActionProgressScreen cC={creatingCourse} goToCourse={goToCourse} />;
   }
   return (
     <KeyboardAvoidingView

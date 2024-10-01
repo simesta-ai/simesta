@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Skeleton } from "moti/skeleton";
 import { useState, useEffect, useRef, useMemo, useContext } from "react";
+import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../components/Button";
 import { ChatMessageContext } from "../context/chatMessageContext";
@@ -18,13 +19,15 @@ import ChatInput from "../components/ChatInput";
 import { io } from "socket.io-client";
 import { COLORS, SIZES, images } from "../constants";
 import styles from "../styles/screens/chat.style";
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 
 const LearningMethodChatScreen = () => {
   const { width } = Dimensions.get("window");
+  const router = useRouter()
   const scrollViewRef = useRef(null);
   const { messages, addMessage } = useContext(ChatMessageContext);
-  const socket = useMemo(() => io("http://192.168.179.93:4000"), []);
+  const socket = useMemo(() => io("http://192.168.77.93:3000"), []);
   const [text, setText] = useState("");
   const [voiceNote, setVoiceNote] = useState("");
   const [loadingSimestaChat, setLoadingSimestaChat] = useState(false);
@@ -42,6 +45,10 @@ const LearningMethodChatScreen = () => {
     }
   };
 
+  const goToHome = () => {
+    router.push('/home')
+  }
+
   useEffect(() => {
     scrollViewRef.current.scrollToEnd({ animated: true });
   }, [messages]);
@@ -54,6 +61,7 @@ const LearningMethodChatScreen = () => {
   }, [voiceNote]);
 
   useEffect(() => {
+    socket.emit('start prediction')
     setVoiceNote("");
   }, []);
 
@@ -80,6 +88,9 @@ const LearningMethodChatScreen = () => {
       />
 
       <View style={styles.container}>
+        <Pressable onPress={goToHome} style={styles.cancelBtn}>
+        <AntDesign name="close" size={24} color="black" />
+        </Pressable>
         <Text style={styles.chatHeaderText}>How do you learn?</Text>
         <Text style={styles.chatDescription}>
           This session is AI-powered and would help us understand who you are

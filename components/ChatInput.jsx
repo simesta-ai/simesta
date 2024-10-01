@@ -79,15 +79,22 @@ const ChatInput = ({
       name: "audio",
       type: "audio/mp4",
     });
-    const res = await fetch("http://192.168.179.93:3000/chat/speech-to-text", {
-      method: "POST",
-      body: formData,
-    });
-    const text = await res.json();
-    if (res.status == 200) {
-      setVoiceNote(text.data);
-    } else {
-      console.log("Error");
+    try {
+      const res = await fetch("http://192.168.77.93:3000/chat/speech-to-text", {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      const text = await res.json();
+      if (res.ok && text.data) {
+        setVoiceNote(text.data);
+      } else {
+        console.log("Error", text);
+      }
+    } catch (error) {
+      console.error("Network or server error", error);
     }
 
     setTranscribingAudio(false);
@@ -138,9 +145,7 @@ const ChatInput = ({
         </View>
       </View>
       {micOn ? (
-        <View
-          style={styles.voiceContainer}
-        >
+        <View style={styles.voiceContainer}>
           <MotiView
             from={{ opacity: 0.5, scale: 1 }}
             animate={{ opacity: 1, scale: 2 }}

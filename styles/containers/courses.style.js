@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
         borderColor: COLORS.grey,
         padding: 15,
         gap: 5,
+        marginBottom: 20
         
     }),
     imageContainer: {

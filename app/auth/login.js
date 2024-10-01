@@ -26,7 +26,7 @@ const login = () => {
   const route = useRoute();
 
   const [hasName, setHasName] = useState(false);
-  const user = useSelector(state => state.user)
+  const user = useSelector(state => state.user);
   useEffect(() => {
     const checkForName = async () => {
       try {

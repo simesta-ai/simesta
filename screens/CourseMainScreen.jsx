@@ -14,6 +14,7 @@ import { Skeleton } from "moti/skeleton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from 'expo-router'
 import useFetchCourse from "../hooks/useFetchAsync";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { activeCourseActions } from "../redux/slices/activeCourseSlice";
@@ -37,6 +38,8 @@ export const fetchCourseDetails = createAsyncThunk(
 
 const CourseMainScreen = ({ courseId }) => {
   const dispatch = useDispatch();
+  const router = useRouter()
+  const accessToken = useSelector((state) => state.user.accessToken);
   const [loadingDetails, setLoadingDetails] = useState(true);
   const [courseDetails, setCourseDetails] = useState({
     title: "",
@@ -49,26 +52,32 @@ const CourseMainScreen = ({ courseId }) => {
   const { display, setDisplay } = useContext(TabBarContext);
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
-
   useEffect(() => {
     const handleFetchingCourse = async () => {
       dispatch(fetchCourseDetails(courseId));
-      const fetchedCourseDetails = await useFetchCourse(courseId);
-      console.log(fetchedCourseDetails)
+      const fetchedCourseDetails = await useFetchCourse(courseId, accessToken);
+      if(fetchedCourseDetails == "Unable to authorize user: User not currently logged in.") {
+        router.navigate('auth/login')
+      }
       setCourseDetails({
         ...courseDetails,
-        title: fetchedCourseDetails.course.title,
-        description: fetchedCourseDetails.course.description,
+        title: fetchedCourseDetails.title,
+        description: fetchedCourseDetails.description,
         topics: fetchedCourseDetails.topics,
-        image: fetchedCourseDetails.course.image,
-        progress: fetchedCourseDetails.course.progress,
+        image: fetchedCourseDetails.img,
+        progress: 10,
       });
-      setLoadingDetails((prev) => !prev);
+      dispatch(
+        activeCourseActions.setActiveCourse({
+          id: fetchedCourseDetails.id,
+          title: fetchedCourseDetails.title
+        })
+      );
+      setLoadingDetails(false);
+      
     };
     handleFetchingCourse();
   }, [courseId]);
-
-  
 
   const displayTabContent = () => {
     switch (activeTab) {
@@ -210,7 +219,7 @@ const CourseMainScreen = ({ courseId }) => {
                 tabs={tabs}
               />
 
-              {/* {displayTabContent()} */}
+              {displayTabContent()}
             </View>
           )}
         </ScrollView>

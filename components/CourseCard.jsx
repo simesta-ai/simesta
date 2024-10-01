@@ -31,7 +31,7 @@ const CourseCard = ({ position, course }) => {
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={{ uri: course.image }}
+          source={{ uri: course.img }}
           resizeMode="cover"
         />
       </View>

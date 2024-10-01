@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     progressContainer: {
         justifyContent: "center",
         alignItems: "center",
+        marginBottom: 100
     },
     progressValue:{
         fontFamily: FONT.regularPoppins,

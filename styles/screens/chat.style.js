@@ -12,6 +12,17 @@ const styles = StyleSheet.create({
         paddingTop: SIZES.medium,
         
     },
+    cancelBtn: {
+        position: "absolute",
+        justifyContent: "center",
+        alignItems: "center",
+        top: 10,
+        zIndex: 100,
+        right: 20,
+        padding: 10,
+        borderRadius: 100,
+        backgroundColor: COLORS.vLightGrey
+    },
     chatHeaderText: {
         fontSize: SIZES.xxLarge,
         fontFamily: FONT.mediumPoppins,

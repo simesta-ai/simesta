@@ -39,9 +39,7 @@ const signup = () => {
         </View>
 
         <View style={styles.socialButtonsContainer}>
-          <SocialButton authProvider={"apple"} type="social-login-btn" />
           <SocialButton authProvider={"google"} type="social-login-btn" />
-          <SocialButton authProvider={"facebook"} type="social-login-btn" />
         </View>
 
         <View style={styles.accountTextContainer}>

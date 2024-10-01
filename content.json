@@ -1,0 +1,13 @@
+[
+  {
+    "answers": [[Object]],
+    "createdAt": "2024-10-01T10:29:21.050Z",
+    "explanation": "Objects in Java are defined by their data (attributes) and their behavior (methods).",
+    "id": "3ec20ff9-0a95-4bc3-bdf2-d04bd93482b2",
+    "ideaContentId": "54e3fc6c-77f7-4f70-9e93-edb1880a9476",
+    "options": [[Object], [Object], [Object], [Object]],
+    "question": "What are the two main components of an object in Java?",
+    "updatedAt": "2024-10-01T10:29:21.050Z"
+  }
+]
+  

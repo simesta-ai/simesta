@@ -24,20 +24,29 @@ const CoursesScreenCourseContainer = () => {
 
   const getUserCourses = async () => {
     const res = await fetch(
-      `http://192.168.179.93:3000/courses/users/${user.id}`,
+      `http://192.168.77.93:3000/courses/users/${user.id}`,
       {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Cookie": `Auth-token=${user.accessToken}`,
+          },
       }
     );
     const data = await res.json();
+    console.log(data)
+    if(data.message == "User does not have any course created yet"){
+      setStartedCourses(false)
+      setLoadingCourses(false)
+      return
+    }
     if (res.status == 200) {
       setCourses(data.courses);
       setCurrentCourse(data.courses[0])
       setLoadingCourses(false);
-      if (courses > 0) {
-        setStartedCourses(true);
-      }
+      setStartedCourses(true);
+      
     } else {
       Toast.show({
         type: "error",
@@ -88,12 +97,12 @@ const CoursesScreenCourseContainer = () => {
           {/*Continue from the last course you were learning */}
           <Text style={courseStyles.subHeaders}>Pick up where you left off</Text>
           <View style={courseStyles.continueCourseContainer}>
-            <Image style={courseStyles.continueCourseImage} width={100} height={100} source={{ uri : currentCourse.image}} />
+            <Image style={courseStyles.continueCourseImage} width={100} height={100} source={{ uri : currentCourse.img}} />
             <Text style={courseStyles.continueCourseICompletedTopics}>{currentCourse.topicsCompleted} Topics completed</Text>
             <HorizontalProgressBar value={currentCourse.progress} />
             <Text style={courseStyles.continueCourseTitle}>{currentCourse.title}</Text>
-            <Text style={courseStyles.continueCourseDescription}>{currentCourse.description.split("**")[2].trim().slice(0, 70)}...</Text>
-            <Button text={"Continue"} type={"form-action-btn"} />
+            <Text style={courseStyles.continueCourseDescription}>{currentCourse.description}...</Text>
+            <Button text={"Continue"} type={"course-cancel-btn"} />
           </View>
 
           <Text style={courseStyles.subHeaders}>My courses</Text>

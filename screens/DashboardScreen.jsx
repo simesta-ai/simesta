@@ -70,7 +70,7 @@ const DashboardScreen = () => {
             <View style={styles.notificationWrapper}>
               <View>
                 <Text style={styles.greeting}>
-                  Welcome, {name.split(" ")[0]} !
+                  Welcome, {name.split(" ")[0]}!
                 </Text>
               </View>
               <Pressable style={styles.notIconContainer}>

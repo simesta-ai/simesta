@@ -13,6 +13,7 @@ const activeCourseSlice = createSlice({
     topics: [],
     activeTopicId: "",
     activeLectureId: "",
+    activeLectureTitle: "",
     activeLectureContent: {
       lectureText: "",
       videos: [""],
@@ -39,6 +40,10 @@ const activeCourseSlice = createSlice({
       const activeLectureId = action.payload;
       state.activeLectureId = activeLectureId;
     },
+    setActiveLectureTitle(state, action){
+      const activeLectureTitle = action.payload;
+      state.activeLectureTitle = activeLectureTitle
+    },
     setActiveLectureContent(state, action) {
       const lectureContent = action.payload;
       state.activeLectureContent = {
@@ -50,9 +55,9 @@ const activeCourseSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchCourseDetails.fulfilled, (state, action) => {
       const data = action.payload;
-      state.description = data.course.description;
-      state.image = data.course.image;
-      state.progress = data.course.progress;
+      state.description = data.description;
+      state.image = data.img;
+      state.progress = data.progress;
       state.topics = data.topics;
     });
   
