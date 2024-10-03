@@ -15,8 +15,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from 'expo-router'
-import useFetchCourse from "../hooks/useFetchAsync";
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import useFetchCourse, { fetchCourseDetails } from "../hooks/useFetchAsync";
 import { activeCourseActions } from "../redux/slices/activeCourseSlice";
 import { router, useNavigation, usePathname } from "expo-router";
 import { TabBarContext } from "../context/TabBarContext";
@@ -30,11 +29,6 @@ import Quiz from "../containers/course/Quiz";
 import { icons, COLORS, SIZES, images } from "../constants";
 
 import styles from "../styles/screens/mainCourse.style";
-
-export const fetchCourseDetails = createAsyncThunk(
-  "activeCourse/fetchCourseDetails",
-  useFetchCourse
-);
 
 const CourseMainScreen = ({ courseId }) => {
   const dispatch = useDispatch();

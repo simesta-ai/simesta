@@ -30,6 +30,7 @@ import LectureProgressBar from "../components/dashboard/LectureProgressBar";
 import IdeaContent from "../containers/lecture/IdeaContent";
 import BottomSheet from "../containers/BottomSheet";
 import { Audio } from "expo-av";
+import * as FileSystem from "expo-file-system";
 
 import styles from "../styles/screens/lectures.style";
 import chatStyles from "../styles/screens/chat.style";
@@ -61,6 +62,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
   const [text, setText] = useState("");
   const [voiceNote, setVoiceNote] = useState("");
   const [sound, setSound] = useState();
+  const [currentSoundFile, setCurrentSoundFile] = useState(null);
   const [loadingSimestaChat, setLoadingSimestaChat] = useState(false);
   const [simestaSpeaking, setSimestaSpeaking] = useState(false);
 
@@ -78,26 +80,61 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
     }
   };
 
-  async function playSound() {
+  async function playSound(soundFile) {
     setSimestaSpeaking(true);
-    const { sound } = await Audio.Sound.createAsync(
-      require("../assets/whatstheweatherlike.wav") // Replace with your audio file path
-    );
+    const { sound } = await Audio.Sound.createAsync({ uri: soundFile });
     setSound(sound);
     sound.setOnPlaybackStatusUpdate((status) => {
-      const duration = status.durationMillis
-      if(!duration){
+      const duration = status.durationMillis;
+      if (!duration) {
         setTimeout(() => {
-          setSimestaSpeaking(false)
-        }, 3000)
+          setSimestaSpeaking(false);
+        }, 3000);
       }
       setTimeout(() => {
-        setSimestaSpeaking(false)
-      }, duration)
+        setSimestaSpeaking(false);
+      }, duration);
     });
     await sound.playAsync();
   }
 
+  const getIdeaContentAudio = async (text) => {
+    const fileUrl = "http://192.168.77.93:3000/chat/text-to-speech";
+    const fileUri = FileSystem.documentDirectory + "currentaudio.wav";
+    try {
+      const response = await fetch(fileUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: text,
+        }),
+      });
+      if (response.ok) {
+        const fileData = await response.blob();
+        const reader = new FileReader();
+        reader.onloadend = async () => {
+          const base64Data = reader.result.split(",")[1];
+          await FileSystem.writeAsStringAsync(fileUri, base64Data, {
+            encoding: FileSystem.EncodingType.Base64,
+          });
+          setCurrentSoundFile(fileUri);
+          playSound(fileUri);
+        };
+        reader.readAsDataURL(fileData);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    const currentLectureText = lecture[lecture.length - 1]?.text;
+    if (currentLectureText) {
+      getIdeaContentAudio(currentLectureText);
+    }
+  }, [lecture]);
 
   useEffect(() => {
     scrollViewRef.current?.scrollToEnd({ animated: true });
@@ -176,6 +213,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
         }
       );
       const newData = await newRes.json();
+      console.log(newData)
       setIdeaContent(newData.ideaContent);
       setVideos(newData.videos);
       setLoadingLecture(false);
@@ -249,9 +287,10 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
                   keyExtractor={(item) => item.id}
                   renderItem={({ item }) => (
                     <IdeaContent
+                      key={item.id}
                       ideaText={item.text}
                       image={item.imageDescription}
-                      mcq={item.quizzes}
+                      mcq={item.quiz}
                       oneChoiceQuestion={item.oneChoiceQuestion}
                       setIsOnQuiz={setIsOnQuiz}
                       scrollRef={scrollRef}
@@ -433,7 +472,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
                   />
                 }
                 type="round-accent-btn-big"
-                handlePress={playSound}
+                handlePress={() => playSound(currentSoundFile)}
               />
             </View>
           ) : null}

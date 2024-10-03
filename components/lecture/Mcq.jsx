@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import Button from "../Button";
 
 const Option = ({ option, onSelect, selectedOption, index }) => {
-  const [isSelectedOption, setIsSelectedOption] = useState(true);
+  const [isSelectedOption, setIsSelectedOption] = useState(false);
 
   useEffect(() => {
-    if (selectedOption == index) {
+    if (selectedOption === index) {
       setIsSelectedOption(true);
     } else {
       setIsSelectedOption(false);
@@ -27,7 +27,7 @@ const Option = ({ option, onSelect, selectedOption, index }) => {
 };
 
 const Mcq = ({ mcq, setIsOnQuiz }) => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(-1);
   const [submitted, setSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
 
@@ -37,14 +37,13 @@ const Mcq = ({ mcq, setIsOnQuiz }) => {
     }
   };
   useEffect(() => {
-    console.log(mcq)
     setIsOnQuiz(true)
   }, [])
   const handleSubmit = () => {
     if (selectedOption !== null) {
       setSubmitted(true);
-      const selectedAnswer = mcq.options[selectedOption];
-      if (selectedAnswer.text == mcq.answers[0].text) {
+      const selectedAnswer = mcq.options[selectedOption].text;
+      if (selectedAnswer == mcq.answer.text) {
         setIsCorrect(true);
       }
       setIsOnQuiz(false)
@@ -58,7 +57,7 @@ const Mcq = ({ mcq, setIsOnQuiz }) => {
       {mcq.options.map((option, index) => {
         return (
           <Option
-            key={option.text}
+            key={option.id}
             option={option.text}
             onSelect={handleSelect}
             selectedOption={selectedOption}

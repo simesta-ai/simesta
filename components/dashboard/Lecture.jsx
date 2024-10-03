@@ -28,10 +28,10 @@ const Lecture = ({ lecture }) => {
             <Text style={styles.lectureName}>{lecture.title.length > 25 ? lecture.title.slice(0, 24) + "..." : lecture.title}</Text>
             { lecture.completed ? <RoundCheck completed={true} type="complete-check" /> : null }
         </View>
-        <View style={styles.durationContainer}>
+        {/* <View style={styles.durationContainer}>
             <Text style={styles.durationText}>Duration: </Text>
         <Text style={styles.estimationTimeText}>{useTimeFormatter(lecture.estimatedCompletionTime)}</Text>
-        </View>
+        </View> */}
       </View>
     </TouchableOpacity>
   )

@@ -13,21 +13,52 @@ const IdeaContent = ({
   setIsOnQuiz,
   scrollRef,
 }) => {
-    
+  const [imageUrl, setImageUrl] = useState(null);
+
+  const loadImage = async (text) => {
+    try {
+      const response = await fetch(
+        "http://192.168.77.93:3000/chat/text-to-image",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            text: text,
+          }),
+        }
+      );
+      const imageRes = await response.json();
+      if (response.ok) {
+        console.log(imageRes.data)
+        setImageUrl(imageRes.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if(image){
+      console.log(image)
+      loadImage(image);
+    }
+  }, []);
+
   return (
     <View style={styles.ideaContent}>
-      {image ? (
+      {image && imageUrl ? (
         <View style={styles.imageContainer}>
-          <Text>{image}</Text>
-          {/* <Image
-            source={{ uri: image }}
+          <Image
+            source={{ uri: imageUrl }}
             style={styles.image}
             resizeMode="contain"
-          /> */}
+          />
         </View>
       ) : null}
       <Text style={styles.lectureContentText}>{ideaText}</Text>
-      {mcq ? <Mcq mcq={mcq[0]} setIsOnQuiz={setIsOnQuiz} /> : null}
+      {mcq ? <Mcq mcq={mcq} setIsOnQuiz={setIsOnQuiz} /> : null}
       {oneChoiceQuestion ? (
         <OneChoiceQuestion
           oneChoiceQuestion={oneChoiceQuestion}

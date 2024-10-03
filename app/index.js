@@ -39,6 +39,7 @@ const Home = () => {
   };
 
   useEffect(() => {
+    AsyncStorage.clear();
     const verify = async () => {
       if (!user) {
         setIsVerified(false);

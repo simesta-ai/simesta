@@ -42,7 +42,6 @@ const CourseLectures = ({ courseId, topicId }) => {
       }
     );
     const data = await res.json();
-    console.log(data.message);
     if (data.message == "Unable to fetch topic content, no lectures exist") {
       const response = await fetch(
         `http://192.168.77.93:3000/courses/topic/${topicId}`,
@@ -133,7 +132,7 @@ const CourseLectures = ({ courseId, topicId }) => {
               <FlatList
                 data={topic.lectures.sort((a, b) => a.position - b.position)}
                 scrollEnabled={false}
-                renderItem={({ item }) => <Lecture lecture={item} />}
+                renderItem={({ item }) => <Lecture key={item.id} lecture={item} />}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(item) => item.id}
                 contentContainerStyle={{ rowGap: SIZES.small }}

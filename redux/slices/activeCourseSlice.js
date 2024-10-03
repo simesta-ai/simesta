@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCourseDetails } from "../../screens/CourseMainScreen";
-import useFetchCourse from "../../hooks/useFetchAsync";
+import useFetchCourse, { fetchCourseDetails } from "../../hooks/useFetchAsync";
 
 const activeCourseSlice = createSlice({
   name: "activeCourse",
