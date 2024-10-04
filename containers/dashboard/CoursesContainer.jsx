@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import Toast from "react-native-toast-message";
 import { userActions } from "../../redux/slices/userSlice";
 import { authActions } from "../../redux/slices/authSlice";
-import {useRouter} from 'expo-router'
+import { useRouter } from "expo-router";
 import { useFocusEffect } from "@react-navigation/native";
 import CourseCard from "../../components/CourseCard";
 import RecommendedCourseCard from "../../components/dashboard/RecommendedCourseCard";
@@ -19,7 +19,7 @@ import { coursesActions } from "../../redux/slices/coursesSlice";
 
 const CoursesContainer = () => {
   const dispatch = useDispatch();
-  const router = useRouter()
+  const router = useRouter();
   const user = useSelector((state) => state.user);
   const cachedCourses = useSelector((state) => state.allcourses);
   const [courses, setCourses] = useState([]);
@@ -33,84 +33,96 @@ const CoursesContainer = () => {
       setCourses(cachedCourses);
       setLoadingCourses((prev) => !prev);
     } else {
-      const res = await fetch(
-        `http://192.168.77.93:3000/courses/users/${user.id}`,
-        {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "Cookie": `Auth-token=${user.accessToken}`,
-          },
-        }
-      );
-      
-      
+      try {
+        const res = await fetch(
+          `https://truelearn-production.up.railway.app/courses/users/${user.id}`,
+          {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+              Cookie: `Auth-token=${user.accessToken}`,
+            },
+          }
+        );
 
-      const data = await res.json();
-      setLoadingCourses(false)
-      if (res.status == 200) {
-        setCourses(data.courses);
-        dispatch(coursesActions.setAvailableCourses(data.courses));
-        setLoadingCourses((prev) => !prev);
-        if (data?.courses.length > 0) {
-          setStartedCourses(true);
+        const data = await res.json();
+        if(data.message == "User does not have any course created yet"){
+          setStartedCourses(false)
+          setLoadingCourses(false)
+          return
         }
-      } else {
+        setLoadingCourses(false);
+        if (res.status == 200) {
+          setCourses(data.courses);
+          dispatch(coursesActions.setAvailableCourses(data.courses));
+          setLoadingCourses((prev) => !prev);
+          if (data?.courses.length > 0) {
+            setStartedCourses(true);
+          }
+        } else {
+          Toast.show({
+            type: "error",
+            text1: "Please try again",
+            text2: json.message,
+          });
+        }
+      } catch (error) {
         Toast.show({
           type: "error",
-          text1: "Please try again",
-          text2: json.message,
+          text1: "Error",
+          text2: error.message,
         });
       }
-      setLoadingCourses(prev => !prev)
+      setLoadingCourses((prev) => !prev);
     }
   };
 
   const createCourse = () => {
-    router.push('/new-course')
-  }
-
+    router.push("/new-course");
+  };
 
   useFocusEffect(
     useCallback(() => {
       getUserCourses();
-      return () => null
+      return () => null;
     }, [])
   );
 
   useEffect(() => {
     getUserCourses();
-  }, [])
+  }, []);
   return (
     <View style={styles.container}>
-
-<View style={styles.startLearningContainer}>
-          <View style={styles.animationContainer}>
-            <LottieView
-              autoPlay
-              style={{
-                width: 200,
-                height: 200,
-                backgroundColor: COLORS.light,
-                
-              }}
-              // Find more Lottie files at https://lottiefiles.com/featured
-              source={require("../../lottie/start_learning.json")}
-              speed={1}
+      <View style={styles.startLearningContainer}>
+        <View style={styles.animationContainer}>
+          <LottieView
+            autoPlay
+            style={{
+              width: 200,
+              height: 200,
+              backgroundColor: COLORS.light,
+            }}
+            // Find more Lottie files at https://lottiefiles.com/featured
+            source={require("../../lottie/start_learning.json")}
+            speed={1}
+          />
+        </View>
+        <View style={styles.startLearningCtaContainer}>
+          <View style={styles.startLearningPromptContainer}>
+            <Text style={styles.startLearningText}>
+              Create a course and begin your learning journey.
+            </Text>
+          </View>
+          <View style={styles.startLearningButtonContainer}>
+            <Button
+              text={"Start learning"}
+              type={"course-cancel-btn"}
+              onPress={createCourse}
             />
           </View>
-          <View style={styles.startLearningCtaContainer}>
-            <View style={styles.startLearningPromptContainer}>
-              <Text style={styles.startLearningText}>
-                Create a course and begin your learning journey.
-              </Text>
-            </View>
-            <View style={styles.startLearningButtonContainer}>
-              <Button text={"Start learning"} type={"course-cancel-btn"} onPress={createCourse} />
-            </View>
-          </View>
         </View>
+      </View>
       {/* Course cards */}
       {loadingCourses ? (
         <View style={styles.skeleton}>

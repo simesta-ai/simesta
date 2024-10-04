@@ -37,6 +37,7 @@ const Mcq = ({ mcq, setIsOnQuiz }) => {
     }
   };
   useEffect(() => {
+    console.logg(mcq)
     setIsOnQuiz(true)
   }, [])
   const handleSubmit = () => {

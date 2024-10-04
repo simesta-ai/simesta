@@ -21,6 +21,7 @@ import Button from "../components/Button";
 import RoundAccentButton from "../components/RoundAccentButton";
 import VideoScreen from "./VideoScreen";
 import { FontAwesome6 } from "@expo/vector-icons";
+import Entypo from "@expo/vector-icons/Entypo";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -58,10 +59,10 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
   const [completed, setCompleted] = useState(false);
   const [isOnQuiz, setIsOnQuiz] = useState(false);
   const [showBottomSheet, setShowBottomSheet] = useState(false);
-  const socket = useMemo(() => io("http://192.168.77.93:3000"), []);
+  const socket = useMemo(() => io("https://truelearn-production.up.railway.app"), []);
   const [text, setText] = useState("");
   const [voiceNote, setVoiceNote] = useState("");
-  const [sound, setSound] = useState();
+  const [sound, setSound] = useState(null);
   const [currentSoundFile, setCurrentSoundFile] = useState(null);
   const [loadingSimestaChat, setLoadingSimestaChat] = useState(false);
   const [simestaSpeaking, setSimestaSpeaking] = useState(false);
@@ -98,8 +99,19 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
     await sound.playAsync();
   }
 
+  const handlePlaySound = () => {
+    if(simestaSpeaking){
+      sound.stopAsync();
+      setSimestaSpeaking(false);
+    } else{
+      setSimestaSpeaking(true);
+      playSound(currentSoundFile);
+    }
+  };
+
+
   const getIdeaContentAudio = async (text) => {
-    const fileUrl = "http://192.168.77.93:3000/chat/text-to-speech";
+    const fileUrl = "https://truelearn-production.up.railway.app/chat/text-to-speech";
     const fileUri = FileSystem.documentDirectory + "currentaudio.wav";
     try {
       const response = await fetch(fileUrl, {
@@ -193,7 +205,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
 
   const getLecture = async () => {
     const res = await fetch(
-      `http://192.168.77.93:3000/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
+      `https://truelearn-production.up.railway.app/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -206,14 +218,13 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
     ) {
       setLoadingLecture(true);
       const newRes = await fetch(
-        `http://192.168.77.93:3000/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
+        `https://truelearn-production.up.railway.app/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
         }
       );
       const newData = await newRes.json();
-      console.log(newData)
       setIdeaContent(newData.ideaContent);
       setVideos(newData.videos);
       setLoadingLecture(false);
@@ -456,26 +467,25 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
                 }}
                 // Find more Lottie files at https://lottiefiles.com/featured
                 source={require("../lottie/speaking.json")}
-                speed={1}
+                speed={1.5}
               />
               <Text style={styles.speakingText}>Simesta AI is speaking</Text>
             </View>
           ) : null}
-          {!simestaSpeaking ? (
-            <View style={styles.hangingButtonSpeak}>
-              <RoundAccentButton
-                icon={
-                  <Ionicons
-                    name="headset"
-                    size={SIZES.large}
-                    color={COLORS.light}
-                  />
-                }
-                type="round-accent-btn-big"
-                handlePress={() => playSound(currentSoundFile)}
-              />
-            </View>
-          ) : null}
+
+          { sound ? <View style={styles.hangingButtonSpeak}>
+            <RoundAccentButton
+              icon={
+                <Entypo
+                  name={`${simestaSpeaking ? "sound-mute" : "sound"}`}
+                  size={SIZES.large}
+                  color={COLORS.light}
+                />
+              }
+              type="round-accent-btn-big"
+              handlePress={handlePlaySound}
+            /> 
+          </View>: null }
         </SafeAreaView>
       </KeyboardAvoidingView>
     </GestureHandlerRootView>

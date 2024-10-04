@@ -30,7 +30,7 @@ const SignupForm = () => {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://192.168.77.93:3000/auth/register", {
+      const res = await fetch("https://truelearn-production.up.railway.app/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formValue),

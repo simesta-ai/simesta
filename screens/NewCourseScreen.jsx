@@ -89,7 +89,7 @@ const NewCourseScreen = () => {
         },
       };
       const res = await axios.post(
-        `http://192.168.77.93:3000/courses/${userId}/course`,
+        `https://truelearn-production.up.railway.app/courses/${userId}/course`,
         formData,
         config
       );

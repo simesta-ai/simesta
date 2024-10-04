@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Skeleton } from "moti/skeleton";
 import { useState, useEffect, useRef, useMemo, useContext } from "react";
+import { useSelector } from "react-redux";
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../components/Button";
@@ -24,10 +25,11 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 
 const LearningMethodChatScreen = () => {
   const { width } = Dimensions.get("window");
+  const user = useSelector((state) => state.user);
   const router = useRouter()
   const scrollViewRef = useRef(null);
   const { messages, addMessage } = useContext(ChatMessageContext);
-  const socket = useMemo(() => io("http://192.168.77.93:3000"), []);
+  const socket = useMemo(() => io("https://truelearn-production.up.railway.app"), []);
   const [text, setText] = useState("");
   const [voiceNote, setVoiceNote] = useState("");
   const [loadingSimestaChat, setLoadingSimestaChat] = useState(false);
@@ -61,7 +63,7 @@ const LearningMethodChatScreen = () => {
   }, [voiceNote]);
 
   useEffect(() => {
-    socket.emit('start prediction')
+    socket.emit('start prediction', user.name)
     setVoiceNote("");
   }, []);
 

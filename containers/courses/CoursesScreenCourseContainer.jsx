@@ -24,7 +24,7 @@ const CoursesScreenCourseContainer = () => {
 
   const getUserCourses = async () => {
     const res = await fetch(
-      `http://192.168.77.93:3000/courses/users/${user.id}`,
+      `https://truelearn-production.up.railway.app/courses/users/${user.id}`,
       {
         method: "GET",
         credentials: "include",

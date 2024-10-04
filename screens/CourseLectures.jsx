@@ -35,7 +35,7 @@ const CourseLectures = ({ courseId, topicId }) => {
 
   const getTopicDetails = async () => {
     const res = await fetch(
-      `http://192.168.77.93:3000/courses/topic/${topicId}`,
+      `https://truelearn-production.up.railway.app/courses/topic/${topicId}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -44,7 +44,7 @@ const CourseLectures = ({ courseId, topicId }) => {
     const data = await res.json();
     if (data.message == "Unable to fetch topic content, no lectures exist") {
       const response = await fetch(
-        `http://192.168.77.93:3000/courses/topic/${topicId}`,
+        `https://truelearn-production.up.railway.app/courses/topic/${topicId}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

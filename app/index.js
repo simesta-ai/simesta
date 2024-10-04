@@ -14,7 +14,7 @@ const Home = () => {
   const verifyUser = async () => {
     try {
       const res = await fetch(
-        `http://192.168.77.93:3000/users/${user}`,
+        `https://truelearn-production.up.railway.app/users/${user}`,
         {
           method: "GET",
           credentials: "include",

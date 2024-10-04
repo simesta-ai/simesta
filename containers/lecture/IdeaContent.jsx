@@ -18,7 +18,7 @@ const IdeaContent = ({
   const loadImage = async (text) => {
     try {
       const response = await fetch(
-        "http://192.168.77.93:3000/chat/text-to-image",
+        "https://truelearn-production.up.railway.app/chat/text-to-image",
         {
           method: "POST",
           headers: {
