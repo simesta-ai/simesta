@@ -19,12 +19,12 @@ const styles = StyleSheet.create({
     shadowColor: COLORS.dark,
   }),
   addCourseButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 50,
+    width: 35,
+    height: 35,
+    borderRadius: 10,
     borderColor: COLORS.dark,
     borderWidth: 1,
-    backgroundColor: COLORS.light,
+    backgroundColor: COLORS.darkGrey,
     justifyContent: 'center',
     alignItems: 'center'
     

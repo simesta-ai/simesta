@@ -1,47 +1,54 @@
 import { ActivityIndicator, View } from "react-native";
 import { useState, useEffect } from "react";
+import { useRouter } from "expo-router";
 import { Redirect } from "expo-router";
 import OnboardScreen from "../screens/OnboardScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSelector } from "react-redux";
-import LectureScreen from "../screens/LectureScreen";
 
 const Home = () => {
+  const router = useRouter();
   const [isVerified, setIsVerified] = useState(null);
-  const user = useSelector((state) => state.user?.id);
-  const accessToken = useSelector((state) => state.user?.accessToken);
+  const user = useSelector((state) => state.user);
 
   const verifyUser = async () => {
     try {
       const res = await fetch(
-        `https://truelearn-production.up.railway.app/users/${user}`,
+        `http://192.168.232.93:3000/api/users/${user.id}`,
         {
           method: "GET",
-          credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            "Cookie": `Auth-token=${accessToken}`,
+            Authorization: `Bearer ${user.accessToken}`,
           },
         }
       );
-      if (res.status === 401) {
+      if (res.status !== 200) {
         await AsyncStorage.clear();
         return false;
       }
-      if( res.status == 500){
-        return false
+      if (res.status === 401) {
+        await AsyncStorage.clear();
+        router.push("/auth/login");
+        return false;
+      }
+      if (res.status == 500) {
+        await AsyncStorage.clear();
+        router.push("/auth/login");
+        return false;
       }
       return true;
     } catch (error) {
-      console.error("Error fetching courses:", error);
+      await AsyncStorage.clear();
+      router.push("/auth/login");
       return false;
     }
   };
 
   useEffect(() => {
-    AsyncStorage.clear();
     const verify = async () => {
-      if (!user) {
+      await AsyncStorage.clear();
+      if (!user.id) {
         setIsVerified(false);
         return;
       }
@@ -50,7 +57,7 @@ const Home = () => {
     };
 
     verify();
-  }, [user]);
+  }, []);
 
   if (isVerified === null) {
     return (
@@ -64,10 +71,9 @@ const Home = () => {
     );
   }
 
-  if (!user || !isVerified) {
+  if (!user.id && !isVerified) {
     return <OnboardScreen />;
   }
-
   return <Redirect href="/home" />;
 };
 

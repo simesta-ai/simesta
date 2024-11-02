@@ -1,21 +1,22 @@
-
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const useFetchCourse = async (courseId, accessToken) => {
-  const res = await fetch(`https://truelearn-production.up.railway.app/courses/${courseId}`, {
-    method: "GET",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      Cookie: `Auth-token=${accessToken}`,
-    },
-  });
+const useFetchCourse = async (courseId, userId, accessToken) => {
+  const res = await fetch(
+    `http://192.168.232.93:3000/api/courses/${courseId}/users/${userId}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
 
-  const data = await res.json();
-  if (!data.data) {
+  const apiRes = await res.json();
+  if (!apiRes.success) {
     return data.message;
   }
-  return data.data;
+  return apiRes.data;
 };
 
 export const fetchCourseDetails = createAsyncThunk(

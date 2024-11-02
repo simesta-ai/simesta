@@ -35,6 +35,7 @@ const FormData = global.FormData;
 const NewCourseScreen = () => {
   const router = useRouter();
   const { display, setDisplay } = useContext(TabBarContext);
+  const user = useSelector(state => state.user)
   const [creatingCourse, setCreatingCourse] = useState(false);
   const [loading, setLoading] = useState(false);
   const [ createdCourseId, setCreatedCourseId ] = useState("")
@@ -83,15 +84,16 @@ const NewCourseScreen = () => {
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
+          "Authorization": `Bearer ${user.accessToken}`,
         },
         transformRequest: () => {
           return formData;
         },
       };
       const res = await axios.post(
-        `https://truelearn-production.up.railway.app/courses/${userId}/course`,
+        `http://192.168.232.93:3000/api/courses/${userId}/course`,
         formData,
-        config
+        config,
       );
 
       const data = res.data;
@@ -114,7 +116,9 @@ const NewCourseScreen = () => {
   };
 
   const goToCourse = () => {
-    router.navigate(`course/${createdCourseId}`);
+    if(createdCourseId.length > 0) {
+      router.navigate(`course/${createdCourseId}`);
+    }
   };
 
   if (loading) {

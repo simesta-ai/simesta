@@ -13,9 +13,42 @@ const styles = StyleSheet.create({
         fontFamily: FONT.regularPoppins,
         gap: 10
     },
+    lectureLoader: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: COLORS.backgroundGrey
+    },
     lectureHeaderCon: {
         padding: 10,
         gap: 10
+    },
+    lectureLoaderText: {
+        fontFamily: FONT.semiBoldPoppins,
+        fontSize: SIZES.medium,
+        color: COLORS.dark,
+        backgroundColor: COLORS.vLightGrey,
+        padding: 20,
+        borderRadius: SIZES.small
+    },
+    startCourseContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 10,
+        paddingTop: 100,
+        flex: 1,
+        backgroundColor: COLORS.backgroundGrey
+    },
+    startButtonContainer: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 20,
+        padding: 20
+    },
+    startLectureImage: {
+        width: 250,
+        height: 250,
     },
     headerText: {
         fontFamily: FONT.semiBoldPoppins,
@@ -124,7 +157,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: "100%",
-        maxHeight: 200
+        height: 200
 
     },
     hangingButton: {

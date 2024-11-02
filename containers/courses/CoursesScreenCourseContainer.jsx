@@ -24,18 +24,16 @@ const CoursesScreenCourseContainer = () => {
 
   const getUserCourses = async () => {
     const res = await fetch(
-      `https://truelearn-production.up.railway.app/courses/users/${user.id}`,
+      `http://192.168.232.93:3000/api/courses/users/${user.id}`,
       {
         method: "GET",
-        credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "Cookie": `Auth-token=${user.accessToken}`,
-          },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.accessToken}`,
+        },
       }
     );
     const data = await res.json();
-    console.log(data)
     if(data.message == "User does not have any course created yet"){
       setStartedCourses(false)
       setLoadingCourses(false)

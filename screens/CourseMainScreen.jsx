@@ -4,6 +4,7 @@ import {
   Text,
   KeyboardAvoidingView,
   Platform,
+  RefreshControl,
   Pressable,
   TouchableOpacity,
   StatusBar,
@@ -14,7 +15,7 @@ import { Skeleton } from "moti/skeleton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from 'expo-router'
+import { useRouter } from "expo-router";
 import useFetchCourse, { fetchCourseDetails } from "../hooks/useFetchAsync";
 import { activeCourseActions } from "../redux/slices/activeCourseSlice";
 import { router, useNavigation, usePathname } from "expo-router";
@@ -32,8 +33,9 @@ import styles from "../styles/screens/mainCourse.style";
 
 const CourseMainScreen = ({ courseId }) => {
   const dispatch = useDispatch();
-  const router = useRouter()
+  const router = useRouter();
   const accessToken = useSelector((state) => state.user.accessToken);
+  const userId = useSelector((state) => state.user.id);
   const [loadingDetails, setLoadingDetails] = useState(true);
   const [courseDetails, setCourseDetails] = useState({
     title: "",
@@ -46,32 +48,52 @@ const CourseMainScreen = ({ courseId }) => {
   const { display, setDisplay } = useContext(TabBarContext);
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
+  const handleFetchingCourse = async () => {
+    dispatch(fetchCourseDetails(courseId));
+    const fetchedCourseDetails = await useFetchCourse(
+      courseId,
+      userId,
+      accessToken
+    );
+    console.log(fetchedCourseDetails);
+    if (
+      fetchedCourseDetails ==
+      "Unable to authorize user: User not currently logged in."
+    ) {
+      router.navigate("auth/login");
+    }
+    setCourseDetails({
+      ...courseDetails,
+      title: fetchedCourseDetails.course.title,
+      description: fetchedCourseDetails.course.description,
+      topics: fetchedCourseDetails.topics,
+      image: fetchedCourseDetails.course.img,
+      progress: fetchedCourseDetails.course.progress,
+    });
+    dispatch(
+      activeCourseActions.setActiveCourse({
+        id: fetchedCourseDetails.course.id,
+        title: fetchedCourseDetails.course.title,
+      })
+    );
+    dispatch(
+      activeCourseActions.setActiveCourseData({
+        description: fetchedCourseDetails.course.description,
+        image: fetchedCourseDetails.course.img,
+        progress: fetchedCourseDetails.course.progress,
+      })
+    );
+    setLoadingDetails(false);
+  };
+
   useEffect(() => {
-    const handleFetchingCourse = async () => {
-      dispatch(fetchCourseDetails(courseId));
-      const fetchedCourseDetails = await useFetchCourse(courseId, accessToken);
-      if(fetchedCourseDetails == "Unable to authorize user: User not currently logged in.") {
-        router.navigate('auth/login')
-      }
-      setCourseDetails({
-        ...courseDetails,
-        title: fetchedCourseDetails.title,
-        description: fetchedCourseDetails.description,
-        topics: fetchedCourseDetails.topics,
-        image: fetchedCourseDetails.img,
-        progress: 10,
-      });
-      dispatch(
-        activeCourseActions.setActiveCourse({
-          id: fetchedCourseDetails.id,
-          title: fetchedCourseDetails.title
-        })
-      );
-      setLoadingDetails(false);
-      
-    };
     handleFetchingCourse();
   }, [courseId]);
+
+  const handleRefresh = () => {
+    setLoadingDetails(true);
+    handleFetchingCourse();
+  };
 
   const displayTabContent = () => {
     switch (activeTab) {
@@ -118,6 +140,9 @@ const CourseMainScreen = ({ courseId }) => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="always"
+          refreshControl={
+            <RefreshControl refreshing={loadingDetails} onRefresh={handleRefresh} />
+          }
         >
           {loadingDetails ? (
             <View style={styles.skeletonContainer}>

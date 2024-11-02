@@ -1,5 +1,10 @@
-import { Text, View, TouchableOpacity, ActivityIndicator } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import TextInputField from "../../components/auth/TextInputField";
 import Button from "../../components/Button";
 import { useState } from "react";
@@ -8,12 +13,7 @@ import styles from "../../styles/auth/auth.style";
 import { COLORS, SIZES } from "../../constants";
 import { useRouter } from "expo-router";
 
-import { userActions } from "../../redux/slices/userSlice";
-import { authActions } from "../../redux/slices/authSlice";
-import { useDispatch } from "react-redux";
-
 const SignupForm = () => {
-  const dispatch = useDispatch();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formValue, setFormValue] = useState({
@@ -22,46 +22,31 @@ const SignupForm = () => {
     password: "",
   });
 
-  const registerUser = (user) => {
-    dispatch(authActions.signup());
-    dispatch(userActions.register(user));
-  };
-
   const handleSubmit = async () => {
+    Object.keys(formValue).forEach((key) => {
+      formValue[key] = formValue[key].trim();
+    });
     setLoading(true);
     try {
-      const res = await fetch("https://truelearn-production.up.railway.app/auth/register", {
+      const res = await fetch("http://192.168.232.93:3000/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formValue),
       });
       setLoading(false);
-      const userStr = await res.json();
-      if (res.status == 201) {
-        const user = userStr.data;
-        const authTokenCookie = res.headers.get("set-cookie"); // Get the 'Auth-token' header
-        const cookieParts = authTokenCookie.split(";");
-        const authTokenPart = cookieParts.find((part) =>
-          part.startsWith("Auth-token=")
-        );
-        const authToken = authTokenPart.split("=")[1];
-        registerUser({
-          id: user.id,
-          name: user.name,
-          accessToken: authToken,
-        });
-        router.push("/learning-method")
+      const apiJSON = await res.json();
+      if (res.status == 303) {
+        router.push(`auth/verify-email/${formValue.email}`);
       } else {
         Toast.show({
           type: "error",
-          text1: "Unable to sign up",
-          text2: userStr.message,
+          text1: apiJSON.message,
         });
       }
-      setFormValue({ ...formValue, name: "", email: "", password: "" });
+      // setFormValue({ ...formValue, name: "", email: "", password: "" });
     } catch (error) {
       setLoading(false);
-      setFormValue({ ...formValue, name: "", email: "", password: "" });
+      // setFormValue({ ...formValue, name: "", email: "", password: "" });
       console.error("Error during registration:", error); // Handle network or other errors
     }
   };

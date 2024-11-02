@@ -7,13 +7,14 @@ import {
   StatusBar,
   Pressable,
   ActivityIndicator,
+  RefreshControl,
   TouchableOpacity,
 } from "react-native";
 import { Redirect } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { usePathname } from "expo-router";
 import { TabBarContext } from "../context/TabBarContext";
@@ -30,8 +31,10 @@ import { icons, COLORS, SIZES } from "../constants";
 
 const DashboardScreen = () => {
   const user = useSelector((state) => state.user);
+  const childRef = useRef(null);
   const { display, setDisplay } = useContext(TabBarContext);
   const [name, setName] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -42,9 +45,18 @@ const DashboardScreen = () => {
     setDisplay(true);
   }, []);
 
-  if (name.length == 0) {
+  const onRefresh = () => {
+    if (childRef.current) {
+      setRefreshing(true);
+      setTimeout(() => {
+        setRefreshing(false);
+      }, 2000);
+      childRef.current.getUserCourses();
+    }
+  };
+
+  if (!name || name.length == 0) {
     return (
-      // <Redirect href={'/auth/login'} />
       <ActivityIndicator
         size="large"
         color={COLORS.primary}
@@ -65,6 +77,9 @@ const DashboardScreen = () => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="always"
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         >
           <View style={styles.container}>
             <View style={styles.notificationWrapper}>
@@ -90,7 +105,7 @@ const DashboardScreen = () => {
             <MileStones />
 
             {/* Courses */}
-            <CoursesContainer />
+            <CoursesContainer ref={childRef} />
           </View>
         </ScrollView>
       </SafeAreaView>

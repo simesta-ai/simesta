@@ -7,6 +7,7 @@ const Option = ({ option, onSelect, selectedOption, index }) => {
   const [isSelectedOption, setIsSelectedOption] = useState(false);
 
   useEffect(() => {
+    console.log(option)
     if (selectedOption === index) {
       setIsSelectedOption(true);
     } else {
@@ -37,7 +38,6 @@ const Mcq = ({ mcq, setIsOnQuiz }) => {
     }
   };
   useEffect(() => {
-    console.logg(mcq)
     setIsOnQuiz(true)
   }, [])
   const handleSubmit = () => {

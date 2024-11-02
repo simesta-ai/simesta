@@ -4,6 +4,7 @@ import {
   Text,
   KeyboardAvoidingView,
   Platform,
+  RefreshControl,
   Pressable,
   TouchableOpacity,
   Image,
@@ -26,6 +27,8 @@ import { activeCourseActions } from "../redux/slices/activeCourseSlice";
 
 const CourseLectures = ({ courseId, topicId }) => {
   const activeCourse = useSelector((state) => state.course);
+  const [ refreshing, setRefreshing] = useState(false)
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [topic, setTopic] = useState({
     name: "",
@@ -35,26 +38,33 @@ const CourseLectures = ({ courseId, topicId }) => {
 
   const getTopicDetails = async () => {
     const res = await fetch(
-      `https://truelearn-production.up.railway.app/courses/topic/${topicId}`,
+      `http://192.168.232.93:3000/api/courses/topic/${topicId}`,
       {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.accessToken}`,
+        },
       }
     );
     const data = await res.json();
+    console.log(data)
     if (data.message == "Unable to fetch topic content, no lectures exist") {
       const response = await fetch(
-        `https://truelearn-production.up.railway.app/courses/topic/${topicId}`,
+        `http://192.168.232.93:3000/api/courses/topic/${topicId}`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.accessToken}`,
+          },
         }
       );
       const newData = await response.json();
       if (response.status == 200) {
         setTopic({
           ...topic,
-          name: newData.topic,
+          name: newData.topic.title,
           lectures: newData.lectures,
         });
         dispatch(activeCourseActions.setActiveTopic(newData.topic.id));
@@ -64,13 +74,22 @@ const CourseLectures = ({ courseId, topicId }) => {
     if (res.status == 200) {
       setTopic({
         ...topic,
-        name: data.topic,
+        name: data.topic.title,
         lectures: data.lectures,
       });
       dispatch(activeCourseActions.setActiveTopic(data.topic.id));
       setLoading(false);
     }
   };
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setLoading(true)
+    setTimeout(()=> {
+      setRefreshing(false);
+    }, 2000)
+    getTopicDetails();
+  }
 
   useEffect(() => {
     getTopicDetails();
@@ -81,9 +100,11 @@ const CourseLectures = ({ courseId, topicId }) => {
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.backgroundGrey }}>
-        <View style={{
-          paddingBottom: 20
-        }}>
+        <View
+          style={{
+            paddingBottom: 20,
+          }}
+        >
           <BackButtonContainer path={`course/${courseId}`} />
           <Text style={styles.headerText}>
             {topic.name.length > 30
@@ -94,6 +115,9 @@ const CourseLectures = ({ courseId, topicId }) => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="always"
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         >
           {loading ? (
             <View style={styles.skeletonContainer}>
@@ -132,7 +156,9 @@ const CourseLectures = ({ courseId, topicId }) => {
               <FlatList
                 data={topic.lectures.sort((a, b) => a.position - b.position)}
                 scrollEnabled={false}
-                renderItem={({ item }) => <Lecture key={item.id} lecture={item} />}
+                renderItem={({ item }) => (
+                  <Lecture key={item.id} lecture={item} />
+                )}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(item) => item.id}
                 contentContainerStyle={{ rowGap: SIZES.small }}

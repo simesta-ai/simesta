@@ -1,227 +1,92 @@
-{
-  "course": {
-    "description": "Vector Mechanics introduces the fundamental principles of mechanics, including kinematics, Newton's laws of motion, work and energy, impulse and momentum, and rigid body motion. Students will learn to analyze and solve problems involving forces, motion, and energy in various physical systems. The course provides a strong foundation for more advanced topics in engineering and physics.",
-    "id": "66c2fe948a53af92c345c675",
-    "image": "https://res.cloudinary.com/di1uklizr/image/upload/v1724055187/course-images/h2fpz6w8evxi61zoxptf.png",
-    "title": "Vector Mechanics"
+[
+  {
+    "createdAt": "2024-10-31T17:45:40.727Z",
+    "id": "7097a6cc-4b3c-4a18-89cf-e8f6e5bbef17",
+    "image": "A visual representation of the concept of canonical transformations as a powerful tool for simplifying problems in physics.",
+    "lectureId": "2b4f3e4e-d63d-4933-9f11-44f6d4d48dd7",
+    "quiz": null,
+    "text": "Canonical transformations are a powerful tool for simplifying problems in various fields of physics. By changing the coordinates and momenta while preserving the fundamental structure of the system, they offer a more insightful perspective on the dynamics and enable easier solutions to complex problems.",
+    "updatedAt": "2024-10-31T17:45:40.727Z"
   },
-  "topics": [
-    {
-      "completed": false,
-      "id": "66c2ffbf8a3a332e93f69a74",
-      "inProgress": true,
-      "position": 1,
-      "title": "Mechanics of Rigid Bodies: Basic Concepts"
+  {
+    "createdAt": "2024-10-31T17:45:40.727Z",
+    "id": "81bfa52e-04a0-4b69-9941-23ac5ae818d8",
+    "image": "A diagram illustrating different quantum field representations and how canonical transformations can be used to transform between them.",
+    "lectureId": "2b4f3e4e-d63d-4933-9f11-44f6d4d48dd7",
+    "quiz": null,
+    "text": "Another important application of canonical transformations is in the study of quantum field theory. In this context, they are used to transform between different quantum field representations, which are different ways of describing the same physical system. This transformation allows us to choose the most convenient representation for a particular problem, simplifying the calculations.",
+    "updatedAt": "2024-10-31T17:45:40.727Z"
+  },
+  {
+    "createdAt": "2024-10-31T17:45:40.726Z",
+    "id": "8e7ef0f4-3d90-470b-8ff2-707c01dcc443",
+    "image": "A diagram illustrating a system with conserved quantities and how canonical transformations can be used to find coordinates that make these quantities explicit.",
+    "lectureId": "2b4f3e4e-d63d-4933-9f11-44f6d4d48dd7",
+    "quiz": null,
+    "text": "One of the most important applications of canonical transformations is in the study of integrable systems. These are systems where the Hamiltonian can be expressed in terms of a set of conserved quantities, known as integrals of motion. By using canonical transformations, we can find coordinates that make these conserved quantities explicitly appear in the Hamiltonian, leading to a simpler solution of the system.",
+    "updatedAt": "2024-10-31T17:45:40.726Z"
+  },
+  {
+    "createdAt": "2024-10-31T17:45:40.727Z",
+    "id": "a96dbc28-be11-4524-b30a-1bf2d1e12448",
+    "image": "A visual representation of the applications of canonical transformations in different areas of physics, such as classical mechanics, quantum mechanics, and statistical mechanics.",
+    "lectureId": "2b4f3e4e-d63d-4933-9f11-44f6d4d48dd7",
+    "quiz": null,
+    "text": "Canonical transformations have wide applications in various fields of physics. In classical mechanics, they simplify the solution of problems by transforming the system into a more manageable form. In quantum mechanics, they play a vital role in understanding the relationship between different representations of quantum operators.",
+    "updatedAt": "2024-10-31T17:45:40.727Z"
+  },
+  {
+    "createdAt": "2024-10-31T17:45:40.726Z",
+    "id": "aa2acf68-d4a7-499c-94fe-18f7b164dcea",
+    "image": "A diagram illustrating the concept of a generating function. The diagram should show how a function of both old and new coordinates and momenta can generate a canonical transformation.",
+    "lectureId": "2b4f3e4e-d63d-4933-9f11-44f6d4d48dd7",
+    "quiz": {
+      "answer": [Object],
+      "createdAt": "2024-10-31T17:45:41.905Z",
+      "explanation": "Generating functions provide a systematic approach to finding canonical transformations by relating old and new coordinates and momenta.",
+      "id": "5a8aaeb5-ab1b-46fe-bbff-79af87966332",
+      "ideaContentId": "aa2acf68-d4a7-499c-94fe-18f7b164dcea",
+      "options": [Array],
+      "question": "What is a common method used to generate canonical transformations?",
+      "updatedAt": "2024-10-31T17:45:41.905Z"
     },
-    {
-      "completed": false,
-      "id": "66c2ffbf8a3a332e93f69a76",
-      "inProgress": false,
-      "position": 2,
-      "title": "Torque and Angular Momentum"
+    "text": "There are various ways to generate canonical transformations. One common method is using generating functions. These are functions that depend on both the old and new coordinates and momenta. By choosing a suitable generating function, we can obtain a transformation that satisfies the conditions for a canonical transformation.",
+    "updatedAt": "2024-10-31T17:45:40.726Z"
+  },
+  {
+    "createdAt": "2024-10-31T17:45:40.726Z",
+    "id": "c891c053-1a84-4c88-9e1b-103aaa86d98f",
+    "image": "A diagram showing the Poisson bracket of two functions (f, g) in terms of the canonical coordinates (q, p). The diagram should highlight that the Poisson bracket remains invariant under a canonical transformation.",
+    "lectureId": "2b4f3e4e-d63d-4933-9f11-44f6d4d48dd7",
+    "quiz": {
+      "answer": [Object],
+      "createdAt": "2024-10-31T17:45:41.678Z",
+      "explanation": "Canonical transformations are characterized by their preservation of the Poisson brackets, ensuring that the fundamental structure of the system is preserved.",
+      "id": "5ee2fc5b-2dbf-4be2-aa73-9c25fa41212d",
+      "ideaContentId": "c891c053-1a84-4c88-9e1b-103aaa86d98f",
+      "options": [Array],
+      "question": "What is the fundamental condition that defines a canonical transformation?",
+      "updatedAt": "2024-10-31T17:45:41.678Z"
     },
-    {
-      "completed": false,
-      "id": "66c2ffbf8a3a332e93f69a78",
-      "inProgress": false,
-      "position": 3,
-      "title": "Moment of Inertia"
+    "text": "A canonical transformation is defined as a change of coordinates that preserves the Poisson brackets. The Poisson bracket is a mathematical construct that encodes the fundamental relationships between the canonical coordinates (position and momentum) and is preserved under canonical transformations. This preservation of the Poisson bracket ensures that the fundamental structure of the Hamiltonian system remains unchanged.",
+    "updatedAt": "2024-10-31T17:45:40.726Z"
+  },
+  {
+    "createdAt": "2024-10-31T17:45:40.726Z",
+    "id": "d274ccce-7a48-47dc-b1df-1d0ea879c7f4",
+    "image": "A visual representation of a phase space with two sets of coordinates (q, p) and (Q, P) connected by a canonical transformation. The arrows indicate the transformation from one set of coordinates to the other.",
+    "lectureId": "2b4f3e4e-d63d-4933-9f11-44f6d4d48dd7",
+    "quiz": {
+      "answer": [Object],
+      "createdAt": "2024-10-31T17:45:41.885Z",
+      "explanation": "Canonical transformations aim to simplify the equations of motion by finding new coordinates that make the problem more manageable.",
+      "id": "562bf00f-8d07-48c5-bab0-cff6dd0b8773",
+      "ideaContentId": "d274ccce-7a48-47dc-b1df-1d0ea879c7f4",
+      "options": [Array],
+      "question": "What is the primary purpose of a canonical transformation in classical mechanics?",
+      "updatedAt": "2024-10-31T17:45:41.885Z"
     },
-    {
-      "completed": false,
-      "id": "66c2ffbf8a3a332e93f69a7a",
-      "inProgress": false,
-      "position": 4,
-      "title": "Parallel-Axis Theorem"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc08a3a332e93f69a7c",
-      "inProgress": false,
-      "position": 5,
-      "title": "Center of Mass"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc08a3a332e93f69a7e",
-      "inProgress": true,
-      "position": 1,
-      "title": "Mechanics of rigid bodies"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc08a3a332e93f69a80",
-      "inProgress": false,
-      "position": 6,
-      "title": "Mechanical Equilibrium"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc08a3a332e93f69a82",
-      "inProgress": false,
-      "position": 2,
-      "title": "Rate of change of angular momentum"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc08a3a332e93f69a84",
-      "inProgress": false,
-      "position": 7,
-      "title": "Circular Motion"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc08a3a332e93f69a86",
-      "inProgress": false,
-      "position": 3,
-      "title": "Total external torque"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc08a3a332e93f69a88",
-      "inProgress": false,
-      "position": 8,
-      "title": "Moment of Inertia of Extended Objects"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc08a3a332e93f69a8a",
-      "inProgress": false,
-      "position": 4,
-      "title": "Moment of a force"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc08a3a332e93f69a8c",
-      "inProgress": false,
-      "position": 9,
-      "title": "Angular Acceleration and Work"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc08a3a332e93f69a8e",
-      "inProgress": false,
-      "position": 5,
-      "title": "Moment of inertia"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc08a3a332e93f69a90",
-      "inProgress": false,
-      "position": 10,
-      "title": "Kinetic Energy of Rotation"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc18a3a332e93f69a92",
-      "inProgress": false,
-      "position": 6,
-      "title": "Angular acceleration"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc18a3a332e93f69a94",
-      "inProgress": false,
-      "position": 11,
-      "title": "Dynamics of Rotation"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc18a3a332e93f69a96",
-      "inProgress": false,
-      "position": 7,
-      "title": "Work required to accelerate a rotating body"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc18a3a332e93f69a98",
-      "inProgress": false,
-      "position": 8,
-      "title": "Kinetic energy of a rotating body"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc18a3a332e93f69a9a",
-      "inProgress": false,
-      "position": 9,
-      "title": "Radius of gyration"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc18a3a332e93f69a9c",
-      "inProgress": false,
-      "position": 10,
-      "title": "Parallel axis theorem"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc18a3a332e93f69a9e",
-      "inProgress": false,
-      "position": 11,
-      "title": "Torque"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc18a3a332e93f69aa0",
-      "inProgress": false,
-      "position": 12,
-      "title": "Center of mass"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc28a3a332e93f69aa2",
-      "inProgress": false,
-      "position": 13,
-      "title": "Mechanical equilibrium"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc28a3a332e93f69aa4",
-      "inProgress": false,
-      "position": 14,
-      "title": "Tangential velocity"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc28a3a332e93f69aa6",
-      "inProgress": false,
-      "position": 15,
-      "title": "Angular speed and linear speed of a point on a rotating object"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc28a3a332e93f69aa8",
-      "inProgress": false,
-      "position": 16,
-      "title": "Radius of a thin cylindrical shell of equal mass"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc28a3a332e93f69aaa",
-      "inProgress": false,
-      "position": 17,
-      "title": "Angular velocity gained by a rotating object"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc28a3a332e93f69aac",
-      "inProgress": false,
-      "position": 18,
-      "title": "Weight of a beam in equilibrium"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc38a3a332e93f69aae",
-      "inProgress": false,
-      "position": 19,
-      "title": "Angular momentum of a rotating particle"
-    },
-    {
-      "completed": false,
-      "id": "66c2ffc38a3a332e93f69ab0",
-      "inProgress": false,
-      "position": 20,
-      "title": "Total angular momentum of a body"
-    }
-  ]
-}
+    "text": "Canonical transformations are a fundamental concept in classical mechanics that allow us to change the coordinates and momenta of a system while preserving its Hamiltonian structure. This is crucial because it allows us to find new sets of coordinates that simplify the equations of motion, making them easier to solve.",
+    "updatedAt": "2024-10-31T17:45:40.726Z"
+  }
+]

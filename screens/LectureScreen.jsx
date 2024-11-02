@@ -22,6 +22,7 @@ import RoundAccentButton from "../components/RoundAccentButton";
 import VideoScreen from "./VideoScreen";
 import { FontAwesome6 } from "@expo/vector-icons";
 import Entypo from "@expo/vector-icons/Entypo";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -46,6 +47,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
   const { width, height } = Dimensions.get("window");
   const dispatch = useDispatch();
   const activeCourse = useSelector((state) => state.course);
+  const user = useSelector((state) => state.user);
   const scrollRef = useRef(null);
   const scrollViewRef = useRef(null);
   const [loadingLecture, setLoadingLecture] = useState(false);
@@ -59,7 +61,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
   const [completed, setCompleted] = useState(false);
   const [isOnQuiz, setIsOnQuiz] = useState(false);
   const [showBottomSheet, setShowBottomSheet] = useState(false);
-  const socket = useMemo(() => io("https://truelearn-production.up.railway.app"), []);
+  const socket = useMemo(() => io("http://192.168.232.93:3000kl"), []);
   const [text, setText] = useState("");
   const [voiceNote, setVoiceNote] = useState("");
   const [sound, setSound] = useState(null);
@@ -100,18 +102,17 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
   }
 
   const handlePlaySound = () => {
-    if(simestaSpeaking){
+    if (simestaSpeaking) {
       sound.stopAsync();
       setSimestaSpeaking(false);
-    } else{
+    } else {
       setSimestaSpeaking(true);
       playSound(currentSoundFile);
     }
   };
 
-
   const getIdeaContentAudio = async (text) => {
-    const fileUrl = "https://truelearn-production.up.railway.app/chat/text-to-speech";
+    const fileUrl = "http://192.168.232.93:3000/api/chat/text-to-speech";
     const fileUri = FileSystem.documentDirectory + "currentaudio.wav";
     try {
       const response = await fetch(fileUrl, {
@@ -132,7 +133,6 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
             encoding: FileSystem.EncodingType.Base64,
           });
           setCurrentSoundFile(fileUri);
-          playSound(fileUri);
         };
         reader.readAsDataURL(fileData);
       }
@@ -152,12 +152,12 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
     scrollViewRef.current?.scrollToEnd({ animated: true });
   }, [messages]);
 
-  // useEffect(() => {
-  //   scrollRef.current?.scrollTo({
-  //     y: currentIdeaIndex * 500,
-  //     animated: true,
-  //   });
-  // }, [lecture]);
+  useEffect(() => {
+    scrollRef.current?.scrollTo({
+      y: currentIdeaIndex * 500,
+      animated: true,
+    });
+  }, [lecture]);
 
   useEffect(() => {
     if (voiceNote.length > 0) {
@@ -205,10 +205,13 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
 
   const getLecture = async () => {
     const res = await fetch(
-      `https://truelearn-production.up.railway.app/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
+      `http://192.168.232.93:3000/api/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
       {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.accessToken}`,
+        },
       }
     );
     const data = await res.json();
@@ -218,10 +221,13 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
     ) {
       setLoadingLecture(true);
       const newRes = await fetch(
-        `https://truelearn-production.up.railway.app/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
+        `http://192.168.232.93:3000/api/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.accessToken}`,
+          },
         }
       );
       const newData = await newRes.json();
@@ -233,15 +239,6 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
       setVideos(data.videos);
       setLoadingLecture(false);
     }
-
-    // if (res.status == 200) {
-    //   setLecture({
-    //     ...lecture,
-    //     lectureText: data.lectureText,
-    //     videos: data.videos,
-    //   });
-    //   dispatch(activeCourseActions.setActiveLectureContent(lecture));
-    // }
   };
 
   const handleShowBottomSheet = () => {
@@ -255,14 +252,40 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
 
   if (loadingLecture) {
     return (
-      <View
-        style={{
-          padding: 100,
-        }}
-      >
-        <ActivityIndicator size={40} color={"black"} />
+      <View style={styles.lectureLoader}>
+        <LottieView
+          autoPlay
+          style={{
+            width: 500,
+            height: 500,
+          }}
+          source={require("../lottie/loadingLecture.json")}
+          speed={1.5}
+        />
+        <Text style={styles.lectureLoaderText}>Loading lecture...</Text>
       </View>
     );
+  }
+  //
+
+  if (!loadingLecture && lecture.length == 0 && ideaContent.length !== 0) {
+    return (
+      <View style={styles.startCourseContainer}>
+        <Image
+          source={images.startLecture}
+          resizeMode="contain"
+          style={[styles.startLectureImage]}
+        />
+        <View style={styles.startButtonContainer}>
+          <Button
+            text={"Start lecture"}
+            type="course-cancel-btn"
+            onPress={nextContent}
+          />
+        </View>
+      </View>
+    );
+  } else {
   }
 
   return (
@@ -300,7 +323,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
                     <IdeaContent
                       key={item.id}
                       ideaText={item.text}
-                      image={item.imageDescription}
+                      image={item.image}
                       mcq={item.quiz}
                       oneChoiceQuestion={item.oneChoiceQuestion}
                       setIsOnQuiz={setIsOnQuiz}
@@ -310,11 +333,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
                   contentContainerStyle={{ rowGap: SIZES.small }}
                 />
               </View>
-
-              <Text style={styles.lectureContentText}>
-                {lecture.lectureText}
-              </Text>
-              {completed ? (
+              {ideaContent.length <= 0 ? null : completed ? (
                 <View style={styles.markedContainer}>
                   <FontAwesome6
                     name="check"
@@ -331,7 +350,9 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
                     onPress={nextContent}
                   />
                 )
-              ) : isOnQuiz ? null : (
+              ) : isOnQuiz &&
+                ideaContent.length !== 0 &&
+                lecture.length !== 0 ? null : (
                 <Button
                   text={"Mark as completed"}
                   type="course-cancel-btn"
@@ -465,7 +486,6 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
                   position: "absolute",
                   top: -30,
                 }}
-                // Find more Lottie files at https://lottiefiles.com/featured
                 source={require("../lottie/speaking.json")}
                 speed={1.5}
               />
@@ -473,19 +493,23 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
             </View>
           ) : null}
 
-          { sound ? <View style={styles.hangingButtonSpeak}>
-            <RoundAccentButton
-              icon={
-                <Entypo
-                  name={`${simestaSpeaking ? "sound-mute" : "sound"}`}
-                  size={SIZES.large}
-                  color={COLORS.light}
-                />
-              }
-              type="round-accent-btn-big"
-              handlePress={handlePlaySound}
-            /> 
-          </View>: null }
+          {currentSoundFile ? (
+            <View style={styles.hangingButtonSpeak}>
+              <RoundAccentButton
+                icon={
+                  <MaterialIcons
+                    name={`${
+                      simestaSpeaking ? "voice-over-off" : "record-voice-over"
+                    }`}
+                    size={SIZES.large}
+                    color={COLORS.light}
+                  />
+                }
+                type="round-accent-btn-big"
+                handlePress={handlePlaySound}
+              />
+            </View>
+          ) : null}
         </SafeAreaView>
       </KeyboardAvoidingView>
     </GestureHandlerRootView>

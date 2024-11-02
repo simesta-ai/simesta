@@ -1,5 +1,11 @@
 import { Text, View, FlatList, Pressable } from "react-native";
-import { useEffect, useState, useCallback } from "react";
+import {
+  useEffect,
+  useState,
+  useCallback,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Toast from "react-native-toast-message";
@@ -17,7 +23,7 @@ import styles from "../../styles/containers/courses.style";
 import { COLORS, SIZES } from "../../constants";
 import { coursesActions } from "../../redux/slices/coursesSlice";
 
-const CoursesContainer = () => {
+const CoursesContainer = forwardRef((props, ref) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const user = useSelector((state) => state.user);
@@ -35,22 +41,22 @@ const CoursesContainer = () => {
     } else {
       try {
         const res = await fetch(
-          `https://truelearn-production.up.railway.app/courses/users/${user.id}`,
+          `http://192.168.232.93:3000/api/courses/users/${user.id}`,
           {
             method: "GET",
-            credentials: "include",
             headers: {
               "Content-Type": "application/json",
-              Cookie: `Auth-token=${user.accessToken}`,
+              Authorization: `Bearer ${user.accessToken}`,
             },
           }
         );
 
         const data = await res.json();
-        if(data.message == "User does not have any course created yet"){
-          setStartedCourses(false)
-          setLoadingCourses(false)
-          return
+        console.log(data)
+        if (data.message == "User does not have any course created yet") {
+          setStartedCourses(false);
+          setLoadingCourses(false);
+          return;
         }
         setLoadingCourses(false);
         if (res.status == 200) {
@@ -77,6 +83,11 @@ const CoursesContainer = () => {
       setLoadingCourses((prev) => !prev);
     }
   };
+
+  useImperativeHandle(ref, () => ({
+    getUserCourses,
+  }));
+
 
   const createCourse = () => {
     router.push("/new-course");
@@ -178,6 +189,6 @@ const CoursesContainer = () => {
       </View> */}
     </View>
   );
-};
+});
 
 export default CoursesContainer;

@@ -1,6 +1,12 @@
 import { Text, View, Image } from "react-native";
 import { useState, useEffect } from "react";
+import { Skeleton } from "moti/skeleton";
 import styles from "../../styles/screens/lectures.style";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from "react-native-reanimated";
 
 import Mcq from "../../components/lecture/Mcq";
 import OneChoiceQuestion from "../../components/lecture/OneChoiceQuestion";
@@ -14,11 +20,19 @@ const IdeaContent = ({
   scrollRef,
 }) => {
   const [imageUrl, setImageUrl] = useState(null);
+  const [loadingImage, setLoadingImage] = useState(false);
+  const opacity = useSharedValue(0);
+  const translateY = useSharedValue(10);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+    transform: [{ translateY: translateY.value }],
+  }));
 
   const loadImage = async (text) => {
     try {
       const response = await fetch(
-        "https://truelearn-production.up.railway.app/chat/text-to-image",
+        "http://192.168.232.93:3000/api/chat/text-to-image",
         {
           method: "POST",
           headers: {
@@ -31,30 +45,44 @@ const IdeaContent = ({
       );
       const imageRes = await response.json();
       if (response.ok) {
-        console.log(imageRes.data)
         setImageUrl(imageRes.data);
       }
+      setLoadingImage(false);
     } catch (error) {
+      setLoadingImage(false);
       console.log(error);
     }
   };
 
   useEffect(() => {
-    if(image){
-      console.log(image)
+    if (image) {
+      setLoadingImage(true);
       loadImage(image);
     }
+    opacity.value = withTiming(1, { duration: 500 });
+    translateY.value = withTiming(0, { duration: 500 });
   }, []);
+  
 
   return (
-    <View style={styles.ideaContent}>
-      {image && imageUrl ? (
+    <Animated.View style={[styles.ideaContent, animatedStyle]}>
+      {image ? (
         <View style={styles.imageContainer}>
-          <Image
-            source={{ uri: imageUrl }}
-            style={styles.image}
-            resizeMode="contain"
-          />
+          {loadingImage ? (
+            <Skeleton
+              colorMode="light"
+              style={styles.image}
+              duration={1000}
+              width={"100%"}
+              height={100}
+            />
+          ) : (
+            <Image
+              source={{ uri: imageUrl }}
+              style={styles.image}
+              resizeMode="contain"
+            />
+          )}
         </View>
       ) : null}
       <Text style={styles.lectureContentText}>{ideaText}</Text>
@@ -66,7 +94,7 @@ const IdeaContent = ({
           scrollRef={scrollRef}
         />
       ) : null}
-    </View>
+    </Animated.View>
   );
 };
 

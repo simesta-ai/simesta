@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "simesta",
-    "slug": "simesta",
+    "slug": "commerce-app",
     "scheme": "com.simesta",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -23,9 +23,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
-    
     "web": {
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
@@ -59,6 +61,7 @@
     },
     "updates": {
       "url": "https://u.expo.dev/298f7fc1-a565-4421-acf6-2856bf84f07c"
-    }
+    },
+    "owner": "samthemogul"
   }
 }

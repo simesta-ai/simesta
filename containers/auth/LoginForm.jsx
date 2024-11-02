@@ -38,33 +38,36 @@ const LoginForm = () => {
   };
 
   const handleSubmit = async () => {
+    Object.keys(formValue).forEach((key) => {
+      formValue[key] = formValue[key].trim();
+    });
     setLoading(true);
     try {
-      const res = await fetch("https://truelearn-production.up.railway.app/auth/login", {
+      const res = await fetch("http://192.168.232.93:3000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formValue),
       });
       setLoading(false);
-      const user = await res.json();
+      const apiRes = await res.json();
+      if (res.status == 303) {
+        router.push(`auth/verify-email/${formValue.email}`);
+        return
+      }
       if (res.status == 200) {
-        const authTokenCookie = res.headers.get("set-cookie"); // Get the 'Auth-token' header
-        const cookieParts = authTokenCookie.split(";");
-        const authTokenPart = cookieParts.find((part) =>
-          part.startsWith("Auth-token=")
-        );
-        const authToken = authTokenPart.split("=")[1];
+        const user = apiRes.data;
+        const accessToken = res.headers.map["authorization"].split(" ")[1];
         loginUser({
-          id: user.data.id,
-          name: user.data.name,
-          accessToken: authToken,
+          id: user.id,
+          name: user.name,
+          accessToken,
         });
         router.push("/home");
       } else {
         Toast.show({
           type: "error",
           text1: "Unable to log in",
-          text2: user.message,
+          text2: apiRes.message,
         });
       }
     } catch (error) {

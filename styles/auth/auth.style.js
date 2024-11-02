@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
         width: "80%",
         height: 50,
         alignSelf: "center",
-        marginTop: 20,
+        marginTop: 50,
         marginBottom: 20
     },
     otpInputField: {
@@ -194,6 +194,14 @@ const styles = StyleSheet.create({
     otpInputHighlight: {
         borderWidth: 2,
         borderColor: COLORS.primary,
+    },
+    pinCodeTextStyle: {
+        fontFamily: FONT.semiBoldPoppins,
+        fontSize: SIZES.large,
+        color: COLORS.dark,
+    },
+    focusStick: {
+        backgroundColor: COLORS.primary,
     },
     loaderContainer: {
         width: "100%",

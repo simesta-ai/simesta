@@ -9,7 +9,6 @@ import { LectureChatProvider } from "../context/lectureChatContext";
 import { Provider as StoreProvider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "../redux/store";
-import { Chat } from "openai/resources/index.mjs";
 
 SplashScreen.preventAutoHideAsync();
 

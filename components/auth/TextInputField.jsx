@@ -56,7 +56,7 @@ const TextInputField = ({ type, selectionColor, secureTextEntry, placeholder, on
         textContentType={type}
         secureTextEntry={secureText}
         onChangeText={(text) => handleInputChange(text)}
-        value={defaultValue}
+        defaultValue={defaultValue}
       />
         {secureTextEntry ? (
           <Pressable style={styles.viewTextButton} onPress={handleView}>

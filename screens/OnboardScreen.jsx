@@ -82,9 +82,7 @@ const OnboardScreen = () => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log(currentIndex)
-  // }, [currentIndex])
+
 
   return (
     <SafeAreaView
