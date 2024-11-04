@@ -52,7 +52,6 @@ const CoursesContainer = forwardRef((props, ref) => {
         );
 
         const data = await res.json();
-        console.log(data)
         if (data.message == "User does not have any course created yet") {
           setStartedCourses(false);
           setLoadingCourses(false);

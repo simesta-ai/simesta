@@ -55,7 +55,6 @@ const CourseMainScreen = ({ courseId }) => {
       userId,
       accessToken
     );
-    console.log(fetchedCourseDetails);
     if (
       fetchedCourseDetails ==
       "Unable to authorize user: User not currently logged in."

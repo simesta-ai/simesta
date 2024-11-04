@@ -6,7 +6,8 @@ const userSlice = createSlice({
         id: "",
         name : "",
         accessToken: "",
-        isFirstUser: true
+        isFirstUser: true,
+        deviceToken: ""
     },
     reducers: {
         register(state, action){
@@ -26,6 +27,10 @@ const userSlice = createSlice({
             state.id = "";
             state.name= "";
             state.accessToken = "";
+        },
+        setDeviceToken(state, action) {
+            const deviceToken = action.payload;
+            state.deviceToken = deviceToken;
         }
     }
 });

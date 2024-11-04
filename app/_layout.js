@@ -1,5 +1,7 @@
 import { Stack } from "expo-router";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
+import * as Notifications from 'expo-notifications';
+import { Platform } from 'react-native';
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import fontsConfig from "../constants/fonts";
@@ -13,6 +15,8 @@ import { store, persistor } from "../redux/store";
 SplashScreen.preventAutoHideAsync();
 
 const Layout = () => {
+  const notificationListener = useRef();
+  const responseListener = useRef();
   const [fontsLoaded] = useFonts({
     // Poppins Fonts
 
@@ -32,6 +36,36 @@ const Layout = () => {
   useEffect(() => {
     SplashScreen.hideAsync();
   });
+
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,   
+      shouldPlaySound: true,
+      shouldSetBadge: true,
+    }),
+  });
+
+  useEffect(() => {
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      console.log('Notification received:', notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log('Notification tapped:', response);
+    });
+
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+      });
+    }
+
+    return () => {
+      if (notificationListener.current) Notifications.removeNotificationSubscription(notificationListener.current);
+      if (responseListener.current) Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {

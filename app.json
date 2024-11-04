@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "simesta",
-    "slug": "commerce-app",
+    "name": "Simesta",
+    "slug": "simesta",
     "scheme": "com.simesta",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -23,6 +23,10 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "notification": {
+        "icon": "./assets/adaptive-icon.png",
+        "color": "#ffffff"
       },
       "permissions": [
         "android.permission.RECORD_AUDIO"
@@ -46,6 +50,13 @@
         {
           "cameraPermission": "Allow Simesta to access your camera"
         }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/adaptive-icon.png",
+          "color": "#faa200"
+        }
       ]
     ],
     "extra": {
@@ -53,14 +64,14 @@
         "origin": false
       },
       "eas": {
-        "projectId": "298f7fc1-a565-4421-acf6-2856bf84f07c"
+        "projectId": "766266a3-e77a-4211-b97a-cf61eb761fab"
       }
     },
     "runtimeVersion": {
       "policy": "appVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/298f7fc1-a565-4421-acf6-2856bf84f07c"
+      "url": "https://u.expo.dev/766266a3-e77a-4211-b97a-cf61eb761fab"
     },
     "owner": "samthemogul"
   }
