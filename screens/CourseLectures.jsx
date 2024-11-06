@@ -105,7 +105,7 @@ const CourseLectures = ({ courseId, topicId }) => {
             paddingBottom: 20,
           }}
         >
-          <BackButtonContainer path={`course/${courseId}`} />
+          <BackButtonContainer />
           <Text style={styles.headerText}>
             {topic.name.length > 30
               ? topic.name.slice(0, 29) + "..."

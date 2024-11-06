@@ -8,6 +8,7 @@ import fontsConfig from "../constants/fonts";
 import { TabBarProvider } from "../context/TabBarContext";
 import { ChatMessageProvider } from "../context/chatMessageContext";
 import { LectureChatProvider } from "../context/lectureChatContext";
+import { NotificationProvider } from "../context/NotificationContext";
 import { Provider as StoreProvider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "../redux/store";
@@ -83,6 +84,7 @@ const Layout = () => {
         <TabBarProvider>
           <LectureChatProvider>
             <ChatMessageProvider>
+              <NotificationProvider>
               <Stack
                 screenOptions={{
                   headerShown: false,
@@ -91,6 +93,7 @@ const Layout = () => {
               >
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
               </Stack>
+              </NotificationProvider>
             </ChatMessageProvider>
           </LectureChatProvider>
         </TabBarProvider>
