@@ -38,7 +38,7 @@ const CourseLectures = ({ courseId, topicId }) => {
 
   const getTopicDetails = async () => {
     const res = await fetch(
-      `http://192.168.232.93:3000/api/courses/topic/${topicId}`,
+      `http://192.168.253.93:3000/api/courses/topic/${topicId}`,
       {
         method: "GET",
         headers: {
@@ -51,7 +51,7 @@ const CourseLectures = ({ courseId, topicId }) => {
     console.log(data)
     if (data.message == "Unable to fetch topic content, no lectures exist") {
       const response = await fetch(
-        `http://192.168.232.93:3000/api/courses/topic/${topicId}`,
+        `http://192.168.253.93:3000/api/courses/topic/${topicId}`,
         {
           method: "POST",
           headers: {

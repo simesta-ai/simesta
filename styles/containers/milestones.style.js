@@ -4,9 +4,9 @@ import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
+        padding: 20,
         marginTop: 10,
-        backgroundColor: COLORS.light,
+        backgroundColor: COLORS.transWarm,
         borderRadius: 20,
         borderColor: COLORS.lightGrey,
         borderWidth: 0,

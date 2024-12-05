@@ -4,6 +4,7 @@ import dataAnalytics from "../assets/images/data_analytics.jpeg";
 import algebra from "../assets/images/algebra.jpeg";
 import startLecture from "../assets/images/learn.jpg";
 import noNotification from "../assets/images/no-notification.png"
+import streakIcon from "../assets/images/streak-sign.png"
 
 export default {
     colouredLogo,
@@ -12,4 +13,5 @@ export default {
     colouredLogo2D,
     startLecture,
     noNotification,
+    streakIcon,
 }

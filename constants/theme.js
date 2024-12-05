@@ -20,6 +20,8 @@ const COLORS = {
     warm: '#F3953E',
     progress:"#18A180",
     transProgress: "#ECFFFB",
+    transWarm: "#fff4ea",
+    miniTransWarm: "#f5dbc2",
 
     backgroundGrey: '#FFFFFF'
   

@@ -9,11 +9,10 @@ const RecommendedCourseCard = ({ course }) => {
   return (
     <Pressable style={styles.container}>
       <Text style={styles.courseTitle}>{course.title}</Text>
-      <Text style={styles.topicsCompleted}>Topic 1/8</Text>
       <View style={styles.featuresContainer}>
             <View style={styles.feature}>
             <MaterialIcons name="access-time" size={SIZES.medium} color={COLORS.primary} />
-            <Text style={styles.featureText}>6 weeks</Text>
+            <Text style={styles.featureText}>{course.duration}</Text>
             </View>
             <View style={styles.feature}>
             <MaterialIcons name="category" size={SIZES.medium} color={COLORS.primary} />
@@ -21,7 +20,7 @@ const RecommendedCourseCard = ({ course }) => {
             </View>
             <View style={styles.feature}>
             <MaterialCommunityIcons name="speedometer" size={SIZES.medium} color={COLORS.primary} />
-            <Text style={styles.featureText}>Beginner</Text>
+            <Text style={styles.featureText}>{course.level}</Text>
             </View>
       </View>
     </Pressable>

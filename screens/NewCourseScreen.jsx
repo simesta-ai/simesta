@@ -91,7 +91,7 @@ const NewCourseScreen = () => {
         },
       };
       const res = await axios.post(
-        `http://192.168.232.93:3000/api/courses/${userId}/course`,
+        `http://192.168.253.93:3000/api/courses/${userId}/course`,
         formData,
         config,
       );
@@ -116,7 +116,7 @@ const NewCourseScreen = () => {
   };
 
   const goToCourse = () => {
-    if(createdCourseId.length > 0) {
+    if(createdCourseId && createdCourseId.length > 0) {
       router.navigate(`course/${createdCourseId}`);
     }
   };

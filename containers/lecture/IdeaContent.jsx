@@ -32,7 +32,7 @@ const IdeaContent = ({
   const loadImage = async (text) => {
     try {
       const response = await fetch(
-        "http://192.168.232.93:3000/api/chat/text-to-image",
+        "http://192.168.253.93:3000/api/chat/text-to-image",
         {
           method: "POST",
           headers: {

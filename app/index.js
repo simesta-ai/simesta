@@ -14,7 +14,7 @@ const Home = () => {
   const verifyUser = async () => {
     try {
       const res = await fetch(
-        `http://192.168.232.93:3000/api/users/${user.id}`,
+        `http://192.168.253.93:3000/api/users/${user.id}`,
         {
           method: "GET",
           headers: {

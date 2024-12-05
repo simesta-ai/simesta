@@ -26,7 +26,7 @@ const VerifyEmailForm = ({ email }) => {
     setLoadingResend((prev) => !prev);
     try {
       const res = await fetch(
-        `http://192.168.232.93:3000/api/auth/verify/email/${email}`,
+        `http://192.168.253.93:3000/api/auth/verify/email/${email}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" }
@@ -61,7 +61,7 @@ const VerifyEmailForm = ({ email }) => {
     try {
       setLoading((prev) => !prev);
       const res = await fetch(
-        "http://192.168.232.93:3000/api/auth/verify/otp",
+        "http://192.168.253.93:3000/api/auth/verify/otp",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

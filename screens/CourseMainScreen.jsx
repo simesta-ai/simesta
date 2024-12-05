@@ -15,7 +15,7 @@ import { Skeleton } from "moti/skeleton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
 import useFetchCourse, { fetchCourseDetails } from "../hooks/useFetchAsync";
 import { activeCourseActions } from "../redux/slices/activeCourseSlice";
 import { router, useNavigation, usePathname } from "expo-router";
@@ -125,6 +125,7 @@ const CourseMainScreen = ({ courseId }) => {
 
     return () => backHandlerSubscription.remove();
   }, []);
+
 
   return (
     <KeyboardAvoidingView

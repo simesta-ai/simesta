@@ -41,7 +41,21 @@ const styles = StyleSheet.create({
         paddingRight: 30,
         color: COLORS.lightGrey,
         textAlign: "center"
-    }
+    },
+    skeletonContainer: {
+        flexDirection: "column",
+        backgroundColor: COLORS.backgroundGrey,
+        height: 800,
+        padding: 10,
+        alignItems: "center",
+        gap: 20
+    },
+    skeleton: {
+        flexDirection: "row",
+        justifyContent: "center",
+        gap: 20,
+        alignItems: "center"
+    },
 })
 
 

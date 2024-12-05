@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 import { useCallback, useEffect, useRef } from "react";
-import * as Notifications from 'expo-notifications';
-import { Platform } from 'react-native';
+import * as Notifications from "expo-notifications";
+import { Platform } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import fontsConfig from "../constants/fonts";
@@ -40,31 +40,37 @@ const Layout = () => {
 
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
-      shouldShowAlert: true,   
+      shouldShowAlert: true,
       shouldPlaySound: true,
       shouldSetBadge: true,
     }),
   });
 
   useEffect(() => {
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      console.log('Notification received:', notification);
-    });
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        console.log("Notification received:", notification);
+      });
 
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log('Notification tapped:', response);
-    });
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log("Notification tapped:", response);
+      });
 
-    if (Platform.OS === 'android') {
-      Notifications.setNotificationChannelAsync('default', {
-        name: 'default',
+    if (Platform.OS === "android") {
+      Notifications.setNotificationChannelAsync("default", {
+        name: "default",
         importance: Notifications.AndroidImportance.MAX,
       });
     }
 
     return () => {
-      if (notificationListener.current) Notifications.removeNotificationSubscription(notificationListener.current);
-      if (responseListener.current) Notifications.removeNotificationSubscription(responseListener.current);
+      if (notificationListener.current)
+        Notifications.removeNotificationSubscription(
+          notificationListener.current
+        );
+      if (responseListener.current)
+        Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
 
@@ -85,14 +91,17 @@ const Layout = () => {
           <LectureChatProvider>
             <ChatMessageProvider>
               <NotificationProvider>
-              <Stack
-                screenOptions={{
-                  headerShown: false,
-                }}
-                onLayout={onLayoutRootView}
-              >
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              </Stack>
+                <Stack
+                  screenOptions={{
+                    headerShown: false,
+                  }}
+                  onLayout={onLayoutRootView}
+                >
+                  <Stack.Screen
+                    name="(tabs)"
+                    options={{ headerShown: false }}
+                  />
+                </Stack>
               </NotificationProvider>
             </ChatMessageProvider>
           </LectureChatProvider>

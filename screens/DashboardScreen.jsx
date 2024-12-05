@@ -26,8 +26,10 @@ import DashboardSearch from "../components/dashboard/DashboardSearch";
 import MileStones from "../containers/dashboard/MileStones";
 import CoursesContainer from "../containers/dashboard/CoursesContainer";
 
+
 import styles from "../styles/screens/dashboard.style";
 import { icons, COLORS, SIZES } from "../constants";
+import Recommendations from "../containers/dashboard/Recommendations";
 
 const DashboardScreen = () => {
   const dispatch = useDispatch();
@@ -94,31 +96,31 @@ const DashboardScreen = () => {
         const token = await registerForPushNotificationsAsync();
         if(token) {
           dispatch(userActions.setDeviceToken(token));
-          console.log(token)
-          // setImmediate( async () => {
-          //   const res = await fetch(`http://192.168.232.93:3000/api/users/notifyMe`, {
-          //     method: "POST",
-          //     headers: {
-          //       "Content-Type": "application/json",
-          //       Authorization: `Bearer ${user.accessToken}`,
-          //     },
-          //     body: JSON.stringify({
-          //       deviceToken: token,
-          //     }),
-          //   })
-          //   const data = await res.json();
-          //   if(res.status !== 200) {
-          //     Toast({
-          //       type: "error",
-          //       text1: data.message,
-          //     })
-          //   } else {
-          //     Toast({
-          //       type: "success",
-          //       text1: data.message,
-          //     })
-          //   }
-          // })
+          setImmediate( async () => {
+            const res = await fetch(`http://192.168.253.93:3000/api/notifications/allow`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${user.accessToken}`,
+              },
+              body: JSON.stringify({
+                userId: user.id,
+                token: token,
+              }),
+            })
+            const data = await res.json();
+            if(res.status !== 200) {
+              Toast({
+                type: "error",
+                text1: data.message,
+              })
+            } else {
+              Toast({
+                type: "success",
+                text1: data.message,
+              })
+            }
+          })
 
         }
       }
@@ -184,8 +186,13 @@ const DashboardScreen = () => {
             {/* SearchBar */}
             <DashboardSearch placeholder={"Search or ask Simesta AI "} />
 
+            
             {/* Milestones */}
             <MileStones />
+
+            <Recommendations />
+
+           
 
             {/* Courses */}
             <CoursesContainer ref={childRef} />
