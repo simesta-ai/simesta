@@ -2,11 +2,13 @@ import { Text, View, FlatList, Pressable } from "react-native";
 import {
   useEffect,
   useState,
+  useContext,
   useCallback,
   forwardRef,
   useImperativeHandle,
 } from "react";
 import { useSelector } from "react-redux";
+import { ThemeContext } from "../../context/ThemeContext";
 import { useDispatch } from "react-redux";
 import Toast from "react-native-toast-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -21,12 +23,13 @@ import { Skeleton } from "moti/skeleton";
 import LottieView from "lottie-react-native";
 
 import styles from "../../styles/containers/courses.style";
-import { COLORS, SIZES } from "../../constants";
+import { COLORS, SIZES, DARKMODECOLORS } from "../../constants";
 import { coursesActions } from "../../redux/slices/coursesSlice";
 
 const CoursesContainer = forwardRef((props, ref) => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { theme } = useContext(ThemeContext);
   const user = useSelector((state) => state.user);
   const cachedCourses = useSelector((state) => state.allcourses);
   const [courses, setCourses] = useState([]);
@@ -42,7 +45,7 @@ const CoursesContainer = forwardRef((props, ref) => {
     } else {
       try {
         const res = await fetch(
-          `http://192.168.253.93:3000/api/courses/users/${user.id}`,
+          `http://192.168.45.93:3000/api/courses/users/${user.id}`,
           {
             method: "GET",
             headers: {
@@ -108,7 +111,7 @@ const CoursesContainer = forwardRef((props, ref) => {
     getUserCourses();
   }, []);
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, styles[theme].container]}>
       { courses.length < 1 ? <View style={styles.startLearningContainer}>
         <View style={styles.animationContainer}>
           <LottieView
@@ -116,7 +119,8 @@ const CoursesContainer = forwardRef((props, ref) => {
             style={{
               width: 200,
               height: 200,
-              backgroundColor: COLORS.light,
+              backgroundColor: 
+                theme === "light" ? COLORS.light : DARKMODECOLORS.dark,
             }}
             // Find more Lottie files at https://lottiefiles.com/featured
             source={require("../../lottie/start_learning.json")}
@@ -125,14 +129,16 @@ const CoursesContainer = forwardRef((props, ref) => {
         </View>
         <View style={styles.startLearningCtaContainer}>
           <View style={styles.startLearningPromptContainer}>
-            <Text style={styles.startLearningText}>
+            <Text style={[styles.startLearningText, styles[theme].startLearningText]}>
               Create a course and begin your learning journey.
             </Text>
           </View>
           <View style={styles.startLearningButtonContainer}>
             <Button
               text={"Start learning"}
-              type={"course-cancel-btn"}
+              type={
+                theme === "light" ? "course-cancel-btn" : "white-action-btn"
+              }
               onPress={createCourse}
             />
           </View>
@@ -141,13 +147,17 @@ const CoursesContainer = forwardRef((props, ref) => {
       {/* Course cards */}
       {loadingCourses ? (
         <View style={styles.skeleton}>
-          <Skeleton colorMode="light" width={200} height={170}></Skeleton>
-          <Skeleton colorMode="light" width={200} height={170}></Skeleton>
+          <Skeleton colorMode={
+            theme === "light" ? "light" : "dark"
+          } width={200} height={170}></Skeleton>
+          <Skeleton colorMode={
+            theme === "light" ? "light" : "dark"
+          } width={200} height={170}></Skeleton>
         </View>
       ) : startedCourses ? (
         <View>
           <View style={styles.courseCategoryHeader}>
-            <Text style={styles.greeting}>In Progress</Text>
+            <Text style={[styles.greeting, styles[theme].greeting]}>In Progress</Text>
             {/* <Pressable>
               <Text style={styles.seeAllAction}>See All</Text>
             </Pressable> */}

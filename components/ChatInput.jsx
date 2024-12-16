@@ -8,7 +8,8 @@ import {
 } from "react-native";
 import { Audio } from "expo-av";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { MotiView } from "moti";
 import { FadeInDown } from "react-native-reanimated";
@@ -24,6 +25,7 @@ const ChatInput = ({
   setVoiceNote,
 }) => {
   const [micOn, setMicOn] = useState(false);
+  const { theme } = useContext(ThemeContext)
   const [recording, setRecording] = useState();
   const [transcribingAudio, setTranscribingAudio] = useState(false);
   const [permissionResponse, requestPermission] = Audio.usePermissions();
@@ -80,7 +82,7 @@ const ChatInput = ({
       type: "audio/mp4",
     });
     try {
-      const res = await fetch("http://192.168.253.93:3000/api/chat/speech-to-text", {
+      const res = await fetch("http://192.168.45.93:3000/api/chat/speech-to-text", {
         method: "POST",
         body: formData,
         headers: {
@@ -111,11 +113,16 @@ const ChatInput = ({
   return (
     <View>
       <View style={styles.chatAndVoiceContainer}>
-        <View style={styles.chatInputContainer}>
+        <View style={[styles.chatInputContainer, styles[theme].chatInputContainer]}>
           <TextInput
             placeholder="Enter Reply..."
-            style={styles.chatInput}
-            selectionColor={COLORS.dark}
+            placeholderTextColor={
+              theme === "light" ? COLORS.miniDarkGrey : COLORS.lightGrey
+            }
+            style={[styles.chatInput, styles[theme].chatInput]}
+            selectionColor={
+              theme === "light" ? COLORS.dark : COLORS.light
+            }
             value={text}
             onChangeText={handleTextChange}
           />
@@ -128,7 +135,9 @@ const ChatInput = ({
                 <Ionicons
                   name="mic"
                   size={SIZES.medium}
-                  color={COLORS.miniDarkGrey}
+                  color={
+                    theme === "light" ? COLORS.darkGrey : COLORS.lightGrey
+                  }
                 />
               </Pressable>
             </View>
@@ -156,22 +165,24 @@ const ChatInput = ({
               loop: true,
               repeatReverse: false,
             }}
-            style={styles.soundIndicator}
+            style={[styles.soundIndicator, styles[theme].soundIndicator]}
           />
-          <Text style={styles.voiceNoteText}>Listening..</Text>
+          <Text style={[styles.voiceNoteText, styles[theme].voiceNoteText]}>Listening..</Text>
           {!transcribingAudio ? (
             <View>
               <Pressable
-                style={styles.voiceIconContainer}
+                style={[styles.voiceIconContainer, styles[theme].voiceIconContainer]}
                 onPress={toggleMicVisibility}
               >
-                <Text style={styles.stopRecordingText}>
+                <Text style={[styles.stopRecordingText, styles[theme].stopRecordingText]}>
                   Tap to stop recording
                 </Text>
                 <Ionicons
                   name="close"
                   size={SIZES.medium}
-                  color={COLORS.darkGrey}
+                  color={
+                    theme === "light" ? COLORS.darkGrey : COLORS.lightGrey
+                  }
                 />
               </Pressable>
             </View>

@@ -5,8 +5,9 @@ import CustomIcon from "../../components/CustomIcon";
 import TabBarIcons from "../../components/TabBarIcons";
 import AddCourseButton from "../../components/AddCourseButton";
 import { TabBarContext } from "../../context/TabBarContext";
+import { ThemeContext } from "../../context/ThemeContext";
 
-import { COLORS, SIZES } from "../../constants";
+import { COLORS, SIZES, DARKMODECOLORS } from "../../constants";
 import styles from "../../styles/components/bottomTab.style";
 import { useContext, useEffect } from "react";
 import { usePathname } from "expo-router";
@@ -14,6 +15,7 @@ import { usePathname } from "expo-router";
 const DashboardTabs = () => {
 
   const { display, setDisplay} = useContext(TabBarContext);
+  const { theme } = useContext(ThemeContext)
   const pathname = usePathname()
   const toDisplayTabPaths = ["home", "courses", "new-course", "take-test", "profile", "course"]
 
@@ -33,7 +35,7 @@ const DashboardTabs = () => {
         tabBarHideOnKeyboard: true,
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: styles.container(display),
+        tabBarStyle: styles.container(display, theme),
       }}
     >
       <Tabs.Screen
@@ -44,7 +46,11 @@ const DashboardTabs = () => {
               tag="Home"
               name="home"
               size={SIZES.large}
-              color={focused ? COLORS.dark : COLORS.lightGrey}
+              color={focused ? 
+                theme === "light" ? COLORS.dark : COLORS.light
+                : 
+                theme === "light" ? COLORS.lightGrey : DARKMODECOLORS.miniDarkGrey
+              }
               focused={focused}
             />
           ),
@@ -58,7 +64,11 @@ const DashboardTabs = () => {
               tag= "Courses"
               name="courses"
               size={SIZES.large}
-              color={focused ? COLORS.dark : COLORS.lightGrey}
+              color={focused ? 
+                theme === "light" ? COLORS.dark : COLORS.light
+                : 
+                theme === "light" ? COLORS.lightGrey : DARKMODECOLORS.miniDarkGrey
+              }
               focused={focused}
             />
           ),
@@ -78,7 +88,11 @@ const DashboardTabs = () => {
               tag="Test"
               name="puzzle"
               size={SIZES.large}
-              color={focused ? COLORS.dark : COLORS.lightGrey}
+              color={focused ? 
+                theme === "light" ? COLORS.dark : COLORS.light
+                : 
+                theme === "light" ? COLORS.lightGrey : DARKMODECOLORS.miniDarkGrey
+              }
               focused={focused}
             />
           ),
@@ -92,7 +106,11 @@ const DashboardTabs = () => {
               tag="Profile"
               name="profile"
               size={SIZES.large}
-              color={focused ? COLORS.dark : COLORS.lightGrey}
+              color={focused ? 
+                theme === "light" ? COLORS.dark : COLORS.light
+                : 
+                theme === "light" ? COLORS.lightGrey : DARKMODECOLORS.miniDarkGrey
+              }
               focused={focused}
             />
           ),

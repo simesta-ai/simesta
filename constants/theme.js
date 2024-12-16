@@ -26,6 +26,14 @@ const COLORS = {
     backgroundGrey: '#FFFFFF'
   
   };
+
+  const DARKMODECOLORS = {
+    dark: "#111111",
+    grey: "#1F1F1F",
+    miniDarkGrey: "#949494",
+    warm: "#E39E53",
+    light: "#DFDFDF"
+  }
   
   const FONT = {
     regularPoppins: "PoppinsRegular",
@@ -68,4 +76,4 @@ const COLORS = {
     },
   };
   
-  export { COLORS, FONT, SIZES, SHADOWS };
+  export { COLORS, FONT, SIZES, SHADOWS, DARKMODECOLORS };

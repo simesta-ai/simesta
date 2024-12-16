@@ -22,21 +22,27 @@ import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../redux/slices/userSlice";
 import { usePathname, useRouter } from "expo-router";
 import { TabBarContext } from "../context/TabBarContext";
+import { ThemeContext } from "../context/ThemeContext";
+import { SearchScreenContext } from "../context/SearchScreenContext";
 import DashboardSearch from "../components/dashboard/DashboardSearch";
 import MileStones from "../containers/dashboard/MileStones";
 import CoursesContainer from "../containers/dashboard/CoursesContainer";
+import SearchResultsScreen from "./SearchResultsScreen";
 
 
 import styles from "../styles/screens/dashboard.style";
-import { icons, COLORS, SIZES } from "../constants";
+import { icons, COLORS, SIZES, DARKMODECOLORS } from "../constants";
 import Recommendations from "../containers/dashboard/Recommendations";
 
 const DashboardScreen = () => {
   const dispatch = useDispatch();
+
   const router = useRouter();
   const user = useSelector((state) => state.user);
   const childRef = useRef(null);
   const { display, setDisplay } = useContext(TabBarContext);
+  const { displaySearch, setDisplaySearch } = useContext(SearchScreenContext);
+  const { theme } = useContext(ThemeContext)
   const [name, setName] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const pathname = usePathname();
@@ -97,7 +103,7 @@ const DashboardScreen = () => {
         if(token) {
           dispatch(userActions.setDeviceToken(token));
           setImmediate( async () => {
-            const res = await fetch(`http://192.168.253.93:3000/api/notifications/allow`, {
+            const res = await fetch(`http://192.168.45.93:3000/api/notifications/allow`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -154,11 +160,15 @@ const DashboardScreen = () => {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
-      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.backgroundGrey }}>
-        <StatusBar
-          barStyle="dark-content"
-          backgroundColor={COLORS.backgroundGrey}
-        />
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme == "light" ? COLORS.light : DARKMODECOLORS.dark, }}>
+      <StatusBar
+        barStyle={theme == "light" ? "dark-content" : "light-content"}
+        backgroundColor={theme == "light" ? COLORS.light : DARKMODECOLORS.dark}
+      />
+      {/* // Search bar */}
+      { displaySearch ? <View style={styles.searchBarAndResults}>
+        <SearchResultsScreen />
+      </View>: null }
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="always"
@@ -166,10 +176,10 @@ const DashboardScreen = () => {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         >
-          <View style={styles.container}>
+          <View style={[styles.container, styles[theme].container]}>
             <View style={styles.notificationWrapper}>
               <View>
-                <Text style={styles.greeting}>
+                <Text style={[styles.greeting, styles[theme].greeting]}>
                   Welcome, {name.split(" ")[0]}!
                 </Text>
               </View>
@@ -177,7 +187,9 @@ const DashboardScreen = () => {
                 {/* <View style={styles.notificationAlert} /> */}
                 <Ionicons
                   name="notifications-outline"
-                  color={COLORS.dark}
+                  color={
+                    theme == "light" ? COLORS.dark : DARKMODECOLORS.light
+                  }
                   size={SIZES.xLarge}
                 />
               </Pressable>

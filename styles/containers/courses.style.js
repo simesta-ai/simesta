@@ -1,10 +1,51 @@
 import { Dimensions, StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
+import { COLORS, FONT, SIZES, SHADOWS, DARKMODECOLORS } from '../../constants'
 
 
 
 const styles = StyleSheet.create({
+    dark: {
+        container: {
+            backgroundColor: DARKMODECOLORS.dark
+        },
+        greeting: {
+            color: DARKMODECOLORS.light
+        },
+        notificationIcon: {
+            color: DARKMODECOLORS.light
+        },
+        courseTitle:{
+            color: DARKMODECOLORS.light
+        },
+        topicsCompleted: {
+            color: DARKMODECOLORS.miniDarkGrey
+        },
+        startLearningText: {
+            color: DARKMODECOLORS.light
+        }
+    },
+    light: {
+        container: {
+            backgroundColor: COLORS.light
+        },
+        greeting: {
+            color: COLORS.dark
+        },
+        notificationIcon: {
+            color: COLORS.dark
+        },
+        courseTitle:{
+            color: COLORS.dark
+        },
+        topicsCompleted: {
+            color: COLORS.miniDarkGrey
+        },
+        startLearningText: {
+            color: COLORS.dark
+        }
+
+    },
     container: {
         flexDirection: 'column',
         gap: 10,
@@ -50,10 +91,9 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         marginTop: 10,
-        backgroundColor: COLORS.light,
         borderRadius: 7,
         borderWidth: 0,
-        borderColor: COLORS.lightGrey
+        // borderColor: COLORS.lightGrey
     },
     startLearningCtaContainer: {
         width: "50%",
@@ -94,15 +134,16 @@ const styles = StyleSheet.create({
         color: activeType === item ? COLORS.light : COLORS.dark,
         fontFamily: FONT.semiBoldPoppins,
     }),
-    courseCardContainer: (type) => ({
+    courseCardContainer: (type, theme) => ({
         position: "relative",
         width: type === "dashboard" ? 200 : type === "course-page" ? Dimensions.get("window").width - 40 : 150,
-        borderColor: COLORS.grey,
-        backgroundColor: COLORS.light,
+        borderColor: 
+            theme === "light" ? COLORS.grey : DARKMODECOLORS.grey,
+        backgroundColor: 
+            theme === "light" ? COLORS.light : DARKMODECOLORS.dark,
         borderWidth: 2.0,
         borderBottomWidth: 7,
         borderRadius: 20,
-        borderColor: COLORS.grey,
         padding: 15,
         gap: 5,
         marginBottom: 20

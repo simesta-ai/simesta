@@ -1,8 +1,87 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
+import { COLORS, FONT, SIZES, SHADOWS, DARKMODECOLORS } from '../../constants'
 
 const styles = StyleSheet.create({
+    dark: {
+        container: {
+            backgroundColor: DARKMODECOLORS.dark,
+        },
+        chatHeaderText: {
+            color: DARKMODECOLORS.light,
+        },
+        chatDescription: {
+            color: DARKMODECOLORS.light,
+        },
+        chatMessage: {
+            color: DARKMODECOLORS.light,
+        },
+        userChatMessage: {
+            backgroundColor: DARKMODECOLORS.grey,
+        },
+        voiceNoteText: {
+            color: DARKMODECOLORS.light,
+        },
+        stopRecordingText: {
+            color: DARKMODECOLORS.light,
+        },
+        chatInputContainer: {
+            backgroundColor: DARKMODECOLORS.grey,
+        },
+        chatInput: {
+            color: DARKMODECOLORS.light,
+        },
+        inputMicButton: {
+            padding: SIZES.regular,
+            borderRadius: 50,
+        },
+        soundIndicator: {
+            backgroundColor: DARKMODECOLORS.grey,
+            borderRadius: 50,
+        },
+        voiceNoteText: {
+            color: DARKMODECOLORS.light,
+        },
+        stopRecordingText: {
+            color: DARKMODECOLORS.light,
+        },
+        voiceIconContainer: {
+            backgroundColor: DARKMODECOLORS.grey,
+        },
+        cancelBtn: {
+            backgroundColor: DARKMODECOLORS.grey,
+        }
+    },
+    light: {
+        container: {
+            backgroundColor: COLORS.light,
+        },
+        chatHeaderText: {
+            color: COLORS.dark,
+        },
+        chatDescription: {
+            color: COLORS.dark,
+        },
+        chatMessage: {
+            color: COLORS.dark,
+        },
+        userChatMessage: {
+            backgroundColor: COLORS.vLightGrey,
+        },
+        voiceNoteText: {
+            color: COLORS.dark,
+        },
+        stopRecordingText: {
+            color: COLORS.dark,
+        },
+        chatInputContainer: {
+            backgroundColor: COLORS.vLightGrey,
+        },
+        chatInput: {
+            color: COLORS.dark,
+        },
+        
+    },
     container: {
         flex: 1,
         paddingLeft: SIZES.medium,
@@ -39,8 +118,8 @@ const styles = StyleSheet.create({
         marginTop: SIZES.medium,
     },
     simestaChatImage: {
-        width: 40,
-        height: 40,
+        width: 30,
+        height: 30,
         transform: [{ translateY: -7}]
     },
     simestaChatImageLoading: {

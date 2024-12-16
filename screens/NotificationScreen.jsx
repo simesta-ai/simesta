@@ -13,14 +13,16 @@ import { useState, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import Toast from "react-native-toast-message";
 import { NotificationContext } from "../context/NotificationContext";
+import { ThemeContext } from "../context/ThemeContext";
 
 import BackButtonContainer from "../containers/BackButtonContainer";
 import NotificationContainer from "../components/dashboard/NotificationContainer";
 
-import { COLORS, SIZES, images } from "../constants";
+import { COLORS, SIZES, images, DARKMODECOLORS } from "../constants";
 import styles from "../styles/screens/notifications.style";
 
 const LearningMethodChatScreen = () => {
+  const { theme } = useContext(ThemeContext);
   const user = useSelector((state) => state.user);
   const { notifications, setNotifications } = useContext(NotificationContext);
   const [refreshing, setRefreshing] = useState(false);
@@ -29,7 +31,7 @@ const LearningMethodChatScreen = () => {
   const getNotifications = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`http://192.168.253.93:3000/api/notifications/user/${user.id}`, {
+      const res = await fetch(`http://192.168.45.93:3000/api/notifications/user/${user.id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +72,8 @@ const LearningMethodChatScreen = () => {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.light, position: "relative" }}
+      style={{ flex: 1, backgroundColor: 
+        theme == "light" ? COLORS.backgroundGrey : DARKMODECOLORS.dark, position: "relative" }}
     >
       <StatusBar
         barStyle="dark-content"

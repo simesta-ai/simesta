@@ -6,10 +6,12 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  StatusBar
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useSelector } from "react-redux";
+import { ThemeContext } from "../../context/ThemeContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
@@ -18,13 +20,13 @@ import SocialButton from "../../components/SocialButton";
 
 import styles from "../../styles/auth/auth.style";
 
-import { images, COLORS } from "../../constants";
+import { images, COLORS, DARKMODECOLORS } from "../../constants";
 import { Redirect, useRouter } from "expo-router";
 
 const login = () => {
   const router = useRouter();
   const route = useRoute();
-
+  const { theme, setTheme } = useContext(ThemeContext)
   const [hasName, setHasName] = useState(false);
   const user = useSelector(state => state.user);
   useEffect(() => {
@@ -41,14 +43,18 @@ const login = () => {
   return (
     <>
       {hasName ? (
-        <Redirect href={"/home"} />
+        <Redirect href={"/auth/login"} />
       ) : (
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: theme == "light" ? COLORS.light : DARKMODECOLORS.dark }}>
+        <StatusBar
+        barStyle={ theme == "light" ? "dark-content" : "light-content"}
+        backgroundColor={theme == "light" ? COLORS.light : DARKMODECOLORS.dark}
+      />
           <ScrollView
             keyboardShouldPersistTaps="always"
             showsVerticalScrollIndicator={false}
           >
-            <View style={styles.container}>
+            <View style={[styles.container, styles[theme].container]}>
               {/* Logo Image Container */}
               <View style={styles.logoContainer}>
                 <Image
@@ -58,7 +64,7 @@ const login = () => {
                 />
               </View>
 
-              <Text style={styles.headerText}>Log In</Text>
+              <Text style={[styles.headerText, styles[theme].headerText]}>Log In</Text>
               <Text style={styles.taglineText}>
                 Welcome back, continue learning!
               </Text>
@@ -78,12 +84,12 @@ const login = () => {
               </View>
 
               <View style={styles.accountTextContainer}>
-                <Text style={styles.accountText}>Don't have an account? </Text>
+                <Text style={[styles.accountText, styles[theme].accountText]}>Don't have an account? </Text>
                 <TouchableOpacity
                   onPress={() => router.push("auth/signup")}
                   style={styles.linkContainer}
                 >
-                  <Text style={styles.linkText}>Sign Up</Text>
+                  <Text style={[styles.linkText, styles[theme].linkText]}>Sign Up</Text>
                 </TouchableOpacity>
               </View>
             </View>

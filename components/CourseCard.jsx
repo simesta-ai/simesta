@@ -1,5 +1,7 @@
 import { Text, View, Image, Pressable } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 import { activeCourseActions } from "../redux/slices/activeCourseSlice";
 import { useRouter } from "expo-router";
 import RoundProgressBar from "./dashboard/RoundProgressBar";
@@ -12,6 +14,7 @@ import { COLORS, SIZES } from "../constants";
 const CourseCard = ({ position, course }) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { theme } = useContext(ThemeContext);
 
   const goToCourse = () => {
     dispatch(
@@ -24,7 +27,7 @@ const CourseCard = ({ position, course }) => {
   };
   return (
     <Pressable
-      style={styles.courseCardContainer(position)}
+      style={styles.courseCardContainer(position, theme)}
       onPress={goToCourse}
     >
       {/* {position === "dashboard" && <RoundProgressBar value={course.progress} />} */}
@@ -36,11 +39,11 @@ const CourseCard = ({ position, course }) => {
         />
       </View>
       {/* <Text style={styles.categoryText(course.color)}>{course.category.toUpperCase()}</Text> */}
-      <Text style={styles.courseTitle}>{course.title.slice(0, 35)}</Text>
-      <Text style={styles.topicsCompleted}>
+      <Text style={[styles.courseTitle, styles[theme].courseTitle]}>{course.title.slice(0, 35)}</Text>
+      <Text style={[styles.topicsCompleted, styles[theme].topicsCompleted]}>
         {course.topicsCompleted} Topics completed
       </Text>
-      <HorizontalProgressBar value={course.progress} />
+      <HorizontalProgressBar value={40} theme={theme} />
       {/* {position === "course-page" && <HorizontalProgressBar value={course.progress} />} */}
     </Pressable>
   );

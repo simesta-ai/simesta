@@ -1,8 +1,30 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
+import { COLORS, FONT, SIZES, SHADOWS, DARKMODECOLORS } from '../../constants'
 
 const styles = StyleSheet.create({
+    dark: {
+        container: {
+            backgroundColor: DARKMODECOLORS.dark
+        },
+        greeting: {
+            color: DARKMODECOLORS.light
+        },
+        notificationIcon: {
+            color: DARKMODECOLORS.light
+        }
+    },
+    light: {
+        container: {
+            backgroundColor: COLORS.light
+        },
+        greeting: {
+            color: COLORS.dark
+        },
+        notificationIcon: {
+            color: COLORS.dark
+        }
+    },
     container: {
         flex: 1,
         paddingLeft: SIZES.small,

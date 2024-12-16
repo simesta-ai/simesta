@@ -61,7 +61,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
   const [completed, setCompleted] = useState(false);
   const [isOnQuiz, setIsOnQuiz] = useState(false);
   const [showBottomSheet, setShowBottomSheet] = useState(false);
-  const socket = useMemo(() => io("http://192.168.253.93:3000kl"), []);
+  const socket = useMemo(() => io("http://192.168.45.93:3000kl"), []);
   const [text, setText] = useState("");
   const [voiceNote, setVoiceNote] = useState("");
   const [sound, setSound] = useState(null);
@@ -112,7 +112,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
   };
 
   const getIdeaContentAudio = async (text) => {
-    const fileUrl = "http://192.168.253.93:3000/api/chat/text-to-speech";
+    const fileUrl = "http://192.168.45.93:3000/api/chat/text-to-speech";
     const fileUri = FileSystem.documentDirectory + "currentaudio.wav";
     try {
       const response = await fetch(fileUrl, {
@@ -205,7 +205,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
 
   const getLecture = async () => {
     const res = await fetch(
-      `http://192.168.253.93:3000/api/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
+      `http://192.168.45.93:3000/api/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
       {
         method: "GET",
         headers: {
@@ -221,7 +221,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
     ) {
       setLoadingLecture(true);
       const newRes = await fetch(
-        `http://192.168.253.93:3000/api/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
+        `http://192.168.45.93:3000/api/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
         {
           method: "POST",
           headers: {

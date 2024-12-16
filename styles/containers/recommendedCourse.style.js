@@ -1,11 +1,45 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
+import { COLORS, FONT, SIZES, SHADOWS, DARKMODECOLORS } from '../../constants'
 
 const styles = StyleSheet.create({
+    dark: {
+        container: {
+            backgroundColor: "rgba(118, 45, 237, 0.1)"
+        },
+        greeting: {
+            color: DARKMODECOLORS.light
+        },
+        courseTitle: {
+            color: DARKMODECOLORS.light
+        },
+        topicsCompleted: {
+            color: DARKMODECOLORS.light
+        },
+        featureText: {
+            color: DARKMODECOLORS.light
+        }
+    },
+    light: {
+        container: {
+            backgroundColor: "rgba(118, 45, 237, 0.1)"
+        },
+        courseTitle: {
+            color: COLORS.dark
+        },
+        greeting: {
+            color: COLORS.dark
+        },
+        topicsCompleted: {
+            color: COLORS.miniDarkGrey
+        },
+        featureText: {
+            color: COLORS.darkGrey
+        }
+    },
     container: {
         width: 300,
-        borderColor: COLORS.grey,
+        borderColor: COLORS.lightPrimary,
         backgroundColor: COLORS.light,
         borderWidth: 2,
         borderBottomWidth: 7,

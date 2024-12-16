@@ -10,8 +10,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast from "react-native-toast-message";
 import TextInputField from "../../components/auth/TextInputField";
 import Button from "../../components/Button";
-import { useState } from "react";
-
+import { useState, useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 import styles from "../../styles/auth/auth.style";
 import { COLORS, SIZES } from "../../constants";
 import { useRouter } from "expo-router";
@@ -25,6 +25,7 @@ import { useDispatch } from "react-redux";
 const LoginForm = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { theme } = useContext(ThemeContext);
   const [loading, setLoading] = useState(false);
   const [formValue, setFormValue] = useState({
     email: "",
@@ -43,7 +44,7 @@ const LoginForm = () => {
     });
     setLoading(true);
     try {
-      const res = await fetch("http://192.168.253.93:3000/api/auth/login", {
+      const res = await fetch("http://192.168.45.93:3000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formValue),
@@ -97,10 +98,10 @@ const LoginForm = () => {
         onChange={(text) => setFormValue({ ...formValue, password: text })}
       />
       <TouchableOpacity>
-        <Text style={styles.linkText}>Forgot password?</Text>
+        <Text style={[styles.linkText, styles[theme].linkText]}>Forgot password?</Text>
       </TouchableOpacity>
       {loading ? (
-        <View style={styles.loaderContainer}>
+        <View style={[styles.loaderContainer, styles[theme].loaderContainer]}>
           <ActivityIndicator color={COLORS.primary} size={SIZES.medium} />
         </View>
       ) : (

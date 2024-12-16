@@ -1,5 +1,6 @@
 import { Text, View, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 import { OtpInput } from "react-native-otp-entry";
 import Toast from "react-native-toast-message";
 import { useRouter } from "expo-router";
@@ -13,6 +14,7 @@ import { authActions } from "../../redux/slices/authSlice";
 
 const VerifyEmailForm = ({ email }) => {
   const router = useRouter();
+  const { theme } = useContext(ThemeContext);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [ loadingResend, setLoadingResend ] = useState(false)
@@ -26,7 +28,7 @@ const VerifyEmailForm = ({ email }) => {
     setLoadingResend((prev) => !prev);
     try {
       const res = await fetch(
-        `http://192.168.253.93:3000/api/auth/verify/email/${email}`,
+        `http://192.168.45.93:3000/api/auth/verify/email/${email}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" }
@@ -61,7 +63,7 @@ const VerifyEmailForm = ({ email }) => {
     try {
       setLoading((prev) => !prev);
       const res = await fetch(
-        "http://192.168.253.93:3000/api/auth/verify/otp",
+        "http://192.168.45.93:3000/api/auth/verify/otp",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -108,18 +110,18 @@ const VerifyEmailForm = ({ email }) => {
           accessibilityLabel: "One-Time Password",
         }}
         theme={{
-          containerStyle: styles.otpInput,
-          pinCodeContainerStyle: styles.otpInputField,
-          pinCodeTextStyle: styles.pinCodeTextStyle,
+          containerStyle: [styles.otpInput, styles[theme].otpInput],
+          pinCodeContainerStyle: [styles.otpInputField, styles[theme].otpInputField],
+          pinCodeTextStyle: [styles.pinCodeTextStyle, styles[theme].pinCodeTextStyle],
           focusStickStyle: styles.focusStick,
           focusedPinCodeContainerStyle: styles.otpInputHighlight,
         }}
       />
       <View style={styles.accountTextContainer}>
-        <Text style={styles.accountText}>Didn't get a code? </Text>
+        <Text style={[styles.accountText, styles[theme].accountText]}>Didn't get a code? </Text>
         { !loadingResend ? <TouchableOpacity onPress={resendOtp} style={styles.linkContainer}>
-          <Text style={styles.linkText}>Resend</Text>
-        </TouchableOpacity> : <Text style={styles.accountText}>Resending...</Text>}
+          <Text style={[styles.linkText, styles[theme].linkText]}>Resend</Text>
+        </TouchableOpacity> : <Text style={[styles.accountText, styles[theme].accountText]}>Resending...</Text>}
       </View>
 
       {/* <Button onPress={handleSubmit} text="Verify" type="form-action-btn"  /> */}

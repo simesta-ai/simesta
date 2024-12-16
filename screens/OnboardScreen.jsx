@@ -13,15 +13,17 @@ import {
 } from "react-native";
 // import Animated from "react-native-reanimated";
 import { useState, useRef } from "react";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../components/Button";
-import { COLORS, onboardDetails } from "../constants";
+import { COLORS, DARKMODECOLORS, onboardDetails } from "../constants";
 import styles from "../styles/screens/onboarding.style";
 
 const OnboardScreen = () => {
   const router = useRouter();
+  const { theme } = useContext(ThemeContext);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(
     onboardDetails[currentIndex]
@@ -86,17 +88,17 @@ const OnboardScreen = () => {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.light, position: "relative" }}
+      style={{ flex: 1, backgroundColor: theme == "light" ? COLORS.light : DARKMODECOLORS.dark, position: "relative" }}
     >
       <StatusBar
-        barStyle="dark-content"
-        backgroundColor={COLORS.backgroundGrey}
+        barStyle={ theme == "light" ? "dark-content" : "light-content"}
+        backgroundColor={theme == "light" ? COLORS.light : DARKMODECOLORS.dark}
       />
       <ScrollView
         keyboardShouldPersistTaps="always"
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.container}>
+        <View style={[styles.container, styles[theme].container]}>
          
             <FlatList
               data={onboardDetails}
@@ -118,7 +120,7 @@ const OnboardScreen = () => {
               renderItem={({ item }) => {
                 return (
                   <View style={[{ width: width - 32 }]}>
-                    <Text style={styles.slideTitleText}>
+                    <Text style={[styles.slideTitleText, styles[theme].slideTitleText]}>
                       {getColoredText(item.title).map((text, i) => {
                         return (
                           <Text
@@ -126,7 +128,7 @@ const OnboardScreen = () => {
                             style={
                               text.colored
                                 ? styles.slideTitleColored
-                                : styles.slideTitle
+                                : [styles.slideTitle, styles[theme].slideTitle]
                             }
                           >
                             {text.string}
@@ -145,7 +147,7 @@ const OnboardScreen = () => {
                     </View>
 
                     {/* Onboard Description */}
-                    <Text style={[styles.slideDescription]}>
+                    <Text style={[styles.slideDescription, styles[theme].slideDescription]}>
                       {item.description}
                     </Text>
                   </View>
@@ -187,7 +189,7 @@ const OnboardScreen = () => {
           {/* Onboard Buttons */}
           <View style={styles.onboardButtons}>
             <Button
-              type="course-cancel-btn"
+              type={theme == "dark" ? "white-action-btn" : "course-cancel-btn"}
               text={
                 currentIndex == onboardDetails.length - 1
                   ? "Next"

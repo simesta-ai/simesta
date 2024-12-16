@@ -5,10 +5,12 @@ import { Platform } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import fontsConfig from "../constants/fonts";
+import { ThemeProvider } from "../context/ThemeContext";
 import { TabBarProvider } from "../context/TabBarContext";
 import { ChatMessageProvider } from "../context/chatMessageContext";
 import { LectureChatProvider } from "../context/lectureChatContext";
 import { NotificationProvider } from "../context/NotificationContext";
+import { SearchScreenProvider } from "../context/SearchScreenContext";
 import { Provider as StoreProvider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "../redux/store";
@@ -87,7 +89,9 @@ const Layout = () => {
   return (
     <StoreProvider store={store}>
       <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider>
         <TabBarProvider>
+          <SearchScreenProvider>
           <LectureChatProvider>
             <ChatMessageProvider>
               <NotificationProvider>
@@ -105,7 +109,9 @@ const Layout = () => {
               </NotificationProvider>
             </ChatMessageProvider>
           </LectureChatProvider>
+          </SearchScreenProvider>
         </TabBarProvider>
+        </ThemeProvider>
       </PersistGate>
     </StoreProvider>
   );

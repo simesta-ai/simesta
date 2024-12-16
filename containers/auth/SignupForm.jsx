@@ -7,7 +7,8 @@ import {
 } from "react-native";
 import TextInputField from "../../components/auth/TextInputField";
 import Button from "../../components/Button";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 import Toast from "react-native-toast-message";
 import styles from "../../styles/auth/auth.style";
 import { COLORS, SIZES } from "../../constants";
@@ -15,6 +16,7 @@ import { useRouter } from "expo-router";
 
 const SignupForm = () => {
   const router = useRouter();
+  const { theme } = useContext(ThemeContext);
   const [loading, setLoading] = useState(false);
   const [formValue, setFormValue] = useState({
     name: "",
@@ -28,7 +30,7 @@ const SignupForm = () => {
     });
     setLoading(true);
     try {
-      const res = await fetch("http://192.168.253.93:3000/api/auth/register", {
+      const res = await fetch("http://192.168.45.93:3000/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formValue),
@@ -81,7 +83,7 @@ const SignupForm = () => {
       />
 
       <TouchableOpacity>
-        <Text style={styles.linkText}>Forgot password?</Text>
+        <Text style={[styles.linkText, styles[theme].linkText]}>Forgot password?</Text>
       </TouchableOpacity>
       {loading ? (
         <View style={styles.loaderContainer}>

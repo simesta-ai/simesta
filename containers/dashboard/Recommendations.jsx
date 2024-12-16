@@ -1,4 +1,6 @@
 import { Text, View, FlatList } from 'react-native'
+import { useContext } from 'react'
+import { ThemeContext } from '../../context/ThemeContext'
 import styles from "../../styles/containers/recommendedCourse.style"
 import RecommendedCourseCard from '../../components/dashboard/RecommendedCourseCard'
 
@@ -27,9 +29,10 @@ const recommendedCourses = [
   }
 ]
 const Recommendations = () => {
+  const { theme } = useContext(ThemeContext)
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.greeting}>Courses you may like</Text>
+      <Text style={[styles.greeting, styles[theme].greeting]}>Courses you may like</Text>
       <FlatList
         data={recommendedCourses}
         keyExtractor={(item) => item.id}

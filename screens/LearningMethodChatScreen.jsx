@@ -16,9 +16,10 @@ import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../components/Button";
 import { ChatMessageContext } from "../context/chatMessageContext";
+import { ThemeContext } from "../context/ThemeContext";
 import ChatInput from "../components/ChatInput";
 import { io } from "socket.io-client";
-import { COLORS, SIZES, images } from "../constants";
+import { COLORS, SIZES, images, DARKMODECOLORS } from "../constants";
 import styles from "../styles/screens/chat.style";
 import AntDesign from '@expo/vector-icons/AntDesign';
 
@@ -29,7 +30,8 @@ const LearningMethodChatScreen = () => {
   const router = useRouter()
   const scrollViewRef = useRef(null);
   const { messages, addMessage } = useContext(ChatMessageContext);
-  const socket = useMemo(() => io("http://192.168.253.93:3000"), []);
+  const { theme } = useContext(ThemeContext);
+  const socket = useMemo(() => io("http://192.168.45.93:3000"), []);
   const [text, setText] = useState("");
   const [voiceNote, setVoiceNote] = useState("");
   const [loadingSimestaChat, setLoadingSimestaChat] = useState(false);
@@ -81,19 +83,19 @@ const LearningMethodChatScreen = () => {
     };
   }, [socket]);
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: COLORS.light, position: "relative" }}
-    >
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme == "light" ? COLORS.light : DARKMODECOLORS.dark, position: "relative" }}>
       <StatusBar
-        barStyle="dark-content"
-        backgroundColor={COLORS.backgroundGrey}
+        barStyle={theme == "light" ? "dark-content" : "light-content"}
+        backgroundColor={theme == "light" ? COLORS.light : DARKMODECOLORS.dark}
       />
 
-      <View style={styles.container}>
-        <Pressable onPress={goToHome} style={styles.cancelBtn}>
-        <AntDesign name="close" size={24} color="black" />
+      <View style={[styles.container, styles[theme].container]}>
+        <Pressable onPress={goToHome} style={[styles.cancelBtn, styles[theme].cancelBtn]}>
+          <AntDesign name="close" size={24} color={
+            theme == "light" ? COLORS.light : DARKMODECOLORS.miniDarkGrey
+          } />
         </Pressable>
-        <Text style={styles.chatHeaderText}>How do you learn?</Text>
+        <Text style={[styles.chatHeaderText, styles[theme].chatHeaderText]}>How do you learn?</Text>
         <Text style={styles.chatDescription}>
           This session is AI-powered and would help us understand who you are
           and how it influences how you learn.
@@ -113,15 +115,15 @@ const LearningMethodChatScreen = () => {
                     source={images.colouredLogo2D}
                     style={styles.simestaChatImage}
                   />
-                  
-                  <Text style={styles.chatMessage}>{message.message}</Text>
+
+                  <Text style={[styles.chatMessage, styles[theme].chatMessage]}>{message.message}</Text>
                 </View>
               );
             } else {
               return (
                 <View style={styles.userChat} key={message.id}>
-                  <View style={styles.userChatMessage}>
-                    <Text style={styles.chatMessage}>{message.message}</Text>
+                  <View style={[styles.userChatMessage, styles[theme].userChatMessage]}>
+                    <Text style={[styles.chatMessage, styles[theme].chatMessage]}>{message.message}</Text>
                   </View>
                 </View>
               );
@@ -138,7 +140,9 @@ const LearningMethodChatScreen = () => {
                   width={width - 100}
                   height={15}
                   radius={10}
-                  colorMode="light"
+                  colorMode={
+                    theme == "light" ? "light" : "dark"
+                  }
                 />
               </View>
             </View>

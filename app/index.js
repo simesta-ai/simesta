@@ -14,7 +14,7 @@ const Home = () => {
   const verifyUser = async () => {
     try {
       const res = await fetch(
-        `http://192.168.253.93:3000/api/users/${user.id}`,
+        `http://192.168.45.93:3000/api/users/${user.id}`,
         {
           method: "GET",
           headers: {
@@ -71,7 +71,7 @@ const Home = () => {
   }
 
   if (!user.id && !isVerified) {
-    return <OnboardScreen />;
+    return <Redirect href="/auth/login" />;
   }
   return <Redirect href="/home" />;
 };

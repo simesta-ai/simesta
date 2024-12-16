@@ -1,8 +1,24 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES, SHADOWS } from "../../constants";
+import { COLORS, FONT, SIZES, SHADOWS, DARKMODECOLORS } from "../../constants";
 
 const styles = StyleSheet.create({
+  dark: {
+    container: {
+      backgroundColor: "rgba(245, 219, 194, 0.1)",
+    },
+    text: {
+      color: COLORS.light,
+    },
+  },
+  light: {
+    container: {
+      backgroundColor: COLORS.miniTransWarm,
+    },
+    text: {
+      color: COLORS.dark,
+    },
+  },
   container: {
     flex: 1,
     flexDirection: "row",

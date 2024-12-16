@@ -16,6 +16,17 @@ const styles = StyleSheet.create({
           borderRadius: 100,
           marginTop: type == "form-action-btn" ? 0 : 0,
         };
+      case "white-action-btn":
+        return {
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+          padding: 10,
+          backgroundColor: COLORS.light,
+          borderRadius: 100,
+          marginTop: type == "form-action-btn" ? 0 : 0,
+        };
       case "submit-answer-btn":
         return {
           flex: 1,
@@ -147,7 +158,7 @@ const styles = StyleSheet.create({
 
   buttonText: (type) => ({
     fontFamily: FONT.mediumPoppins,
-    color: type === "neutral-btn" ? COLORS.dark : type ===  "submit-answer-btn" ? COLORS.dark :COLORS.light,
+    color: type === "neutral-btn" ? COLORS.dark : (type ===  "submit-answer-btn" || type === "white-action-btn" ? COLORS.dark : COLORS.light),
     fontSize: SIZES.regular,
   }),
   socialButton: {

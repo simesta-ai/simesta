@@ -91,7 +91,7 @@ const NewCourseScreen = () => {
         },
       };
       const res = await axios.post(
-        `http://192.168.253.93:3000/api/courses/${userId}/course`,
+        `http://192.168.45.93:3000/api/courses/${userId}/course`,
         formData,
         config,
       );

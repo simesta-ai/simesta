@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 import { View, TextInput, TouchableOpacity, TouchableWithoutFeedback, Pressable } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -8,6 +9,7 @@ import PasswordStrengthIndicator from "./PasswordStrengthIndicator";
 
 const TextInputField = ({ type, selectionColor, secureTextEntry, placeholder, onChange, defaultValue }) => {
   const [focused, setFocused] = useState(false);
+  const { theme, setTheme } = useContext(ThemeContext)
   const [ view, setView ] = useState(false);
   const [ secureText, setSecureText ] = useState( type == "password" ? true : false);
   const [ passwordValue, setPasswordValue ] = useState("")
@@ -47,7 +49,7 @@ const TextInputField = ({ type, selectionColor, secureTextEntry, placeholder, on
     <>
       <View style={styles.inputFieldContainer}>
       <TextInput
-        style={styles.inputField(focused, type)}
+        style={styles.inputField(focused, type, theme)}
         placeholder={placeholder}
         placeholderTextColor={COLORS.lightGrey}
         selectionColor={selectionColor}
