@@ -1,10 +1,11 @@
 import { PermissionsAndroid, Pressable, Text, View } from "react-native";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import * as DocumentPicker from "expo-document-picker";
 import * as ImagePicker from "expo-image-picker"
 import { FontAwesome6 } from "@expo/vector-icons";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { ThemeContext } from "../../context/ThemeContext";
 import { courseCreationActions } from "../../redux/slices/courseCreationSlice";
 import courseCreationSlice from "../../redux/slices/courseCreationSlice";
 import Button from "../Button";
@@ -16,6 +17,7 @@ import Toast from "react-native-toast-message";
 
 const FileUploadBox = () => {
   const dispatch = useDispatch();
+  const { theme } = useContext(ThemeContext)
   const files = useSelector((state) => state.courseCreationDetails.files);
   
   const handleUpload = async () => {
@@ -96,8 +98,8 @@ const FileUploadBox = () => {
     }
   }
   return (
-    <View style={styles.uploadContainer}>
-      <Text style={styles.label}>Upload additional course files</Text>
+    <View style={[styles.uploadContainer, styles[theme].uploadContainer]}>
+      <Text style={[styles.label, styles[theme].label]}>Upload additional course files</Text>
       <FontAwesome6 name="file-text" size={40} color={COLORS.lightGrey} />
       <View style={styles.fileUploadInstruction}>
         <Text style={styles.subText}>

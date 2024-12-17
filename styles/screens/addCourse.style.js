@@ -1,8 +1,86 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
+import { COLORS, FONT, SIZES, SHADOWS, DARKMODECOLORS } from '../../constants'
 
 const styles = StyleSheet.create({
+    dark: {
+        container: {
+            backgroundColor: DARKMODECOLORS.dark
+        },
+        headerText: {
+            color: DARKMODECOLORS.light
+        },
+        label: {
+            color: DARKMODECOLORS.light
+        },
+        fileContainer: {
+            borderColor: DARKMODECOLORS.light
+        },
+        titleText: {
+            color: DARKMODECOLORS.light
+        },
+        topicContainer: {
+            backgroundColor: DARKMODECOLORS.grey,
+            borderColor: DARKMODECOLORS.grey
+        },
+        topicText: {
+            color: DARKMODECOLORS.light
+        },
+        editTopicButton: {
+            backgroundColor: DARKMODECOLORS.grey
+        },
+        subText: {
+            color: DARKMODECOLORS.grey
+        },
+        defaultText: {
+            color: DARKMODECOLORS.grey
+        },
+        uploadContainer: {
+            backgroundColor: DARKMODECOLORS.grey
+        },
+        line: {
+            backgroundColor: DARKMODECOLORS.miniDarkGrey
+        },
+        progressDescription: {
+            color: DARKMODECOLORS.light
+        }
+    },
+    light: {
+        container: {
+            backgroundColor: COLORS.light
+        },
+        headerText: {
+            color: COLORS.dark
+        },
+        label: {
+            color: COLORS.dark
+        },
+        fileContainer: {
+            borderColor: COLORS.vLightGrey
+        },
+        titleText: {
+            color: COLORS.dark
+        },
+        topicContainer: {
+            backgroundColor: COLORS.light
+        },
+        topicText: {
+            color: COLORS.dark
+        },
+        editTopicButton: {
+            backgroundColor: COLORS.warm
+        },
+        subText: {
+            color: COLORS.lightGrey
+        },
+        defaultText: {
+            color: COLORS.lightGrey
+        },
+        uploadContainer: {
+            backgroundColor: COLORS.vLightGrey
+        }
+
+    },
     container: {
         flex: 1,
         paddingLeft: SIZES.small,
@@ -138,7 +216,7 @@ const styles = StyleSheet.create({
         gap: 10
     },
     deleteFileBtn: {
-        backgroundColor: COLORS.warm,
+        backgroundColor: COLORS.danger,
         width: 23,
         height: 23,
         borderRadius: 50,

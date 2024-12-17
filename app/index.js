@@ -14,7 +14,7 @@ const Home = () => {
   const verifyUser = async () => {
     try {
       const res = await fetch(
-        `http://192.168.45.93:3000/api/users/${user.id}`,
+        `http://192.168.60.93:3000/api/users/${user.id}`,
         {
           method: "GET",
           headers: {
@@ -47,6 +47,7 @@ const Home = () => {
 
   useEffect(() => {
     const verify = async () => {
+      await AsyncStorage.clear();
       if (!user.id) {
         setIsVerified(false);
         return;
@@ -70,8 +71,9 @@ const Home = () => {
     );
   }
 
+
   if (!user.id && !isVerified) {
-    return <Redirect href="/auth/login" />;
+    return <OnboardScreen />;
   }
   return <Redirect href="/home" />;
 };

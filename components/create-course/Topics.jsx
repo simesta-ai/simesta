@@ -7,7 +7,7 @@ import { courseCreationActions } from '../../redux/slices/courseCreationSlice';
 import styles from '../../styles/screens/addCourse.style'
 import { COLORS, SIZES } from '../../constants';
 
-const Topics = ({ topic }) => {
+const Topics = ({ topic, theme }) => {
 
   const router = useRouter()
   const dispatch = useDispatch()
@@ -17,10 +17,10 @@ const Topics = ({ topic }) => {
     
   }
   return (
-    <View style={styles.topicContainer}>
-      <Text style={styles.topicText}>{ topic.title.length > 30 ? topic.title.slice(0, 30) + "..." : topic.title}</Text>
-    <Pressable onPress={deleteTopic} style={styles.editTopicButton}>
-    <FontAwesome6 name="xmark" size={SIZES.regular} color={COLORS.dark} />
+    <View style={[styles.topicContainer, styles[theme].topicContainer]}>
+      <Text style={[styles.topicText, styles[theme].topicText]}>{ topic.title.length > 30 ? topic.title.slice(0, 30) + "..." : topic.title}</Text>
+    <Pressable onPress={deleteTopic} style={styles.deleteFileBtn}>
+    <FontAwesome6 name="xmark" size={SIZES.regular} color={COLORS.light} />
     </Pressable>
     </View>
   )

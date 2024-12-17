@@ -26,7 +26,7 @@ const CoursesScreenCourseContainer = () => {
 
   const getUserCourses = async () => {
     const res = await fetch(
-      `http://192.168.45.93:3000/api/courses/users/${user.id}`,
+      `http://192.168.60.93:3000/api/courses/users/${user.id}`,
       {
         method: "GET",
         headers: {

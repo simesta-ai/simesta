@@ -31,7 +31,7 @@ const LearningMethodChatScreen = () => {
   const scrollViewRef = useRef(null);
   const { messages, addMessage } = useContext(ChatMessageContext);
   const { theme } = useContext(ThemeContext);
-  const socket = useMemo(() => io("http://192.168.45.93:3000"), []);
+  const socket = useMemo(() => io("http://192.168.60.93:3000"), []);
   const [text, setText] = useState("");
   const [voiceNote, setVoiceNote] = useState("");
   const [loadingSimestaChat, setLoadingSimestaChat] = useState(false);

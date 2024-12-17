@@ -1,8 +1,18 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
+import { COLORS, FONT, SIZES, SHADOWS, DARKMODECOLORS } from '../../constants'
 
 const styles = StyleSheet.create({
+    dark: {
+        progressDescription: {
+            color: DARKMODECOLORS.light
+        }
+    },
+    light: {
+        progressDescription: {
+            color: COLORS.dark
+        }
+    },
     container: {
         flexDirection: "column",
         justifyContent: "center",

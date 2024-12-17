@@ -45,7 +45,7 @@ const CoursesContainer = forwardRef((props, ref) => {
     } else {
       try {
         const res = await fetch(
-          `http://192.168.45.93:3000/api/courses/users/${user.id}`,
+          `http://192.168.60.93:3000/api/courses/users/${user.id}`,
           {
             method: "GET",
             headers: {
@@ -112,7 +112,7 @@ const CoursesContainer = forwardRef((props, ref) => {
   }, []);
   return (
     <View style={[styles.container, styles[theme].container]}>
-      { courses.length < 1 ? <View style={styles.startLearningContainer}>
+      { courses.length < 1 && !loadingCourses ? <View style={styles.startLearningContainer}>
         <View style={styles.animationContainer}>
           <LottieView
             autoPlay

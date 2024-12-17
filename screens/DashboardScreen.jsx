@@ -103,7 +103,7 @@ const DashboardScreen = () => {
         if(token) {
           dispatch(userActions.setDeviceToken(token));
           setImmediate( async () => {
-            const res = await fetch(`http://192.168.45.93:3000/api/notifications/allow`, {
+            const res = await fetch(`http://192.168.60.93:3000/api/notifications/allow`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

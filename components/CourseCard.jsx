@@ -1,6 +1,6 @@
 import { Text, View, Image, Pressable } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { activeCourseActions } from "../redux/slices/activeCourseSlice";
 import { useRouter } from "expo-router";
@@ -15,6 +15,10 @@ const CourseCard = ({ position, course }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { theme } = useContext(ThemeContext);
+
+  useEffect(() => {
+    console.log(course)
+  }, [])
 
   const goToCourse = () => {
     dispatch(

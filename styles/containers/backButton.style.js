@@ -1,8 +1,20 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES, SHADOWS } from '../../constants'
+import { COLORS, FONT, SIZES, SHADOWS, DARKMODECOLORS } from '../../constants'
 
 const styles = StyleSheet.create({
+    dark: {
+        iconContainer: {
+            borderColor: COLORS.miniDarkGrey,
+            backgroundColor: "rgba(255, 255, 255,0.1)",
+        }
+    },
+    light: {
+        iconContainer: {
+            borderColor: COLORS.grey,
+            backgroundColor: COLORS.light,
+        }
+    },
     container: {
         zIndex: 20,
         position: "absolute",

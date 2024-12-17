@@ -65,6 +65,23 @@ const styles = StyleSheet.create({
   // Custom Tab bar
 
   custom: {
+    dark: {
+      container: {
+        backgroundColor: DARKMODECOLORS.dark,
+      },
+      addCourseButton: {
+        backgroundColor: DARKMODECOLORS.dark,
+      },
+    },
+    light: {
+      container: {
+        backgroundColor: COLORS.light,
+      },
+      addCourseButton: {
+        backgroundColor: COLORS.darkGrey,
+      },
+
+    },
     container: {
       display: "flex",
       flexDirection: "row",

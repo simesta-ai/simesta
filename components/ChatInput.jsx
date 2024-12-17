@@ -82,7 +82,7 @@ const ChatInput = ({
       type: "audio/mp4",
     });
     try {
-      const res = await fetch("http://192.168.45.93:3000/api/chat/speech-to-text", {
+      const res = await fetch("http://192.168.60.93:3000/api/chat/speech-to-text", {
         method: "POST",
         body: formData,
         headers: {

@@ -1,14 +1,16 @@
 import {  Text, View, Pressable } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import TabBarIcons from './TabBarIcons'
 import AddCourseButton from './AddCourseButton'
 import { router } from 'expo-router'
+import { ThemeContext } from '../context/ThemeContext'
 
 import styles from '../styles/components/bottomTab.style'
 
 import { COLORS, SIZES } from '../constants'
 
 const CustomTabBar = () => {
+    const { theme } = useContext(ThemeContext)
 
     const goToHome = () => {
         router.navigate('/home')
@@ -26,7 +28,7 @@ const CustomTabBar = () => {
         router.navigate('/profile')
     }
   return (
-    <View style={styles.custom.container}>
+    <View style={[styles.custom.container, styles.custom[theme].container]}>
       <Pressable onPress={goToHome}>
       <TabBarIcons
               tag="Home"

@@ -7,16 +7,16 @@ import { useDispatch } from "react-redux";
 import { courseCreationActions } from "../../redux/slices/courseCreationSlice";
 
 import styles from "../../styles/screens/addCourse.style";
-import { COLORS, SIZES } from "../../constants";
+import { COLORS, SIZES, DARKMODECOLORS } from "../../constants";
 
-const UploadedFile = ({ file }) => {
+const UploadedFile = ({ file, theme }) => {
   const dispatch = useDispatch();
   const removeFile = () => {
     dispatch(courseCreationActions.removeFile(file.id));
   };
 
   return (
-    <View style={styles.fileContainer}>
+    <View style={[styles.fileContainer, styles[theme].fileContainer]}>
       <View style={styles.fileName}>
         <AntDesign
           name={
@@ -35,7 +35,7 @@ const UploadedFile = ({ file }) => {
       </View>
 
       <Pressable onPress={removeFile} style={styles.deleteFileBtn}>
-        <FontAwesome6 name="xmark" size={SIZES.regular} color={COLORS.dark} />
+        <FontAwesome6 name="xmark" size={SIZES.regular} color={COLORS.light} />
       </Pressable>
     </View>
   );

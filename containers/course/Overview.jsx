@@ -6,13 +6,13 @@ import Topic from "../../components/dashboard/Topic";
 import styles from "../../styles/containers/courseOverview.style";
 import { SIZES } from "../../constants";
 
-const Overview = ({ description, topics }) => {
+const Overview = ({ description, topics, theme }) => {
   topics.sort((a, b) => a.position - b.position);
   return (
     <View style={styles.container}>
       <View style={styles.descriptionContainer}>
         <Text style={styles.descriptionHeader}>Description</Text>
-        <Text style={styles.descriptionText}>{description}</Text>
+        <Text style={[styles.descriptionText, styles[theme].descriptionText]}>{description}</Text>
       </View>
 
       <View>

@@ -44,9 +44,11 @@ const CoursesScreen = () => {
         flex: 1, backgroundColor:
           theme === "light" ? COLORS.backgroundGrey : DARKMODECOLORS.dark
       }}>
-        <StatusBar barStyle="dark-content" backgroundColor={
-          theme === "light" ? COLORS.backgroundGrey : DARKMODECOLORS.dark
-        } />
+        <StatusBar barStyle=
+          {theme === "light" ? "dark-content" : "light-content"}
+          backgroundColor={
+            theme === "light" ? COLORS.backgroundGrey : DARKMODECOLORS.dark
+          } />
         {displaySearch ? <View style={styles.searchBarAndResults}>
           <SearchResultsScreen />
         </View> : null}

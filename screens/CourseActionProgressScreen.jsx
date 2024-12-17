@@ -4,6 +4,7 @@ import {
   Text,
   KeyboardAvoidingView,
   Platform,
+  StatusBar,
   Pressable,
   TouchableOpacity,
 } from "react-native";
@@ -13,15 +14,17 @@ import { useContext, useEffect, useRef, useState } from "react";
 import CircularProgress from "react-native-circular-progress-indicator";
 import Button from "../components/Button";
 import { TabBarContext } from "../context/TabBarContext";
+import { ThemeContext } from "../context/ThemeContext";
 import CreationHorizonalProgressBar from "../components/create-course/CreationHorizonalProgressBar";
 import LottieView from "lottie-react-native";
 
 import styles from "../styles/screens/courseActionProgress.style";
-import { icons, COLORS, SIZES } from "../constants";
+import { icons, COLORS, SIZES, DARKMODECOLORS } from "../constants";
 import { router, Link } from "expo-router";
 
 const CourseActionProgressScreen = ({ cC, goToCourse }) => {
   const { display, setDisplay } = useContext(TabBarContext);
+  const { theme } = useContext(ThemeContext);
   const [speed, setSpeed] = useState(1);
   const [creatingCourse, setCreatingCourse] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -78,7 +81,14 @@ const CourseActionProgressScreen = ({ cC, goToCourse }) => {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
-      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: 
+        theme === "light" ? COLORS.light : DARKMODECOLORS.dark
+       }}>
+        <StatusBar barStyle=
+          {theme === "light" ? "dark-content" : "light-content"}
+          backgroundColor={
+            theme === "light" ? COLORS.backgroundGrey : DARKMODECOLORS.dark
+          } />
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="always"
@@ -92,7 +102,8 @@ const CourseActionProgressScreen = ({ cC, goToCourse }) => {
                   style={{
                     width: 150,
                     height: 150,
-                    backgroundColor: COLORS.light,
+                    backgroundColor: 
+                    theme === "light" ? COLORS.light : DARKMODECOLORS.dark,
                   }}
                   // Find more Lottie files at https://lottiefiles.com/featured
                   source={require("../lottie/completion_icon.json")}
@@ -104,7 +115,8 @@ const CourseActionProgressScreen = ({ cC, goToCourse }) => {
                   style={{
                     width: 400,
                     height: 400,
-                    backgroundColor: COLORS.light,
+                    backgroundColor: 
+                    theme === "light" ? COLORS.light : DARKMODECOLORS.dark,
                     position: "absolute",
                     top: -200,
                   }}
@@ -119,7 +131,7 @@ const CourseActionProgressScreen = ({ cC, goToCourse }) => {
               <CreationHorizonalProgressBar value={progress} />
             ) : null} */}
             <View>
-              <Text style={styles.progressDescription}>
+              <Text style={[styles.progressDescription, styles[theme].progressDescription]}>
                 {!creatingCourse
                   ? "Course creation successful"
                   : "Creating course, please wait..."}

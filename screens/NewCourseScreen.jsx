@@ -4,6 +4,7 @@ import {
   Text,
   KeyboardAvoidingView,
   Platform,
+  StatusBar,
   Pressable,
   FlatList,
   TouchableOpacity,
@@ -15,6 +16,7 @@ import { useContext } from "react";
 import { useRouter } from "expo-router";
 import axios from "axios";
 import { TabBarContext } from "../context/TabBarContext";
+import { ThemeContext } from "../context/ThemeContext";
 import Button from "../components/Button";
 import RoundAccentButton from "../components/RoundAccentButton";
 import Topics from "../components/create-course/Topics";
@@ -23,7 +25,7 @@ import FileUploadBox from "../components/create-course/FileUploadBox";
 import CourseActionProgressScreen from "./CourseActionProgressScreen";
 
 import styles from "../styles/screens/addCourse.style";
-import { icons, COLORS, SIZES } from "../constants";
+import { icons, COLORS, SIZES, DARKMODECOLORS } from "../constants";
 import { FontAwesome6 } from "@expo/vector-icons";
 
 import BackButtonContainer from "../containers/BackButtonContainer";
@@ -35,6 +37,7 @@ const FormData = global.FormData;
 const NewCourseScreen = () => {
   const router = useRouter();
   const { display, setDisplay } = useContext(TabBarContext);
+  const { theme } = useContext(ThemeContext);
   const user = useSelector(state => state.user)
   const [creatingCourse, setCreatingCourse] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -91,11 +94,10 @@ const NewCourseScreen = () => {
         },
       };
       const res = await axios.post(
-        `http://192.168.45.93:3000/api/courses/${userId}/course`,
+        `http://192.168.60.93:3000/api/courses/${userId}/course`,
         formData,
         config,
       );
-
       const data = res.data;
       if (res.status == 200) {
         console.log(data);
@@ -106,6 +108,8 @@ const NewCourseScreen = () => {
       }
     } catch (error) {
       console.log(error.message);
+      setLoading(false);
+      setCreatingCourse(false);
     }
 
     // setCreatingCourse(prev => !prev)
@@ -129,14 +133,21 @@ const NewCourseScreen = () => {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
-      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: 
+        theme === "light" ? COLORS.light : DARKMODECOLORS.dark
+       }}>
+      <StatusBar barStyle=
+          {theme === "light" ? "dark-content" : "light-content"}
+          backgroundColor={
+            theme === "light" ? COLORS.backgroundGrey : DARKMODECOLORS.dark
+          } />
         <View style={styles.toastMessage}>
           <Toast />
         </View>
 
         <View>
           <BackButtonContainer path="/home" />
-          <Text style={styles.headerText}>Add new course</Text>
+          <Text style={[styles.headerText, styles[theme].headerText]}>Add new course</Text>
         </View>
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -146,7 +157,7 @@ const NewCourseScreen = () => {
             <View style={styles.formContainer}>
               {/* Course Title section */}
               <View>
-                <Text style={styles.label}>Course Title</Text>
+                <Text style={[styles.label, styles[theme].label]}>Course Title</Text>
                 <View style={styles.titleContainer}>
                   <Text style={styles.titleText}>
                     {courseCreationDetails.title}
@@ -167,13 +178,13 @@ const NewCourseScreen = () => {
 
               {/* Course Files section */}
               <View style={styles.fileUploadContainer}>
-                <Text style={styles.label}>
+                <Text style={[styles.label, styles[theme].label]}>
                   Add Files<Text style={styles.subText}> (optional)</Text>
                 </Text>
                 {/* Uploaded files */}
                 <View style={styles.uploadedFilesContainer}>
                   {courseCreationDetails.files.map((file) => {
-                    return <UploadedFile key={file.id} file={file} />;
+                    return <UploadedFile key={file.id} file={file} theme={theme} />;
                   })}
                 </View>
                 <FileUploadBox />
@@ -182,26 +193,26 @@ const NewCourseScreen = () => {
               {/* Course Subtopics section */}
 
               <View style={styles.topicsWrapper}>
-                <Text style={styles.label}>
+                <Text style={[styles.label, styles[theme].label]}>
                   Topics<Text style={styles.subText}> (optional)</Text>
                 </Text>
                 <View style={styles.topics}>
                   {courseCreationDetails.topics.length > 0 ? (
                     courseCreationDetails.topics.map((topic) => (
-                      <Topics key={topic.id} topic={topic} />
+                      <Topics key={topic.id} topic={topic} theme={theme} />
                     ))
                   ) : (
                     <Text style={styles.defaultText}>No Topic added</Text>
                   )}
                 </View>
                 <View style={styles.addTopicButton}>
-                  <View style={styles.line} />
+                  <View style={[styles.line, styles[theme].line]} />
                   <Button
                     text="Add new topic"
                     type="neutral-btn"
                     onPress={handleAddTopic}
                   />
-                  <View style={styles.line} />
+                  <View style={[styles.line, styles[theme].line]} />
                 </View>
               </View>
             </View>

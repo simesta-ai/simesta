@@ -31,7 +31,7 @@ const LearningMethodChatScreen = () => {
   const getNotifications = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`http://192.168.45.93:3000/api/notifications/user/${user.id}`, {
+      const res = await fetch(`http://192.168.60.93:3000/api/notifications/user/${user.id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

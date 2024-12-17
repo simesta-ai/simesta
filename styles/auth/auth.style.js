@@ -17,8 +17,9 @@ const styles = StyleSheet.create({
       color: DARKMODECOLORS.light,
     },
     otpInputField: {
-      backgroundColor: DARKMODECOLORS.dark,
+      backgroundColor: DARKMODECOLORS.grey,
       color: DARKMODECOLORS.light,
+      borderColor: DARKMODECOLORS.grey
     },
     otpInputHighlight: {
       borderWidth: 2,
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
     },
     loaderContainer: {
       backgroundColor: DARKMODECOLORS.grey,
-    }
+    },
   },
   light: {
     container: {
@@ -47,6 +48,7 @@ const styles = StyleSheet.create({
     otpInputField: {
       backgroundColor: COLORS.light,
       color: COLORS.dark,
+      borderColor: COLORS.grey,
     },
     otpInputHighlight: {
       borderWidth: 2,
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
     },
     loaderContainer: {
       backgroundColor: COLORS.grey,
-    }
+    },
   },
   container: {
     flex: 1,
@@ -241,7 +243,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.light,
     color: COLORS.miniDarkGrey,
     borderWidth: 1,
-    borderColor: COLORS.grey,
     borderRadius: SIZES.xSmall,
     paddingLeft: SIZES.medium,
     paddingRight: SIZES.medium,

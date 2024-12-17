@@ -30,7 +30,7 @@ const SignupForm = () => {
     });
     setLoading(true);
     try {
-      const res = await fetch("http://192.168.45.93:3000/api/auth/register", {
+      const res = await fetch("http://192.168.60.93:3000/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formValue),
@@ -86,7 +86,7 @@ const SignupForm = () => {
         <Text style={[styles.linkText, styles[theme].linkText]}>Forgot password?</Text>
       </TouchableOpacity>
       {loading ? (
-        <View style={styles.loaderContainer}>
+        <View style={[styles.loaderContainer, styles[theme].loaderContainer]}>
           <ActivityIndicator color={COLORS.primary} size={SIZES.medium} />
         </View>
       ) : (

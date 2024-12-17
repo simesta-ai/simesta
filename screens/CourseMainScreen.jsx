@@ -20,6 +20,7 @@ import useFetchCourse, { fetchCourseDetails } from "../hooks/useFetchAsync";
 import { activeCourseActions } from "../redux/slices/activeCourseSlice";
 import { router, useNavigation, usePathname } from "expo-router";
 import { TabBarContext } from "../context/TabBarContext";
+import { ThemeContext } from "../context/ThemeContext";
 import CustomTabBar from "../components/CustomTabBar";
 import Button from "../components/Button";
 import CourseTabs from "../components/CourseTabs";
@@ -27,7 +28,7 @@ import Overview from "../containers/course/Overview";
 import Notes from "../containers/course/Notes";
 import Quiz from "../containers/course/Quiz";
 
-import { icons, COLORS, SIZES, images } from "../constants";
+import { icons, COLORS, SIZES, images, DARKMODECOLORS } from "../constants";
 
 import styles from "../styles/screens/mainCourse.style";
 
@@ -46,6 +47,7 @@ const CourseMainScreen = ({ courseId }) => {
   });
   const tabs = ["Overview", "Notes", "Quiz"];
   const { display, setDisplay } = useContext(TabBarContext);
+  const { theme } = useContext(ThemeContext);
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   const handleFetchingCourse = async () => {
@@ -101,6 +103,7 @@ const CourseMainScreen = ({ courseId }) => {
           <Overview
             description={courseDetails.description}
             topics={courseDetails.topics}
+            theme={theme}
           />
         );
       case "Notes":
@@ -132,11 +135,15 @@ const CourseMainScreen = ({ courseId }) => {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
-      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light }}>
-        <StatusBar
-          barStyle="dark-content"
-          backgroundColor={COLORS.backgroundGrey}
-        />
+      <SafeAreaView style={{
+        flex: 1, backgroundColor:
+          theme === "light" ? COLORS.light : DARKMODECOLORS.dark
+      }}>
+        <StatusBar barStyle=
+          {theme === "light" ? "dark-content" : "light-content"}
+          backgroundColor={
+            theme === "light" ? COLORS.backgroundGrey : DARKMODECOLORS.dark
+          } />
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="always"
@@ -152,20 +159,21 @@ const CourseMainScreen = ({ courseId }) => {
                   width={90}
                   height={90}
                   radius={"round"}
-                  colorMode="light"
+                  colorMode=
+                  {theme === "light" ? "light" : "dark"}
                 ></Skeleton>
                 <View style={styles.nameSkeleton}>
                   <Skeleton
                     width={200}
                     height={20}
                     radius={"round"}
-                    colorMode="light"
+                    colorMode={theme === "light" ? "light" : "dark"}
                   ></Skeleton>
                   <Skeleton
                     width={250}
                     height={20}
                     radius={"round"}
-                    colorMode="light"
+                    colorMode={theme === "light" ? "light" : "dark"}
                   ></Skeleton>
                 </View>
               </View>
@@ -173,31 +181,31 @@ const CourseMainScreen = ({ courseId }) => {
                 width={350}
                 height={50}
                 radius={5}
-                colorMode="light"
+                colorMode={theme === "light" ? "light" : "dark"}
               ></Skeleton>
               <Skeleton
                 width={350}
                 height={200}
                 radius={5}
-                colorMode="light"
+                colorMode={theme === "light" ? "light" : "dark"}
               ></Skeleton>
               <Skeleton
                 width={350}
                 height={50}
                 radius={5}
-                colorMode="light"
+                colorMode={theme === "light" ? "light" : "dark"}
               ></Skeleton>
               <Skeleton
                 width={350}
                 height={50}
                 radius={5}
-                colorMode="light"
+                colorMode={theme === "light" ? "light" : "dark"}
               ></Skeleton>
               <Skeleton
                 width={350}
                 height={50}
                 radius={5}
-                colorMode="light"
+                colorMode={theme === "light" ? "light" : "dark"}
               ></Skeleton>
             </View>
           ) : (
@@ -214,12 +222,12 @@ const CourseMainScreen = ({ courseId }) => {
                   />
                 </View>
                 <View style={styles.courseNameAndProgress}>
-                  <Text style={styles.courseTitle}>{courseDetails.title}</Text>
+                  <Text style={[styles.courseTitle, styles[theme].courseTitle]}>{courseDetails.title}</Text>
 
                   {/* Progress Bar */}
                   <View style={styles.barContainer}>
-                    <View style={styles.emptyBar}>
-                      <View style={styles.activeBar(courseDetails.progress)} />
+                    <View style={[styles.emptyBar, styles[theme].emptyBar]}>
+                      <View style={styles.activeBar(10)} />
                     </View>
                   </View>
                   <Text style={styles.completedText}>

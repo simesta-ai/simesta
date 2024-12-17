@@ -28,7 +28,7 @@ const VerifyEmailForm = ({ email }) => {
     setLoadingResend((prev) => !prev);
     try {
       const res = await fetch(
-        `http://192.168.45.93:3000/api/auth/verify/email/${email}`,
+        `http://192.168.60.93:3000/api/auth/verify/email/${email}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" }
@@ -63,7 +63,7 @@ const VerifyEmailForm = ({ email }) => {
     try {
       setLoading((prev) => !prev);
       const res = await fetch(
-        "http://192.168.45.93:3000/api/auth/verify/otp",
+        "http://192.168.60.93:3000/api/auth/verify/otp",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -74,6 +74,7 @@ const VerifyEmailForm = ({ email }) => {
         }
       );
       const apiRes = await res.json();
+      console.log(apiRes)
       if (res.status !== 200) {
         Toast.show({
           type: "error",
@@ -81,8 +82,7 @@ const VerifyEmailForm = ({ email }) => {
           text2: apiRes.message,
         });
       } else {
-        const user = apiRes.data.user;
-        console.log(user)
+        const user = apiRes.data;
         const accessToken = res.headers.map["authorization"].split(" ")[1];
         registerUser({
           id: user.id,
