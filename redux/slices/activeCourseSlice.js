@@ -55,7 +55,7 @@ const activeCourseSlice = createSlice({
     builder.addCase(fetchCourseDetails.fulfilled, (state, action) => {
       const data = action.payload;
       state.description = data.description;
-      state.image = data.img;
+      state.image = data.image;
       state.progress = data.progress;
       state.topics = data.topics;
     });

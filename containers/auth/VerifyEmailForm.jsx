@@ -28,7 +28,7 @@ const VerifyEmailForm = ({ email }) => {
     setLoadingResend((prev) => !prev);
     try {
       const res = await fetch(
-        `http://192.168.60.93:3000/api/auth/verify/email/${email}`,
+        `https://simesta-server.onrender.com/api/auth/verify/email/${email}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" }
@@ -63,7 +63,7 @@ const VerifyEmailForm = ({ email }) => {
     try {
       setLoading((prev) => !prev);
       const res = await fetch(
-        "http://192.168.60.93:3000/api/auth/verify/otp",
+        "https://simesta-server.onrender.com/api/auth/verify/otp",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

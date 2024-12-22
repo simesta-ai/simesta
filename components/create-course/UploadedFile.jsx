@@ -29,7 +29,9 @@ const UploadedFile = ({ file, theme }) => {
               : "file1"
           }
           size={SIZES.medium}
-          color={COLORS.dark}
+          color={
+            theme == "light" ? COLORS.dark : DARKMODECOLORS.light
+          }
         />
         <Text style={styles.titleText}>{file.name.slice(0, 35) + "..."}</Text>
       </View>

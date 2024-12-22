@@ -94,7 +94,7 @@ const NewCourseScreen = () => {
         },
       };
       const res = await axios.post(
-        `http://192.168.60.93:3000/api/courses/${userId}/course`,
+        `https://simesta-server.onrender.com/api/courses/${userId}/course`,
         formData,
         config,
       );

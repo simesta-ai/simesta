@@ -12,6 +12,7 @@ import Mcq from "../../components/lecture/Mcq";
 import OneChoiceQuestion from "../../components/lecture/OneChoiceQuestion";
 
 const IdeaContent = ({
+  theme,
   ideaText,
   image,
   mcq,
@@ -32,7 +33,7 @@ const IdeaContent = ({
   const loadImage = async (text) => {
     try {
       const response = await fetch(
-        "http://192.168.60.93:3000/api/chat/text-to-image",
+        "https://simesta-server.onrender.com/api/chat/text-to-image",
         {
           method: "POST",
           headers: {
@@ -66,7 +67,7 @@ const IdeaContent = ({
 
   return (
     <Animated.View style={[styles.ideaContent, animatedStyle]}>
-      {image ? (
+      {/* {image ? (
         <View style={styles.imageContainer}>
           {loadingImage ? (
             <Skeleton
@@ -84,11 +85,12 @@ const IdeaContent = ({
             />
           )}
         </View>
-      ) : null}
-      <Text style={styles.lectureContentText}>{ideaText}</Text>
-      {mcq ? <Mcq mcq={mcq} setIsOnQuiz={setIsOnQuiz} /> : null}
+      ) : null} */}
+      <Text style={[styles.lectureContentText, styles[theme].lectureContentText]}>{ideaText}</Text>
+      {mcq ? <Mcq mcq={mcq} theme={theme} setIsOnQuiz={setIsOnQuiz} /> : null}
       {oneChoiceQuestion ? (
         <OneChoiceQuestion
+        theme={theme}
           oneChoiceQuestion={oneChoiceQuestion}
           setIsOnQuiz={setIsOnQuiz}
           scrollRef={scrollRef}

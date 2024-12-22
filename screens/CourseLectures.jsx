@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   RefreshControl,
+  StatusBar,
   Pressable,
   TouchableOpacity,
   Image,
@@ -16,18 +17,20 @@ import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { usePathname } from "expo-router";
 import { TabBarContext } from "../context/TabBarContext";
+import { ThemeContext } from "../context/ThemeContext";
 import CustomTabBar from "../components/CustomTabBar";
 import BackButtonContainer from "../containers/BackButtonContainer";
 import Lecture from "../components/dashboard/Lecture";
 import { Skeleton } from "moti/skeleton";
-import { icons, COLORS, SIZES, images } from "../constants";
+import { icons, COLORS, SIZES, images, DARKMODECOLORS } from "../constants";
 import styles from "../styles/screens/lectures.style";
 
 import { activeCourseActions } from "../redux/slices/activeCourseSlice";
 
 const CourseLectures = ({ courseId, topicId }) => {
   const activeCourse = useSelector((state) => state.course);
-  const [ refreshing, setRefreshing] = useState(false)
+  const { theme } = useContext(ThemeContext)
+  const [refreshing, setRefreshing] = useState(false)
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [topic, setTopic] = useState({
@@ -38,7 +41,7 @@ const CourseLectures = ({ courseId, topicId }) => {
 
   const getTopicDetails = async () => {
     const res = await fetch(
-      `http://192.168.60.93:3000/api/courses/topic/${topicId}`,
+      `https://simesta-server.onrender.com/api/courses/topic/${topicId}`,
       {
         method: "GET",
         headers: {
@@ -51,7 +54,7 @@ const CourseLectures = ({ courseId, topicId }) => {
     console.log(data)
     if (data.message == "Unable to fetch topic content, no lectures exist") {
       const response = await fetch(
-        `http://192.168.60.93:3000/api/courses/topic/${topicId}`,
+        `https://simesta-server.onrender.com/api/courses/topic/${topicId}`,
         {
           method: "POST",
           headers: {
@@ -85,7 +88,7 @@ const CourseLectures = ({ courseId, topicId }) => {
   const onRefresh = () => {
     setRefreshing(true);
     setLoading(true)
-    setTimeout(()=> {
+    setTimeout(() => {
       setRefreshing(false);
     }, 2000)
     getTopicDetails();
@@ -99,14 +102,22 @@ const CourseLectures = ({ courseId, topicId }) => {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : null}
     >
-      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.backgroundGrey }}>
+      <SafeAreaView style={{
+        flex: 1, backgroundColor:
+          theme === "light" ? COLORS.light : DARKMODECOLORS.dark
+      }}>
+        <StatusBar barStyle=
+          {theme === "light" ? "dark-content" : "light-content"}
+          backgroundColor={
+            theme === "light" ? COLORS.backgroundGrey : DARKMODECOLORS.dark
+          } />
         <View
           style={{
             paddingBottom: 20,
           }}
         >
           <BackButtonContainer />
-          <Text style={styles.headerText}>
+          <Text style={[styles.headerText, styles[theme].headerText]}>
             {topic.name.length > 30
               ? topic.name.slice(0, 29) + "..."
               : topic.name}
@@ -122,16 +133,24 @@ const CourseLectures = ({ courseId, topicId }) => {
           {loading ? (
             <View style={styles.skeletonContainer}>
               <View style={styles.skeleton}>
-                <Skeleton colorMode="light" width={370} height={100}></Skeleton>
+                <Skeleton colorMode={
+                  theme === "light" ? "light" : "dark"
+                } width={370} height={100}></Skeleton>
               </View>
               <View style={styles.skeleton}>
-                <Skeleton colorMode="light" width={370} height={100}></Skeleton>
+                <Skeleton colorMode={
+                  theme === "light" ? "light" : "dark"
+                } width={370} height={100}></Skeleton>
               </View>
               <View style={styles.skeleton}>
-                <Skeleton colorMode="light" width={370} height={100}></Skeleton>
+                <Skeleton colorMode={
+                  theme === "light" ? "light" : "dark"
+                } width={370} height={100}></Skeleton>
               </View>
               <View style={styles.skeleton}>
-                <Skeleton colorMode="light" width={370} height={100}></Skeleton>
+                <Skeleton colorMode={
+                  theme === "light" ? "light" : "dark"
+                } width={370} height={100}></Skeleton>
               </View>
             </View>
           ) : (
@@ -147,7 +166,7 @@ const CourseLectures = ({ courseId, topicId }) => {
               </View>
 
               <View style={styles.overviewText}>
-                <Text style={styles.overviewHeader}>Overview</Text>
+                <Text style={[styles.overviewHeader, styles[theme].overviewHeader]}>Overview</Text>
                 <Text style={styles.numberOfLectures}>
                   {topic.lectures.length} lectures
                 </Text>
@@ -157,7 +176,7 @@ const CourseLectures = ({ courseId, topicId }) => {
                 data={topic.lectures.sort((a, b) => a.position - b.position)}
                 scrollEnabled={false}
                 renderItem={({ item }) => (
-                  <Lecture key={item.id} lecture={item} />
+                  <Lecture key={item.id} theme={theme} lecture={item} />
                 )}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(item) => item.id}

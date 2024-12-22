@@ -7,6 +7,7 @@ import {
   Platform,
   Pressable,
   Dimensions,
+  StatusBar,
   Image,
   FlatList,
   ActivityIndicator,
@@ -37,20 +38,22 @@ import * as FileSystem from "expo-file-system";
 import styles from "../styles/screens/lectures.style";
 import chatStyles from "../styles/screens/chat.style";
 import LottieView from "lottie-react-native";
-import { COLORS, SIZES, images } from "../constants";
+import { COLORS, DARKMODECOLORS, SIZES, images } from "../constants";
 import { LinearGradient } from "expo-linear-gradient";
 import { activeCourseActions } from "../redux/slices/activeCourseSlice";
 
 import lectureIdeaContent from "../constants/lectureContent";
+import { ThemeContext } from "../context/ThemeContext";
 
 const LectureScreen = ({ courseId, topicId, lectureId }) => {
   const { width, height } = Dimensions.get("window");
   const dispatch = useDispatch();
+  const { theme } = useContext(ThemeContext)
   const activeCourse = useSelector((state) => state.course);
   const user = useSelector((state) => state.user);
   const scrollRef = useRef(null);
   const scrollViewRef = useRef(null);
-  const [loadingLecture, setLoadingLecture] = useState(false);
+  const [loadingLecture, setLoadingLecture] = useState(true);
   const { messages, addMessage } = useContext(LectureChatContext);
   const [ideaContent, setIdeaContent] = useState([]);
   const [videos, setVideos] = useState([]);
@@ -61,7 +64,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
   const [completed, setCompleted] = useState(false);
   const [isOnQuiz, setIsOnQuiz] = useState(false);
   const [showBottomSheet, setShowBottomSheet] = useState(false);
-  const socket = useMemo(() => io("http://192.168.60.93:3000kl"), []);
+  const socket = useMemo(() => io("https://simesta-server.onrender.com"), []);
   const [text, setText] = useState("");
   const [voiceNote, setVoiceNote] = useState("");
   const [sound, setSound] = useState(null);
@@ -112,7 +115,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
   };
 
   const getIdeaContentAudio = async (text) => {
-    const fileUrl = "http://192.168.60.93:3000/api/chat/text-to-speech";
+    const fileUrl = "https://simesta-server.onrender.com/api/chat/text-to-speech";
     const fileUri = FileSystem.documentDirectory + "currentaudio.wav";
     try {
       const response = await fetch(fileUrl, {
@@ -122,8 +125,10 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
         },
         body: JSON.stringify({
           text: text,
+          userId: user.id
         }),
       });
+      console.log(response.status)
       if (response.ok) {
         const fileData = await response.blob();
         const reader = new FileReader();
@@ -205,7 +210,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
 
   const getLecture = async () => {
     const res = await fetch(
-      `http://192.168.60.93:3000/api/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
+      `https://simesta-server.onrender.com/api/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
       {
         method: "GET",
         headers: {
@@ -215,14 +220,13 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
       }
     );
     const data = await res.json();
-    console.log(data)
     if (
       data.message == "Lecture not found" ||
       data.message == "Lecture videos do not exist"
     ) {
       setLoadingLecture(true);
-      const newRes = await fetch(
-        `http://192.168.60.93:3000/api/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
+      await fetch(
+        `https://simesta-server.onrender.com/api/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
         {
           method: "POST",
           headers: {
@@ -231,10 +235,22 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
           },
         }
       );
-      const newData = await newRes.json();
-      console.log(newData)
-      setIdeaContent(newData.ideaContent);
-      setVideos(newData.videos);
+      if (response.status == 200) {
+        const newRes = await fetch(
+          `https://simesta-server.onrender.com/api/courses/${activeCourse.id}/topic/lecture/${lectureId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${user.accessToken}`,
+            },
+          }
+        );
+        const newData = await newRes.json();
+        setIdeaContent(newData.ideaContent);
+        setVideos(newData.videos);
+        setLoadingLecture(false);
+      }
       setLoadingLecture(false);
     } else {
       setIdeaContent(data.ideaContent);
@@ -254,7 +270,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
 
   if (!lecture || loadingLecture || !ideaContent) {
     return (
-      <View style={styles.lectureLoader}>
+      <View style={[styles.lectureLoader, styles[theme].lectureLoader]}>
         <LottieView
           autoPlay
           style={{
@@ -264,7 +280,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
           source={require("../lottie/loadingLecture.json")}
           speed={1.5}
         />
-        <Text style={styles.lectureLoaderText}>Loading lecture...</Text>
+        <Text style={[styles.lectureLoaderText, styles[theme].lectureLoaderText]}>Loading lecture...</Text>
       </View>
     );
   }
@@ -272,7 +288,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
 
   if (!loadingLecture && lecture.length == 0 && ideaContent.length !== 0) {
     return (
-      <View style={styles.startCourseContainer}>
+      <View style={[styles.startCourseContainer, styles[theme].startCourseContainer]}>
         <Image
           source={images.startLecture}
           resizeMode="contain"
@@ -281,7 +297,7 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
         <View style={styles.startButtonContainer}>
           <Button
             text={"Start lecture"}
-            type="course-cancel-btn"
+            type={theme == "light" ? "course-cancel-btn" : "white-action-btn"}
             onPress={nextContent}
           />
         </View>
@@ -296,14 +312,22 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : null}
       >
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light }}>
+        <SafeAreaView style={{
+          flex: 1, backgroundColor:
+            theme === "light" ? COLORS.light : DARKMODECOLORS.dark
+        }}>
+          <StatusBar barStyle=
+            {theme === "light" ? "dark-content" : "light-content"}
+            backgroundColor={
+              theme === "light" ? COLORS.backgroundGrey : DARKMODECOLORS.dark
+            } />
           <View style={styles.lectureHeaderCon}>
             {/* path={`course/${courseId}/topic/${topicId}`} */}
             <BackButtonContainer />
-            <Text style={styles.headerText}>
+            <Text style={[styles.headerText, styles[theme].headerText]}>
               {activeCourse.activeLectureTitle}
             </Text>
-            <LectureProgressBar value={progress} />
+            <LectureProgressBar theme={theme} value={progress} />
           </View>
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -323,11 +347,12 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
                   keyExtractor={(item) => item.id}
                   renderItem={({ item }) => (
                     <IdeaContent
+                      theme={theme}
                       key={item.id}
                       ideaText={item.text}
                       image={item.image}
                       mcq={item.quiz}
-                      oneChoiceQuestion={item.oneChoiceQuestion}
+                      oneChoiceQuestion={item.oneChoice}
                       setIsOnQuiz={setIsOnQuiz}
                       scrollRef={scrollRef}
                     />
@@ -406,8 +431,8 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
           {showBottomSheet ? (
             <BottomSheet handleShowBottomSheet={handleShowBottomSheet}>
               {/* Chat Section */}
-              <View style={styles.chatContainer}>
-                <Text style={chatStyles.chatDescription}>
+              <View style={[styles.chatContainer, styles[theme].chatContainer]}>
+                <Text style={[chatStyles.chatDescription, chatStyles[theme].chatDescription]}>
                   Feel free to ask Simesta AI any questions related to your
                   learning journey.
                 </Text>
@@ -426,16 +451,16 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
                               style={chatStyles.simestaChatImage}
                             />
 
-                            <Text style={chatStyles.chatMessage}>
+                            <Text style={[chatStyles.chatMessage, chatStyles[theme].chatMessage]}>
                               {message.message}
                             </Text>
                           </View>
                         );
                       } else {
                         return (
-                          <View style={chatStyles.userChat} key={message.id}>
-                            <View style={chatStyles.userChatMessage}>
-                              <Text style={chatStyles.chatMessage}>
+                          <View style={[chatStyles.userChat, chatStyles[theme].userChat]} key={message.id}>
+                            <View style={[chatStyles.userChatMessage, chatStyles[theme].userChatMessage]}>
+                              <Text style={[chatStyles.chatMessage, chatStyles[theme].chatMessage]}>
                                 {message.message}
                               </Text>
                             </View>
@@ -454,7 +479,9 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
                             width={width - 120}
                             height={15}
                             radius={10}
-                            colorMode="light"
+                            colorMode={
+                              theme === "light" ? "light" : "dark"
+                            }
                           />
                         </View>
                       </View>
@@ -500,9 +527,8 @@ const LectureScreen = ({ courseId, topicId, lectureId }) => {
               <RoundAccentButton
                 icon={
                   <MaterialIcons
-                    name={`${
-                      simestaSpeaking ? "voice-over-off" : "record-voice-over"
-                    }`}
+                    name={`${simestaSpeaking ? "voice-over-off" : "record-voice-over"
+                      }`}
                     size={SIZES.large}
                     color={COLORS.light}
                   />

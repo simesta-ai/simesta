@@ -45,7 +45,7 @@ const CoursesContainer = forwardRef((props, ref) => {
     } else {
       try {
         const res = await fetch(
-          `http://192.168.60.93:3000/api/courses/users/${user.id}`,
+          `https://simesta-server.onrender.com/api/courses/users/${user.id}`,
           {
             method: "GET",
             headers: {

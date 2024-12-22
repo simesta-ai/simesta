@@ -44,7 +44,7 @@ const LoginForm = () => {
     });
     setLoading(true);
     try {
-      const res = await fetch("http://192.168.60.93:3000/api/auth/login", {
+      const res = await fetch("https://simesta-server.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formValue),

@@ -6,7 +6,7 @@ import { useState, useEffect, useRef } from "react";
 import { MotiView } from "moti";
 import { Easing } from "react-native-reanimated";
 
-const LectureProgressBar = ({ value }) => {
+const LectureProgressBar = ({ theme, value }) => {
   const [rightValue, setRightValue] = useState(0);
   const [leftValue, setLeftValue] = useState(0);
   const [rightCenterValue, setRightCenterValue] = useState(0);
@@ -49,7 +49,7 @@ const LectureProgressBar = ({ value }) => {
 
   return (
     <View style={styles.barContainer}>
-      <View style={styles.edgeEmptyBar}>
+      <View style={[styles.edgeEmptyBar, styles[theme].edgeEmptyBar]}>
         <MotiView
           from={{ width: 0 }}
           animate={{ width: leftValue }}
@@ -61,7 +61,7 @@ const LectureProgressBar = ({ value }) => {
           style={styles.edgeActiveBar(leftValue)}
         />
       </View>
-      <View style={styles.emptyBar}>
+      <View style={[styles.emptyBar, styles[theme].emptyBar]}>
         <MotiView
           from={{ width: 0 }}
           animate={{ width: leftCenterValue }}
@@ -73,7 +73,7 @@ const LectureProgressBar = ({ value }) => {
           style={styles.activeBar(leftCenterValue)}
         />
       </View>
-      <View style={styles.emptyBar}>
+      <View style={[styles.emptyBar, styles[theme].emptyBar]}>
         <MotiView
           from={{ width: 0 }}
           animate={{ width: rightCenterValue }}
@@ -85,7 +85,7 @@ const LectureProgressBar = ({ value }) => {
           style={styles.activeBar(rightCenterValue)}
         />
       </View>
-      <View style={styles.edgeEmptyBar}>
+      <View style={[styles.edgeEmptyBar, styles[theme].edgeEmptyBar]}>
         <MotiView
           from={{ width: 0 }}
           animate={{ width: rightValue }}

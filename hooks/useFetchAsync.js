@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const useFetchCourse = async (courseId, userId, accessToken) => {
   const res = await fetch(
-    `http://192.168.60.93:3000/api/courses/${courseId}/users/${userId}`,
+    `https://simesta-server.onrender.com/api/courses/${courseId}/users/${userId}`,
     {
       method: "GET",
       headers: {

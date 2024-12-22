@@ -68,7 +68,7 @@ const CourseMainScreen = ({ courseId }) => {
       title: fetchedCourseDetails.course.title,
       description: fetchedCourseDetails.course.description,
       topics: fetchedCourseDetails.topics,
-      image: fetchedCourseDetails.course.img,
+      image: fetchedCourseDetails.course.image,
       progress: fetchedCourseDetails.course.progress,
     });
     dispatch(
@@ -80,7 +80,7 @@ const CourseMainScreen = ({ courseId }) => {
     dispatch(
       activeCourseActions.setActiveCourseData({
         description: fetchedCourseDetails.course.description,
-        image: fetchedCourseDetails.course.img,
+        image: fetchedCourseDetails.course.image,
         progress: fetchedCourseDetails.course.progress,
       })
     );

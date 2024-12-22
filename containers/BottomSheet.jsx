@@ -5,7 +5,8 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import styles from "../styles/containers/lectureChat.style";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -14,6 +15,7 @@ import { COLORS } from "../constants";
 const { height: screenHeight } = Dimensions.get("window");
 
 const BottomSheet = ({ children, handleShowBottomSheet }) => {
+  const {theme} = useContext(ThemeContext);
   const translateY = useSharedValue(0);
   const drag = Gesture.Pan()
     .onChange((event) => {
@@ -48,10 +50,10 @@ const BottomSheet = ({ children, handleShowBottomSheet }) => {
         <AntDesign name="close" size={24} color={COLORS.light} />
       </Pressable>
       {/* <GestureDetector gesture={drag}> */}
-      <Animated.View style={[containerStyle, styles.drawerContainer]}>
+      <Animated.View style={[containerStyle, styles.drawerContainer, styles[theme].drawerContainer]}>
         <GestureDetector gesture={drag}>
           <View style={styles.drawerLineCon}>
-            <View style={styles.drawerLine} />
+            <View style={[styles.drawerLine, styles[theme].drawerLine]} />
           </View>
         </GestureDetector>
         {children}

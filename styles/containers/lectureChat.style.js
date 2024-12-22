@@ -1,8 +1,24 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES, SHADOWS } from "../../constants";
+import { COLORS, FONT, SIZES, SHADOWS, DARKMODECOLORS } from "../../constants";
 
 const styles = StyleSheet.create({
+  dark: {
+    drawerContainer: {
+      backgroundColor: DARKMODECOLORS.dark,
+    },
+    drawerLine: {
+      backgroundColor: COLORS.miniDarkGrey,
+    },
+  },
+  light: {
+    drawerContainer: {
+      backgroundColor: COLORS.light,
+    },
+    drawerLine: {
+      backgroundColor: COLORS.miniDarkGrey,
+    },
+  },
   transparentBackground: {
     position: "absolute",
     top: 0,
@@ -11,7 +27,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     zIndex: 1000,
     justifyContent: "flex-end",
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
   },
   closeBtn: {
     position: "absolute",
@@ -38,21 +54,20 @@ const styles = StyleSheet.create({
   drawerLineCon: {
     width: "100%",
     height: 30,
-    backgroundColor: COLORS.light,
     borderRadius: 10,
     alignSelf: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   drawerLine: {
     width: 50,
     height: 5,
-    backgroundColor: COLORS.miniDarkGrey,
+
     borderRadius: 10,
     alignSelf: "center",
   },
   chatContainer: {
     bottom: 50,
-  }
+  },
 });
 
 export default styles;

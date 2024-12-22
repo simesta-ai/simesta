@@ -26,7 +26,7 @@ const CoursesScreenCourseContainer = () => {
 
   const getUserCourses = async () => {
     const res = await fetch(
-      `http://192.168.60.93:3000/api/courses/users/${user.id}`,
+      `https://simesta-server.onrender.com/api/courses/users/${user.id}`,
       {
         method: "GET",
         headers: {
@@ -105,7 +105,7 @@ const CoursesScreenCourseContainer = () => {
           {/*Continue from the last course you were learning */}
           <Text style={[courseStyles.subHeaders, courseStyles[theme].subHeaders]}>Pick up where you left off</Text>
           <View style={[courseStyles.continueCourseContainer, courseStyles[theme].continueCourseContainer]}>
-            <Image style={courseStyles.continueCourseImage} width={100} height={100} source={{ uri: currentCourse.img }} />
+            <Image style={courseStyles.continueCourseImage} width={100} height={100} source={{ uri: currentCourse.image }} />
             <Text style={[courseStyles.continueCourseICompletedTopics, courseStyles[theme].continueCourseICompletedTopics]}>{currentCourse.topicsCompleted} Topics completed</Text>
             <HorizontalProgressBar theme={theme} value={20} />
             <Text style={[courseStyles.continueCourseTitle, courseStyles[theme].continueCourseTitle]}>{currentCourse.title}</Text>

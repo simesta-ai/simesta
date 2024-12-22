@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import Button from "../Button";
 
 import styles from "../../styles/screens/lectures.style";
-import { COLORS } from "../../constants";
+import { COLORS, DARKMODECOLORS } from "../../constants";
 
-const OneChoiceQuestion = ({ oneChoiceQuestion, setIsOnQuiz, scrollRef }) => {
+const OneChoiceQuestion = ({ theme, oneChoiceQuestion, setIsOnQuiz, scrollRef }) => {
   const [text, setText] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
@@ -24,13 +24,19 @@ const OneChoiceQuestion = ({ oneChoiceQuestion, setIsOnQuiz, scrollRef }) => {
 
   return (
     <View>
-      <Text style={styles.mcQuestion}>{oneChoiceQuestion.question}</Text>
+      <Text style={[styles.mcqIntroText, styles[theme].mcqIntroText]}>Quick question</Text>
+      <Text style={[styles.mcQuestion, styles[theme].mcQuestion]}>{oneChoiceQuestion.question}</Text>
       <TextInput
-        style={styles.textArea}
+        style={[styles.textArea, styles[theme].textArea]}
         value={text}
-        selectionColor={COLORS.dark}
+        selectionColor={
+          theme == "light" ? COLORS.dark : DARKMODECOLORS.light
+        }
         onChangeText={setText}
         placeholder="Type your answer here..."
+        placeholderTextColor={
+          theme == "light" ? COLORS.dark : DARKMODECOLORS.miniDarkGrey
+        }
         multiline={true}
         numberOfLines={4}
         textAlignVertical="top"
